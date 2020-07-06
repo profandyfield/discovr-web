@@ -99,7 +99,6 @@ Here's a video explaining how I use my other package of tutorials, [adventr](adv
 * [RStudio cheat sheets](https://www.rstudio.com/resources/cheatsheets/).
 * [RStudio list of online resources](https://www.rstudio.com/online-learning/).
 
-## References
 
 
 
