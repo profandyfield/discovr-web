@@ -239,7 +239,6 @@ cp_neuro_full_lm %>%
 |     0.064|         0.046| 8.669|     3.556|   0.001|  7| -1330.799| 2679.599| 2714.893| 27428.95|         365|  373|
 
 ```r
-
 cp_neuro_full_lm %>% 
   parameters::model_parameters(standardize = "refit") %>% 
   knitr::kable(digits = 3)
@@ -304,7 +303,6 @@ cp_extro_full_lm %>%
 |     0.046|         0.021| 6.799|     1.829|   0.082|  7| -903.259| 1824.518| 1856.971| 12204.22|         264|  272|
 
 ```r
-
 cp_extro_full_lm %>% 
   parameters::model_parameters(standardize = "refit") %>% 
   knitr::kable(digits = 3)
@@ -369,7 +367,6 @@ cp_open_full_lm %>%
 |     0.064|         0.046| 7.921|     3.604|   0.001|  7| -1304.121| 2626.242| 2661.585|  23025.6|         367|  375|
 
 ```r
-
 cp_open_full_lm %>% 
   parameters::model_parameters(standardize = "refit") %>% 
   knitr::kable(digits = 3)
@@ -435,7 +432,6 @@ cp_agree_full_lm %>%
 |     0.103|         0.085|  9.18|     5.946|       0|  7| -1348.537| 2715.073| 2750.343| 30675.33|         364|  372|
 
 ```r
-
 cp_agree_full_lm %>% 
   parameters::model_parameters(standardize = "refit") %>% 
   knitr::kable(digits = 3)
@@ -501,7 +497,6 @@ cp_consc_full_lm %>%
 |     0.074|         0.056| 7.259|     4.132|       0|  7| -1261.193| 2540.387| 2575.657| 19180.05|         364|  372|
 
 ```r
-
 cp_consc_full_lm %>% 
   parameters::model_parameters(standardize = "refit") %>% 
   knitr::kable(digits = 3)

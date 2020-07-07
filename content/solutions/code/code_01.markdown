@@ -36,15 +36,23 @@ library(tidyverse)
 
 
 ```r
-
 metallica <- c("Lars","James","Jason", "Kirk")
 metallica <- metallica[metallica != "Jason"]
 metallica <- c(metallica, "Rob")
 
 print(metallica)
-#> [1] "Lars"  "James" "Kirk"  "Rob"
+```
+
+```
+## [1] "Lars"  "James" "Kirk"  "Rob"
+```
+
+```r
 metallica %>% print(.)
-#> [1] "Lars"  "James" "Kirk"  "Rob"
+```
+
+```
+## [1] "Lars"  "James" "Kirk"  "Rob"
 ```
 
 
@@ -250,7 +258,10 @@ core_members <- metallica %>%
   sort(.)
 
 core_members
-#> [1] "James" "Kirk"  "Lars"
+```
+
+```
+## [1] "James" "Kirk"  "Lars"
 ```
 
 
@@ -258,7 +269,6 @@ core_members
 
 
 ```r
-
 name <- c("Lars Ulrich","James Hetfield", "Kirk Hammett", "Rob Trujillo", "Jason Newsted", "Cliff Burton", "Dave Mustaine")
 
 # Numeric variables stored as double
@@ -287,7 +297,13 @@ instrument <- c("Drums", "Guitar", "Guitar", "Bass", "Bass", "Bass", "Guitar") %
   forcats::fct_relevel("Guitar", "Bass", "Drums")
 
 levels(instrument)
-#> [1] "Guitar" "Bass"   "Drums"
+```
+
+```
+## [1] "Guitar" "Bass"   "Drums"
+```
+
+```r
 levels(instrument) <- c("Proper guitar", "Bass guitar", "Drums") 
 ```
 
@@ -312,17 +328,22 @@ metalli_tib <- tibble::tibble(name, birth_date, death_date, instrument, current_
 
 ```r
 metalli_tib
-#> # A tibble: 7 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <fct>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Proper gu… TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Proper gu… TRUE                      56 200000000
-#> 4 Rob T… 1964-10-23 NA         Bass guit… TRUE                      16  20000000
-#> 5 Jason… 1963-03-04 NA         Bass guit… FALSE                      3  40000000
-#> 6 Cliff… 1962-02-10 1986-09-27 Bass guit… FALSE                     11   1000000
-#> 7 Dave … 1961-09-13 NA         Proper gu… FALSE                      6  20000000
+```
 
+```
+## # A tibble: 7 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <fct>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Proper gu… TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Proper gu… TRUE                      56 200000000
+## 4 Rob T… 1964-10-23 NA         Bass guit… TRUE                      16  20000000
+## 5 Jason… 1963-03-04 NA         Bass guit… FALSE                      3  40000000
+## 6 Cliff… 1962-02-10 1986-09-27 Bass guit… FALSE                     11   1000000
+## 7 Dave … 1961-09-13 NA         Proper gu… FALSE                      6  20000000
+```
+
+```r
 # View(metalli_tib) 
 ```
 
@@ -331,7 +352,6 @@ metalli_tib
 
 
 ```r
-
 #to create an empty tibble called empty_tib that has 50 rows, execute:
 
 empty_tib <- tibble::tibble(.rows = 10)
@@ -357,17 +377,20 @@ metalli_tib <- metalli_tib %>%
   )
 
 metalli_tib
-#> # A tibble: 7 x 8
-#>   name  birth_date death_date instrument current_member songs_written net_worth
-#>   <chr> <date>     <date>     <fct>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars… 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 Jame… 1963-08-03 NA         Proper gu… TRUE                     112 300000000
-#> 3 Kirk… 1962-11-18 NA         Proper gu… TRUE                      56 200000000
-#> 4 Rob … 1964-10-23 NA         Bass guit… TRUE                      16  20000000
-#> 5 Jaso… 1963-03-04 NA         Bass guit… FALSE                      3  40000000
-#> 6 Clif… 1962-02-10 1986-09-27 Bass guit… FALSE                     11   1000000
-#> 7 Dave… 1961-09-13 NA         Proper gu… FALSE                      6  20000000
-#> # … with 1 more variable: albums <dbl>
+```
+
+```
+## # A tibble: 7 x 8
+##   name  birth_date death_date instrument current_member songs_written net_worth
+##   <chr> <date>     <date>     <fct>      <lgl>                  <dbl>     <dbl>
+## 1 Lars… 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 Jame… 1963-08-03 NA         Proper gu… TRUE                     112 300000000
+## 3 Kirk… 1962-11-18 NA         Proper gu… TRUE                      56 200000000
+## 4 Rob … 1964-10-23 NA         Bass guit… TRUE                      16  20000000
+## 5 Jaso… 1963-03-04 NA         Bass guit… FALSE                      3  40000000
+## 6 Clif… 1962-02-10 1986-09-27 Bass guit… FALSE                     11   1000000
+## 7 Dave… 1961-09-13 NA         Proper gu… FALSE                      6  20000000
+## # … with 1 more variable: albums <dbl>
 ```
 
 You can create your data set by initializing a tibble and then defining each variable. Note that in this context we use `=` rather than `<-` to assign values to each variable, and that each variable definition ends with a comma (except the last). For example, we can create `metalli_tib` from scratch as follows:
@@ -396,17 +419,20 @@ metalli_tib <- metalli_tib %>%
     	worth_per_song = net_worth/songs_written
   )
 metalli_tib
-#> # A tibble: 7 x 8
-#>   name  birth_date death_date instrument current_member songs_written net_worth
-#>   <chr> <date>     <date>     <fct>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars… 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 Jame… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk… 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 Rob … 1964-10-23 NA         Bass       TRUE                      16  20000000
-#> 5 Jaso… 1963-03-04 NA         Bass       FALSE                      3  40000000
-#> 6 Clif… 1962-02-10 1986-09-27 Bass       FALSE                     11   1000000
-#> 7 Dave… 1961-09-13 NA         Guitar     FALSE                      6  20000000
-#> # … with 1 more variable: worth_per_song <dbl>
+```
+
+```
+## # A tibble: 7 x 8
+##   name  birth_date death_date instrument current_member songs_written net_worth
+##   <chr> <date>     <date>     <fct>      <lgl>                  <dbl>     <dbl>
+## 1 Lars… 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 Jame… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk… 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 Rob … 1964-10-23 NA         Bass       TRUE                      16  20000000
+## 5 Jaso… 1963-03-04 NA         Bass       FALSE                      3  40000000
+## 6 Clif… 1962-02-10 1986-09-27 Bass       FALSE                     11   1000000
+## 7 Dave… 1961-09-13 NA         Guitar     FALSE                      6  20000000
+## # … with 1 more variable: worth_per_song <dbl>
 ```
 
 ### Entering data directly into a tibble 
@@ -429,7 +455,6 @@ metalli_tib <- tibble::tribble(
     birth_date = lubridate::ymd(birth_date),
     death_date = lubridate::ymd(death_date)
   )
-
 ```
 
 
@@ -440,20 +465,35 @@ Three ways to discover which instrument Lars Ulrich 'plays':
 
 ```r
 metalli_tib[1, 4]
-#> # A tibble: 1 x 1
-#>   instrument
-#>   <chr>     
-#> 1 Drums
+```
+
+```
+## # A tibble: 1 x 1
+##   instrument
+##   <chr>     
+## 1 Drums
+```
+
+```r
 metalli_tib[1, "instrument"]
-#> # A tibble: 1 x 1
-#>   instrument
-#>   <chr>     
-#> 1 Drums
+```
+
+```
+## # A tibble: 1 x 1
+##   instrument
+##   <chr>     
+## 1 Drums
+```
+
+```r
 metalli_tib[name == "Lars Ulrich", "instrument"]
-#> # A tibble: 1 x 1
-#>   instrument
-#>   <chr>     
-#> 1 Drums
+```
+
+```
+## # A tibble: 1 x 1
+##   instrument
+##   <chr>     
+## 1 Drums
 ```
 
 ### Selecting variables
@@ -464,54 +504,80 @@ Using base R
 ```r
 # These commands return the contents of the variable called 'name'
 metalli_tib$name
-#> [1] "Lars Ulrich"    "James Hetfield" "Kirk Hammett"   "Rob Trujillo"  
-#> [5] "Jason Newsted"  "Cliff Burton"   "Dave Mustaine"
-metalli_tib[1]
-#> # A tibble: 7 x 1
-#>   name          
-#>   <chr>         
-#> 1 Lars Ulrich   
-#> 2 James Hetfield
-#> 3 Kirk Hammett  
-#> 4 Rob Trujillo  
-#> 5 Jason Newsted 
-#> 6 Cliff Burton  
-#> 7 Dave Mustaine
-metalli_tib["name"]
-#> # A tibble: 7 x 1
-#>   name          
-#>   <chr>         
-#> 1 Lars Ulrich   
-#> 2 James Hetfield
-#> 3 Kirk Hammett  
-#> 4 Rob Trujillo  
-#> 5 Jason Newsted 
-#> 6 Cliff Burton  
-#> 7 Dave Mustaine
+```
 
+```
+## [1] "Lars Ulrich"    "James Hetfield" "Kirk Hammett"   "Rob Trujillo"  
+## [5] "Jason Newsted"  "Cliff Burton"   "Dave Mustaine"
+```
+
+```r
+metalli_tib[1]
+```
+
+```
+## # A tibble: 7 x 1
+##   name          
+##   <chr>         
+## 1 Lars Ulrich   
+## 2 James Hetfield
+## 3 Kirk Hammett  
+## 4 Rob Trujillo  
+## 5 Jason Newsted 
+## 6 Cliff Burton  
+## 7 Dave Mustaine
+```
+
+```r
+metalli_tib["name"]
+```
+
+```
+## # A tibble: 7 x 1
+##   name          
+##   <chr>         
+## 1 Lars Ulrich   
+## 2 James Hetfield
+## 3 Kirk Hammett  
+## 4 Rob Trujillo  
+## 5 Jason Newsted 
+## 6 Cliff Burton  
+## 7 Dave Mustaine
+```
+
+```r
 # Both of these commands return the contents of the variables called 'name' and instrument
 metalli_tib[c(1, 4)]
-#> # A tibble: 7 x 2
-#>   name           instrument
-#>   <chr>          <chr>     
-#> 1 Lars Ulrich    Drums     
-#> 2 James Hetfield Guitar    
-#> 3 Kirk Hammett   Guitar    
-#> 4 Rob Trujillo   Bass      
-#> 5 Jason Newsted  Bass      
-#> 6 Cliff Burton   Bass      
-#> 7 Dave Mustaine  Guitar
+```
+
+```
+## # A tibble: 7 x 2
+##   name           instrument
+##   <chr>          <chr>     
+## 1 Lars Ulrich    Drums     
+## 2 James Hetfield Guitar    
+## 3 Kirk Hammett   Guitar    
+## 4 Rob Trujillo   Bass      
+## 5 Jason Newsted  Bass      
+## 6 Cliff Burton   Bass      
+## 7 Dave Mustaine  Guitar
+```
+
+```r
 metalli_tib[c("name", "instrument")]
-#> # A tibble: 7 x 2
-#>   name           instrument
-#>   <chr>          <chr>     
-#> 1 Lars Ulrich    Drums     
-#> 2 James Hetfield Guitar    
-#> 3 Kirk Hammett   Guitar    
-#> 4 Rob Trujillo   Bass      
-#> 5 Jason Newsted  Bass      
-#> 6 Cliff Burton   Bass      
-#> 7 Dave Mustaine  Guitar
+```
+
+```
+## # A tibble: 7 x 2
+##   name           instrument
+##   <chr>          <chr>     
+## 1 Lars Ulrich    Drums     
+## 2 James Hetfield Guitar    
+## 3 Kirk Hammett   Guitar    
+## 4 Rob Trujillo   Bass      
+## 5 Jason Newsted  Bass      
+## 6 Cliff Burton   Bass      
+## 7 Dave Mustaine  Guitar
 ```
 
 The tidyverse way
@@ -520,16 +586,19 @@ The tidyverse way
 ```r
 metalli_tib %>% 
   dplyr::select(name, instrument)
-#> # A tibble: 7 x 2
-#>   name           instrument
-#>   <chr>          <chr>     
-#> 1 Lars Ulrich    Drums     
-#> 2 James Hetfield Guitar    
-#> 3 Kirk Hammett   Guitar    
-#> 4 Rob Trujillo   Bass      
-#> 5 Jason Newsted  Bass      
-#> 6 Cliff Burton   Bass      
-#> 7 Dave Mustaine  Guitar
+```
+
+```
+## # A tibble: 7 x 2
+##   name           instrument
+##   <chr>          <chr>     
+## 1 Lars Ulrich    Drums     
+## 2 James Hetfield Guitar    
+## 3 Kirk Hammett   Guitar    
+## 4 Rob Trujillo   Bass      
+## 5 Jason Newsted  Bass      
+## 6 Cliff Burton   Bass      
+## 7 Dave Mustaine  Guitar
 ```
 
 You can exclude variables too, try these out:
@@ -538,29 +607,37 @@ You can exclude variables too, try these out:
 ```r
 metalli_tib %>% 
   dplyr::select(-name)
-#> # A tibble: 7 x 6
-#>   birth_date death_date instrument current_member songs_written net_worth
-#>   <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 1964-10-23 NA         Bass       TRUE                      16  20000000
-#> 5 1963-03-04 NA         Bass       FALSE                      3  40000000
-#> 6 1962-02-10 1986-09-27 Bass       FALSE                     11   1000000
-#> 7 1961-09-13 NA         Guitar     FALSE                      6  20000000
+```
 
+```
+## # A tibble: 7 x 6
+##   birth_date death_date instrument current_member songs_written net_worth
+##   <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 1964-10-23 NA         Bass       TRUE                      16  20000000
+## 5 1963-03-04 NA         Bass       FALSE                      3  40000000
+## 6 1962-02-10 1986-09-27 Bass       FALSE                     11   1000000
+## 7 1961-09-13 NA         Guitar     FALSE                      6  20000000
+```
+
+```r
 metalli_tib %>% 
   dplyr::select(-c(name, instrument))
-#> # A tibble: 7 x 5
-#>   birth_date death_date current_member songs_written net_worth
-#>   <date>     <date>     <lgl>                  <dbl>     <dbl>
-#> 1 1963-12-26 NA         TRUE                     111 300000000
-#> 2 1963-08-03 NA         TRUE                     112 300000000
-#> 3 1962-11-18 NA         TRUE                      56 200000000
-#> 4 1964-10-23 NA         TRUE                      16  20000000
-#> 5 1963-03-04 NA         FALSE                      3  40000000
-#> 6 1962-02-10 1986-09-27 FALSE                     11   1000000
-#> 7 1961-09-13 NA         FALSE                      6  20000000
+```
+
+```
+## # A tibble: 7 x 5
+##   birth_date death_date current_member songs_written net_worth
+##   <date>     <date>     <lgl>                  <dbl>     <dbl>
+## 1 1963-12-26 NA         TRUE                     111 300000000
+## 2 1963-08-03 NA         TRUE                     112 300000000
+## 3 1962-11-18 NA         TRUE                      56 200000000
+## 4 1964-10-23 NA         TRUE                      16  20000000
+## 5 1963-03-04 NA         FALSE                      3  40000000
+## 6 1962-02-10 1986-09-27 FALSE                     11   1000000
+## 7 1961-09-13 NA         FALSE                      6  20000000
 ```
 
 You can save a subsetted tibble to a new object:
@@ -574,16 +651,19 @@ metalli_anon_tib <- metalli_tib %>%
 
 #View this new object
 metalli_anon_tib
-#> # A tibble: 7 x 6
-#>   birth_date death_date instrument current_member songs_written net_worth
-#>   <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 1964-10-23 NA         Bass       TRUE                      16  20000000
-#> 5 1963-03-04 NA         Bass       FALSE                      3  40000000
-#> 6 1962-02-10 1986-09-27 Bass       FALSE                     11   1000000
-#> 7 1961-09-13 NA         Guitar     FALSE                      6  20000000
+```
+
+```
+## # A tibble: 7 x 6
+##   birth_date death_date instrument current_member songs_written net_worth
+##   <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 1964-10-23 NA         Bass       TRUE                      16  20000000
+## 5 1963-03-04 NA         Bass       FALSE                      3  40000000
+## 6 1962-02-10 1986-09-27 Bass       FALSE                     11   1000000
+## 7 1961-09-13 NA         Guitar     FALSE                      6  20000000
 ```
 
 ### Selecting cases (filtering tibbles)
@@ -593,13 +673,16 @@ Using base R we can do the following. View only the data for the current members
 
 ```r
 metalli_tib[current_member == TRUE,]
-#> # A tibble: 4 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
+```
+
+```
+## # A tibble: 4 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
 ```
 
 View only the instruments played by the current members of metallica:
@@ -607,13 +690,16 @@ View only the instruments played by the current members of metallica:
 
 ```r
 metalli_tib[current_member == TRUE, "instrument"]
-#> # A tibble: 4 x 1
-#>   instrument
-#>   <chr>     
-#> 1 Drums     
-#> 2 Guitar    
-#> 3 Guitar    
-#> 4 Bass
+```
+
+```
+## # A tibble: 4 x 1
+##   instrument
+##   <chr>     
+## 1 Drums     
+## 2 Guitar    
+## 3 Guitar    
+## 4 Bass
 ```
 
 View only the names, instruments played, and number of songs written by the current members of metallica:
@@ -621,24 +707,30 @@ View only the names, instruments played, and number of songs written by the curr
 
 ```r
 metalli_tib[current_member == TRUE, c("name", "instrument", "songs_written")]
-#> # A tibble: 4 x 3
-#>   name           instrument songs_written
-#>   <chr>          <chr>              <dbl>
-#> 1 Lars Ulrich    Drums                111
-#> 2 James Hetfield Guitar               112
-#> 3 Kirk Hammett   Guitar                56
-#> 4 Rob Trujillo   Bass                  16
+```
+
+```
+## # A tibble: 4 x 3
+##   name           instrument songs_written
+##   <chr>          <chr>              <dbl>
+## 1 Lars Ulrich    Drums                111
+## 2 James Hetfield Guitar               112
+## 3 Kirk Hammett   Guitar                56
+## 4 Rob Trujillo   Bass                  16
 ```
 
 
 ```r
 metalli_tib[songs_written > 50,]
-#> # A tibble: 3 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
+```
+
+```
+## # A tibble: 3 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
 ```
 
 Using `dplyr::filter()`
@@ -646,25 +738,33 @@ Using `dplyr::filter()`
 
 ```r
 dplyr::filter(metalli_tib, current_member == TRUE)
-#> # A tibble: 4 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
+```
 
+```
+## # A tibble: 4 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
+```
+
+```r
 # Or using a pipe:
 
 metalli_tib %>% 
   dplyr::filter(current_member == TRUE)
-#> # A tibble: 4 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
+```
+
+```
+## # A tibble: 4 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
 ```
 
 Again, we can save the filtered tibble to a new object:
@@ -675,13 +775,16 @@ metallica_current <- metalli_tib %>%
   dplyr::filter(current_member == TRUE)
 
 metallica_current
-#> # A tibble: 4 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
+```
+
+```
+## # A tibble: 4 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
 ```
 
 Combining conditions:
@@ -690,10 +793,13 @@ Combining conditions:
 ```r
 metalli_tib %>% 
   dplyr::filter(is.na(death_date) & instrument == "Bass guitar")
-#> # A tibble: 0 x 7
-#> # … with 7 variables: name <chr>, birth_date <date>, death_date <date>,
-#> #   instrument <chr>, current_member <lgl>, songs_written <dbl>,
-#> #   net_worth <dbl>
+```
+
+```
+## # A tibble: 0 x 7
+## # … with 7 variables: name <chr>, birth_date <date>, death_date <date>,
+## #   instrument <chr>, current_member <lgl>, songs_written <dbl>,
+## #   net_worth <dbl>
 ```
 
 If we change `is.na()` to `!is.na()` we get Cliff Burton's data (the only member who is a bassist and does NOT have a value of 'NA' for the variable death_date):
@@ -702,10 +808,13 @@ If we change `is.na()` to `!is.na()` we get Cliff Burton's data (the only member
 ```r
 metalli_tib %>% 
   dplyr::filter(!is.na(death_date) & instrument == "Bass guitar")
-#> # A tibble: 0 x 7
-#> # … with 7 variables: name <chr>, birth_date <date>, death_date <date>,
-#> #   instrument <chr>, current_member <lgl>, songs_written <dbl>,
-#> #   net_worth <dbl>
+```
+
+```
+## # A tibble: 0 x 7
+## # … with 7 variables: name <chr>, birth_date <date>, death_date <date>,
+## #   instrument <chr>, current_member <lgl>, songs_written <dbl>,
+## #   net_worth <dbl>
 ```
 
 We can also use the OR operator (|) to set conditions for which only one has to be true. For example, to select members who are either bassists OR drummers we'd use:
@@ -714,10 +823,13 @@ We can also use the OR operator (|) to set conditions for which only one has to 
 ```r
 metalli_tib %>% 
   dplyr::filter(instrument == "Drums" | instrument == "Bass guitar")
-#> # A tibble: 1 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+```
+
+```
+## # A tibble: 1 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
 ```
 
 ### Combining selecting cases with selecting variables 
@@ -730,13 +842,16 @@ metalli_worth  <- metalli_tib %>%
   dplyr::filter(current_member == TRUE & instrument != "Bass guitar")
 
 metalli_worth
-#> # A tibble: 4 x 7
-#>   name   birth_date death_date instrument current_member songs_written net_worth
-#>   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
-#> 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
-#> 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
-#> 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
-#> 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
+```
+
+```
+## # A tibble: 4 x 7
+##   name   birth_date death_date instrument current_member songs_written net_worth
+##   <chr>  <date>     <date>     <chr>      <lgl>                  <dbl>     <dbl>
+## 1 Lars … 1963-12-26 NA         Drums      TRUE                     111 300000000
+## 2 James… 1963-08-03 NA         Guitar     TRUE                     112 300000000
+## 3 Kirk … 1962-11-18 NA         Guitar     TRUE                      56 200000000
+## 4 Rob T… 1964-10-23 NA         Bass       TRUE                      16  20000000
 ```
 
 Having done this, we could pass the object `net_worth` object that we just created into the `select` function to select the variables `name` and `net_worth`:
@@ -747,13 +862,16 @@ metalli_worth  <- metalli_worth  %>%
   dplyr::select(name, net_worth)
 
 metalli_worth
-#> # A tibble: 4 x 2
-#>   name           net_worth
-#>   <chr>              <dbl>
-#> 1 Lars Ulrich    300000000
-#> 2 James Hetfield 300000000
-#> 3 Kirk Hammett   200000000
-#> 4 Rob Trujillo    20000000
+```
+
+```
+## # A tibble: 4 x 2
+##   name           net_worth
+##   <chr>              <dbl>
+## 1 Lars Ulrich    300000000
+## 2 James Hetfield 300000000
+## 3 Kirk Hammett   200000000
+## 4 Rob Trujillo    20000000
 ```
 
 Better still, combine the two operations into a single pipe:
@@ -765,13 +883,16 @@ metalli_worth <- metalli_tib %>%
   dplyr::select(name, net_worth)
 
 metalli_worth
-#> # A tibble: 4 x 2
-#>   name           net_worth
-#>   <chr>              <dbl>
-#> 1 Lars Ulrich    300000000
-#> 2 James Hetfield 300000000
-#> 3 Kirk Hammett   200000000
-#> 4 Rob Trujillo    20000000
+```
+
+```
+## # A tibble: 4 x 2
+##   name           net_worth
+##   <chr>              <dbl>
+## 1 Lars Ulrich    300000000
+## 2 James Hetfield 300000000
+## 3 Kirk Hammett   200000000
+## 4 Rob Trujillo    20000000
 ```
 
 Doing the same with base R will make your eyes hurt
@@ -780,12 +901,15 @@ Doing the same with base R will make your eyes hurt
 ```r
 metalli_worth <- metalli_tib[current_member == TRUE & instrument != "Bass guitar", c("name", "net_worth")]
 metalli_worth
-#> # A tibble: 3 x 2
-#>   name           net_worth
-#>   <chr>              <dbl>
-#> 1 Lars Ulrich    300000000
-#> 2 James Hetfield 300000000
-#> 3 Kirk Hammett   200000000
+```
+
+```
+## # A tibble: 3 x 2
+##   name           net_worth
+##   <chr>              <dbl>
+## 1 Lars Ulrich    300000000
+## 2 James Hetfield 300000000
+## 3 Kirk Hammett   200000000
 ```
 
 ### Exporting data
@@ -837,7 +961,6 @@ metalli_tib <- readr::read_csv("../data/metallica.csv") %>%
   )
 
 metalli_tib$instrument
-
 ```
 
 ***
@@ -847,7 +970,6 @@ metalli_tib$instrument
 
 
 ```r
-
 husband <- c("1973-06-21", "1970-07-16", "1949-10-08", "1969-05-24")
 wife <- c("1984-11-12", "1973-08-02", "1948-11-11", "1983-07-23")
 agegap <- husband-wife
@@ -867,24 +989,32 @@ agegap
 # Creates a list
 metalli_lst <- list(name, instrument)
 metalli_lst
-#> [[1]]
-#> [1] "Lars Ulrich"    "James Hetfield" "Kirk Hammett"   "Rob Trujillo"  
-#> [5] "Jason Newsted"  "Cliff Burton"   "Dave Mustaine" 
-#> 
-#> [[2]]
-#> [1] Drums         Proper guitar Proper guitar Bass guitar   Bass guitar  
-#> [6] Bass guitar   Proper guitar
-#> Levels: Proper guitar Bass guitar Drums
+```
 
+```
+## [[1]]
+## [1] "Lars Ulrich"    "James Hetfield" "Kirk Hammett"   "Rob Trujillo"  
+## [5] "Jason Newsted"  "Cliff Burton"   "Dave Mustaine" 
+## 
+## [[2]]
+## [1] Drums         Proper guitar Proper guitar Bass guitar   Bass guitar  
+## [6] Bass guitar   Proper guitar
+## Levels: Proper guitar Bass guitar Drums
+```
+
+```r
 # creates a data frame using cbind
 metalli_mtx <- cbind(name, instrument)
 metalli_mtx
-#>      name             instrument
-#> [1,] "Lars Ulrich"    "3"       
-#> [2,] "James Hetfield" "1"       
-#> [3,] "Kirk Hammett"   "1"       
-#> [4,] "Rob Trujillo"   "2"       
-#> [5,] "Jason Newsted"  "2"       
-#> [6,] "Cliff Burton"   "2"       
-#> [7,] "Dave Mustaine"  "1"
+```
+
+```
+##      name             instrument
+## [1,] "Lars Ulrich"    "3"       
+## [2,] "James Hetfield" "1"       
+## [3,] "Kirk Hammett"   "1"       
+## [4,] "Rob Trujillo"   "2"       
+## [5,] "Jason Newsted"  "2"       
+## [6,] "Cliff Burton"   "2"       
+## [7,] "Dave Mustaine"  "1"
 ```

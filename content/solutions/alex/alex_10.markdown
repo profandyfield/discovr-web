@@ -128,19 +128,22 @@ interactions::sim_slopes(
   robust = TRUE,
   confint = TRUE
   )
-#> SIMPLE SLOPES ANALYSIS 
-#> 
-#> Slope of attractiveness_cent when spouse = Wife: 
-#> 
-#>   Est.   S.E.   2.5%   97.5%   t val.      p
-#> ------ ------ ------ ------- -------- ------
-#>   0.05   0.02   0.00    0.09     2.12   0.04
-#> 
-#> Slope of attractiveness_cent when spouse = Husband: 
-#> 
-#>    Est.   S.E.    2.5%   97.5%   t val.      p
-#> ------- ------ ------- ------- -------- ------
-#>   -0.06   0.02   -0.10   -0.02    -2.95   0.00
+```
+
+```
+## SIMPLE SLOPES ANALYSIS 
+## 
+## Slope of attractiveness_cent when spouse = Wife: 
+## 
+##   Est.   S.E.   2.5%   97.5%   t val.      p
+## ------ ------ ------ ------- -------- ------
+##   0.05   0.02   0.00    0.09     2.12   0.04
+## 
+## Slope of attractiveness_cent when spouse = Husband: 
+## 
+##    Est.   S.E.    2.5%   97.5%   t val.      p
+## ------- ------ ------- ------- -------- ------
+##   -0.06   0.02   -0.10   -0.02    -2.95   0.00
 ```
 
 Essentially, the output shows the results of two different regressions:
@@ -243,7 +246,6 @@ broom::glance(hookup_fit) %>%
 |    1| 1389.512| 1413.876|   1|     0|    7|     0|               0|    0|   1|TRUE      |ML        |       1|ml             |  240|   240|         0|
 
 ```r
-
 broom::tidy(hookup_fit, conf.int = TRUE) %>% 
     knitr::kable(digits = 3)
 ```
@@ -316,7 +318,6 @@ broom::glance(tablet_fit) %>%
 |    1| 1056.814| 1074.217|   1|     0|    5|     0|               0|    0|   1|TRUE      |ML        |       1|listwise       |  240|   240|         0|
 
 ```r
-
 broom::tidy(tablet_fit, conf.int = TRUE) %>% 
     knitr::kable(digits = 3)
 ```

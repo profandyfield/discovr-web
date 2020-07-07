@@ -25,9 +25,7 @@ This document may contain abridged sections from *Discovering Statistics Using R
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  echo = FALSE,
-  collapse = TRUE,
-  comment = "#>"
+  echo = FALSE
 )
 
 library(magrittr)

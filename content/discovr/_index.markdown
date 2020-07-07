@@ -15,7 +15,7 @@ link-citations: true
 
 The `discovr` package will contain tutorials associated with my textbook [Discovering Statistics using R and RStudio](https://www.discoveringstatistics.com/books/discovering-statistics-using-r/), due out in early 2021. It will include all datasets, but most important it will contain a series of interactive tutorials that teach {{< icon name="r-project" pack="fab" >}} alongside the chapters of the book. The tutorials are written using a package called [learnr](https://rstudio.github.io/learnr/). Once a tutorial is running it's a bit like reading excerpts of the book but with places where you can practice the R code that you have just been taught. The `discovr` package is free (as are all things {{< icon name="r-project" pack="fab" >}}-related) and offered to support tutors and students using my textbook.
 
-## What are R and RStudio`?
+## What are R and RStudio?
 
 If you're using a textbook about {{< icon name="r-project" pack="fab" >}} then you probably already know what it is. If not, [R](https://www.r-project.org/) is a free software environment for statistical analysis and graphics. RStudio is a user interface through which to use {{< icon name="r-project" pack="fab" >}}. RStudio adds functionality that make working with {{< icon name="r-project" pack="fab" >}} easier, more efficient, and generally more pleasant than working in {{< icon name="r-project" pack="fab" >}} alone.
 

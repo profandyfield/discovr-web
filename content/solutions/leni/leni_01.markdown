@@ -23,8 +23,6 @@ This document may contain abridged sections from *Discovering Statistics Using R
 
 ***
 
-
-
 There are several ways to enter the Oxoby data, here's one of them:
 
 

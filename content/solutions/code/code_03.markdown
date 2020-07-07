@@ -30,14 +30,16 @@ This document may contain abridged sections from *Discovering Statistics Using R
 
 
 ```r
-
 fb_tib <- tibble::tibble(
     friends = c(57, 40, 103, 234, 93, 53, 116, 98, 108, 121, 22)
   )
 
 ggplot2::mean_cl_normal(fb_tib$friends)
-#>    y     ymin     ymax
-#> 1 95 56.85094 133.1491
+```
+
+```
+##    y     ymin     ymax
+## 1 95 56.85094 133.1491
 ```
 
 Something other than a 95% interval:
@@ -45,17 +47,22 @@ Something other than a 95% interval:
 
 ```r
 ggplot2::mean_cl_normal(fb_tib$friends, conf.int = 0.90)
-#>    y     ymin    ymax
-#> 1 95 63.96796 126.032
+```
+
+```
+##    y     ymin    ymax
+## 1 95 63.96796 126.032
 ```
 
 Access individual values by using `$` to access the variable name (`y` for the estimate of the mean, `ymin` for the lower boundary of the CI and `ymax` for the upper boundary). Executing this gives us the lower boundary of the 95% confidence interval:
 
 
 ```r
-
 ggplot2::mean_cl_normal(fb_tib$friends)$ymin
-#> [1] 56.85094
+```
+
+```
+## [1] 56.85094
 ```
 
 Use extracted value to create tables of summary statistics:
@@ -71,10 +78,13 @@ fb_tib %>%
     `95% CI Upper` = ggplot2::mean_cl_normal(friends)$ymax,
     ) %>% 
   round(., 2)
-#> # A tibble: 1 x 3
-#>    Mean `95% CI Lower` `95% CI Upper`
-#>   <dbl>          <dbl>          <dbl>
-#> 1    95           56.8           133.
+```
+
+```
+## # A tibble: 1 x 3
+##    Mean `95% CI Lower` `95% CI Upper`
+##   <dbl>          <dbl>          <dbl>
+## 1    95           56.8           133.
 ```
 
 You can also combine these with other functions to get summary statistics:
@@ -90,10 +100,13 @@ fb_tib %>%
     `Std. dev.` = sd(friends)
     ) %>% 
   round(., 2)
-#> # A tibble: 1 x 5
-#>    Mean `95% CI Lower` `95% CI Upper`   IQR `Std. dev.`
-#>   <dbl>          <dbl>          <dbl> <dbl>       <dbl>
-#> 1    95           56.8           133.    57        56.8
+```
+
+```
+## # A tibble: 1 x 5
+##    Mean `95% CI Lower` `95% CI Upper`   IQR `Std. dev.`
+##   <dbl>          <dbl>          <dbl> <dbl>       <dbl>
+## 1    95           56.8           133.    57        56.8
 ```
 
 
@@ -101,10 +114,12 @@ fb_tib %>%
 
 
 ```r
-
 gmodels::ci(fb_tib$friends)
-#>   Estimate   CI lower   CI upper Std. Error 
-#>   95.00000   56.85094  133.14906   17.12149
+```
+
+```
+##   Estimate   CI lower   CI upper Std. Error 
+##   95.00000   56.85094  133.14906   17.12149
 ```
 
 Something other than a 95% interval:
@@ -112,18 +127,23 @@ Something other than a 95% interval:
 
 ```r
 gmodels::ci(fb_tib$friends, confidence = 0.90)
-#>   Estimate   CI lower   CI upper Std. Error 
-#>   95.00000   63.96796  126.03204   17.12149
+```
+
+```
+##   Estimate   CI lower   CI upper Std. Error 
+##   95.00000   63.96796  126.03204   17.12149
 ```
 
 Access individual values by appending their label in square brackets to the function. Executing this gives us the lower boundary of the 95% confidence interval:
 
 
 ```r
-
 gmodels::ci(fb_tib$friends)["CI lower"]
-#> CI lower 
-#> 56.85094
+```
+
+```
+## CI lower 
+## 56.85094
 ```
 
 Use extracted value to create tables of summary statistics:
@@ -139,10 +159,13 @@ fb_tib %>%
     `95% CI Upper` = gmodels::ci(friends)["CI upper"],
     ) %>% 
   round(., 2)
-#> # A tibble: 1 x 3
-#>    Mean `95% CI Lower` `95% CI Upper`
-#>   <dbl>          <dbl>          <dbl>
-#> 1    95           56.8           133.
+```
+
+```
+## # A tibble: 1 x 3
+##    Mean `95% CI Lower` `95% CI Upper`
+##   <dbl>          <dbl>          <dbl>
+## 1    95           56.8           133.
 ```
 You can also combine these with other functions to get summary statistics:
 
@@ -157,10 +180,13 @@ fb_tib %>%
     `Std. dev.` = sd(friends)
     ) %>% 
   round(., 2)
-#> # A tibble: 1 x 5
-#>    Mean `95% CI Lower` `95% CI Upper`   IQR `Std. dev.`
-#>   <dbl>          <dbl>          <dbl> <dbl>       <dbl>
-#> 1    95           56.8           133.    57        56.8
+```
+
+```
+## # A tibble: 1 x 5
+##    Mean `95% CI Lower` `95% CI Upper`   IQR `Std. dev.`
+##   <dbl>          <dbl>          <dbl> <dbl>       <dbl>
+## 1    95           56.8           133.    57        56.8
 ```
 
 

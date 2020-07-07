@@ -82,17 +82,20 @@ spider_mod <- spider_tib %>%
   t.test(anxiety ~ spider_type, data = ., paired = TRUE)
 
 spider_mod
-#> 
-#> 	Paired t-test
-#> 
-#> data:  anxiety by spider_type
-#> t = -2.4725, df = 11, p-value = 0.03098
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  -13.2312185  -0.7687815
-#> sample estimates:
-#> mean of the differences 
-#>                      -7
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  anxiety by spider_type
+## t = -2.4725, df = 11, p-value = 0.03098
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -13.2312185  -0.7687815
+## sample estimates:
+## mean of the differences 
+##                      -7
 ```
 
 ### Effect size
@@ -100,9 +103,12 @@ spider_mod
 
 ```r
 effectsize::cohens_d(anxiety ~ spider_type, data = spider_tib)
-#> Cohen's d |        95% CI
-#> -------------------------
-#>     -0.69 | [-1.50, 0.15]
+```
+
+```
+## Cohen's d |        95% CI
+## -------------------------
+##     -0.69 | [-1.50, 0.15]
 ```
 
 
@@ -151,42 +157,48 @@ Now get the Bayes factor
 ```r
 spider_bf <- BayesFactor::ttestBF(spider_messy_tib$Picture, spider_messy_tib$Real, paired = TRUE, rscale = "medium")
 spider_bf
-#> Bayes factor analysis
-#> --------------
-#> [1] Alt., r=0.707 : 2.400782 ±0%
-#> 
-#> Against denominator:
-#>   Null, mu = 0 
-#> ---
-#> Bayes factor type: BFoneSample, JZS
+```
+
+```
+## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 : 2.400782 ±0%
+## 
+## Against denominator:
+##   Null, mu = 0 
+## ---
+## Bayes factor type: BFoneSample, JZS
 ```
 
 
 ```r
 BayesFactor::posterior(spider_bf, iterations = 1000) %>% 
   summary()
-#> 
-#> Iterations = 1:1000
-#> Thinning interval = 1 
-#> Number of chains = 1 
-#> Sample size per chain = 1000 
-#> 
-#> 1. Empirical mean and standard deviation for each variable,
-#>    plus standard error of the mean:
-#> 
-#>           Mean      SD Naive SE Time-series SE
-#> mu     -5.9355  2.9681  0.09386        0.10327
-#> sig2  116.1393 58.7711  1.85851        1.96880
-#> delta  -0.5991  0.3167  0.01001        0.01166
-#> g       4.4650 28.4122  0.89847        0.89847
-#> 
-#> 2. Quantiles for each variable:
-#> 
-#>           2.5%     25%     50%      75%     97.5%
-#> mu    -11.5100 -7.8433 -6.0004  -4.0962  -0.03996
-#> sig2   47.2914 76.8693 99.6929 137.9354 270.42125
-#> delta  -1.2305 -0.8107 -0.5977  -0.3903  -0.00350
-#> g       0.1081  0.2928  0.6253   1.5966  25.75626
+```
+
+```
+## 
+## Iterations = 1:1000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 1000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##           Mean      SD Naive SE Time-series SE
+## mu     -5.9550  3.0480  0.09639        0.10243
+## sig2  114.9682 53.8862  1.70403        1.84285
+## delta  -0.5979  0.3197  0.01011        0.01301
+## g       3.0629 16.9326  0.53545        0.53545
+## 
+## 2. Quantiles for each variable:
+## 
+##           2.5%     25%      50%     75%     97.5%
+## mu    -12.0740 -7.9302  -5.8382  -4.020  -0.19122
+## sig2   48.9453 78.6516 103.7309 138.329 243.21835
+## delta  -1.2736 -0.8127  -0.5759  -0.377  -0.01724
+## g       0.1043  0.3158   0.6795   1.438  17.79028
 ```
 
 The Bayes factor, $ \mathrm{BF}_{10} $ = 2.40, suggested that the data were 2.4 times more probable under the alternative hypothesis than under the null.
@@ -241,19 +253,22 @@ Table: Table 2: Summary statistics
 ```r
 self_help_mod <- t.test(happy ~ book, data = self_help_tib)
 self_help_mod 
-#> 
-#> 	Welch Two Sample t-test
-#> 
-#> data:  happy by book
-#> t = -2.1249, df = 17.676, p-value = 0.04796
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  -8.35799532 -0.04200468
-#> sample estimates:
-#> mean in group Women are from Bras, Men are from Penis 
-#>                                                  20.0 
-#>                            mean in group Marie Claire 
-#>                                                  24.2
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  happy by book
+## t = -2.1249, df = 17.676, p-value = 0.04796
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.35799532 -0.04200468
+## sample estimates:
+## mean in group Women are from Bras, Men are from Penis 
+##                                                  20.0 
+##                            mean in group Marie Claire 
+##                                                  24.2
 ```
 
 We can estimate Cohen's $ d $ as follows:
@@ -262,9 +277,12 @@ We can estimate Cohen's $ d $ as follows:
 ```r
 d_self_help <- effectsize::cohens_d(happy ~ book, data = self_help_tib)
 d_self_help
-#> Cohen's d |         95% CI
-#> --------------------------
-#>     -0.95 | [-1.87, -0.01]
+```
+
+```
+## Cohen's d |         95% CI
+## --------------------------
+##     -0.95 | [-1.87, -0.01]
 ```
 
 This means that reading the self-help book reduced relationship happiness by about one standard deviation, which is a fairly big effect.
@@ -331,17 +349,20 @@ dsur_mod <- dsur_tib %>%
   t.test(happiness ~ book, data = ., paired = TRUE)
 
 dsur_mod
-#> 
-#> 	Paired t-test
-#> 
-#> data:  happiness by book
-#> t = 2.7056, df = 499, p-value = 0.00705
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  0.41843 2.63757
-#> sample estimates:
-#> mean of the differences 
-#>                   1.528
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  happiness by book
+## t = 2.7056, df = 499, p-value = 0.00705
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.41843 2.63757
+## sample estimates:
+## mean of the differences 
+##                   1.528
 ```
 
 ### Effect size
@@ -413,17 +434,20 @@ Table: Table 4: Summary statistics
 ```r
 goat_mod <- t.test(life_satisfaction ~ wife, data = goat_tib)
 goat_mod 
-#> 
-#> 	Welch Two Sample t-test
-#> 
-#> data:  life_satisfaction by wife
-#> t = -3.6879, df = 17.843, p-value = 0.001704
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  -34.475353  -9.441314
-#> sample estimates:
-#> mean in group Goat  mean in group Dog 
-#>           38.16667           60.12500
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  life_satisfaction by wife
+## t = -3.6879, df = 17.843, p-value = 0.001704
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -34.475353  -9.441314
+## sample estimates:
+## mean in group Goat  mean in group Dog 
+##           38.16667           60.12500
 ```
 
 We can estimate Cohen's $ d $ as follows:
@@ -432,9 +456,12 @@ We can estimate Cohen's $ d $ as follows:
 ```r
 d_goat <- effectsize::cohens_d(life_satisfaction ~ wife, data = goat_tib)
 d_goat
-#> Cohen's d |         95% CI
-#> --------------------------
-#>     -1.57 | [-2.59, -0.53]
+```
+
+```
+## Cohen's d |         95% CI
+## --------------------------
+##     -1.57 | [-2.59, -0.53]
 ```
 
 ### Report the findings
@@ -454,17 +481,20 @@ Fit the t-test without Welch's correction:
 ```r
 goat_mod <- t.test(life_satisfaction ~ wife, data = goat_tib, var.equal = TRUE)
 goat_mod 
-#> 
-#> 	Two Sample t-test
-#> 
-#> data:  life_satisfaction by wife
-#> t = -3.4458, df = 18, p-value = 0.002883
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  -35.346354  -8.570312
-#> sample estimates:
-#> mean in group Goat  mean in group Dog 
-#>           38.16667           60.12500
+```
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  life_satisfaction by wife
+## t = -3.4458, df = 18, p-value = 0.002883
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -35.346354  -8.570312
+## sample estimates:
+## mean in group Goat  mean in group Dog 
+##           38.16667           60.12500
 ```
 
 Now the linear model:
@@ -473,24 +503,27 @@ Now the linear model:
 ```r
 goat_lm <- lm(life_satisfaction ~ wife, data = goat_tib)
 summary(goat_lm)
-#> 
-#> Call:
-#> lm(formula = life_satisfaction ~ wife, data = goat_tib)
-#> 
-#> Residuals:
-#>     Min      1Q  Median      3Q     Max 
-#> -32.167  -5.906   4.354   8.833  17.833 
-#> 
-#> Coefficients:
-#>             Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept)   38.167      4.030   9.470 2.05e-08 ***
-#> wifeDog       21.958      6.372   3.446  0.00288 ** 
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> Residual standard error: 13.96 on 18 degrees of freedom
-#> Multiple R-squared:  0.3975,	Adjusted R-squared:  0.364 
-#> F-statistic: 11.87 on 1 and 18 DF,  p-value: 0.002883
+```
+
+```
+## 
+## Call:
+## lm(formula = life_satisfaction ~ wife, data = goat_tib)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -32.167  -5.906   4.354   8.833  17.833 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   38.167      4.030   9.470 2.05e-08 ***
+## wifeDog       21.958      6.372   3.446  0.00288 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.96 on 18 degrees of freedom
+## Multiple R-squared:  0.3975,	Adjusted R-squared:  0.364 
+## F-statistic: 11.87 on 1 and 18 DF,  p-value: 0.002883
 ```
 
 The values of *t* and *p* are the same. (Technically, *t* is different because for the linear model it is a positive value and for the *t*-test it is negative However, the sign of *t* merely reflects which way around you coded the dog and goat groups. The linear model, by default, has coded the groups the opposite way around to the *t*-test.) The main point I wanted to make here is that whether you run these data through the `lm()` or `t.test()` functions, the results are identical.
@@ -573,17 +606,20 @@ We have used this sort of input for other functions in the chapter. This input c
 ```r
 download_mod <- t.test(download_tib$day_1, download_tib$day_3, paired = TRUE, na.action = "na.exclude")
 download_mod
-#> 
-#> 	Paired t-test
-#> 
-#> data:  download_tib$day_1 and download_tib$day_3
-#> t = 10.587, df = 122, p-value < 2.2e-16
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  0.5487477 0.8011710
-#> sample estimates:
-#> mean of the differences 
-#>               0.6749593
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  download_tib$day_1 and download_tib$day_3
+## t = 10.587, df = 122, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.5487477 0.8011710
+## sample estimates:
+## mean of the differences 
+##               0.6749593
 ```
 
 ### Effect size
@@ -597,9 +633,12 @@ d_download <- download_tidy_tib %>%
   effectsize::cohens_d(hygiene ~ day, data = .)
 
 d_download
-#> Cohen's d |       95% CI
-#> ------------------------
-#>      0.89 | [0.79, 0.99]
+```
+
+```
+## Cohen's d |       95% CI
+## ------------------------
+##      0.89 | [0.79, 0.99]
 ```
 
 ### Reporting the analysis
@@ -665,17 +704,20 @@ Fit the model
 ```r
 dog_mod <- t.test(behaviour ~ species, data = dogs_tib)
 dog_mod 
-#> 
-#> 	Welch Two Sample t-test
-#> 
-#> data:  behaviour by species
-#> t = 0.36297, df = 37.6, p-value = 0.7187
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  -5.495178  7.895178
-#> sample estimates:
-#> mean in group Dog mean in group Man 
-#>             28.05             26.85
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  behaviour by species
+## t = 0.36297, df = 37.6, p-value = 0.7187
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -5.495178  7.895178
+## sample estimates:
+## mean in group Dog mean in group Man 
+##             28.05             26.85
 ```
 
 We can estimate Cohen's $ d $ as follows:
@@ -684,9 +726,12 @@ We can estimate Cohen's $ d $ as follows:
 ```r
 d_dog <- effectsize::cohens_d(behaviour ~ species, data = dogs_tib)
 d_dog
-#> Cohen's d |        95% CI
-#> -------------------------
-#>      0.11 | [-0.51, 0.73]
+```
+
+```
+## Cohen's d |        95% CI
+## -------------------------
+##      0.11 | [-0.51, 0.73]
 ```
 
 ### Report the findings
@@ -733,11 +778,14 @@ dark_summary <- dark_tib %>%
   )
 
 dark_summary
-#> # A tibble: 2 x 5
-#>   message     mean    sd ci_lower ci_upper
-#>   <fct>      <dbl> <dbl>    <dbl>    <dbl>
-#> 1 Message     9.16  3.55     7.88     10.4
-#> 2 No message 11.5   4.38     9.92     13.1
+```
+
+```
+## # A tibble: 2 x 5
+##   message     mean    sd ci_lower ci_upper
+##   <fct>      <dbl> <dbl>    <dbl>    <dbl>
+## 1 Message     9.16  3.55     7.88     10.4
+## 2 No message 11.5   4.38     9.92     13.1
 ```
 
 
@@ -760,16 +808,19 @@ dark_messy_tib <- dark_tib %>%
 
 dark_mod <- WRS2::yuend(dark_messy_tib$Message, dark_messy_tib$`No message`)
 dark_mod
-#> Call:
-#> WRS2::yuend(x = dark_messy_tib$Message, y = dark_messy_tib$`No message`)
-#> 
-#> Test statistic: -1.9638 (df = 19), p-value = 0.06435
-#> 
-#> Trimmed mean difference:  -1.55 
-#> 95 percent confidence interval:
-#> -3.202     0.102 
-#> 
-#> Explanatory measure of effect size: 0.36
+```
+
+```
+## Call:
+## WRS2::yuend(x = dark_messy_tib$Message, y = dark_messy_tib$`No message`)
+## 
+## Test statistic: -1.9638 (df = 19), p-value = 0.06435
+## 
+## Trimmed mean difference:  -1.55 
+## 95 percent confidence interval:
+## -3.202     0.102 
+## 
+## Explanatory measure of effect size: 0.36
 ```
 
 ### Effect size
@@ -840,18 +891,21 @@ Fit the model
 ```r
 acdc_mod <- WRS2::yuenbt(offer ~ singer, data = oxoby_tib, nboot = 1000, side = TRUE)
 acdc_mod
-#> Call:
-#> WRS2::yuenbt(formula = offer ~ singer, data = oxoby_tib, nboot = 1000, 
-#>     side = TRUE)
-#> 
-#> Test statistic: -1.7339 (df = NA), p-value = 0.082
-#> 
-#> Trimmed mean difference:  -0.83333 
-#> 95 percent confidence interval:
-#> -1.788     0.1213
 ```
 
-The bootstrap confidence interval ranged from -1.79 to 0.12, which just about crosses zero suggesting that (if we assume that it is one of the 95% of confidence intervals that contain the true value) that the effect in the population could be zero.
+```
+## Call:
+## WRS2::yuenbt(formula = offer ~ singer, data = oxoby_tib, nboot = 1000, 
+##     side = TRUE)
+## 
+## Test statistic: -1.7339 (df = NA), p-value = 0.071
+## 
+## Trimmed mean difference:  -0.83333 
+## 95 percent confidence interval:
+## -1.7591     0.0925
+```
+
+The bootstrap confidence interval ranged from -1.76 to 0.09, which just about crosses zero suggesting that (if we assume that it is one of the 95% of confidence intervals that contain the true value) that the effect in the population could be zero.
 
 We can estimate Cohen's $ d $ as follows:
 
@@ -859,9 +913,12 @@ We can estimate Cohen's $ d $ as follows:
 ```r
 d_acdc <- effectsize::cohens_d(offer ~ singer, data = oxoby_tib)
 d_acdc
-#> Cohen's d |        95% CI
-#> -------------------------
-#>     -0.67 | [-1.34, 0.01]
+```
+
+```
+## Cohen's d |        95% CI
+## -------------------------
+##     -0.67 | [-1.34, 0.01]
 ```
 
 
@@ -869,4 +926,4 @@ d_acdc
 
 We could report:
 
-* On average, more offers were made when listening to Brian Johnson (*M* = 4.00, *SE* = 0.23) than Bon Scott (*M* = 3.28, *SE* = 0.28). This difference, -0.72, BCa 95% CI [-1.79, 0.12], was not significant, *t* = -1.73, *p* = 0.082; however, it produced a medium effect, *d* = -0.67, 0.95, -1.34, 0.01.
+* On average, more offers were made when listening to Brian Johnson (*M* = 4.00, *SE* = 0.23) than Bon Scott (*M* = 3.28, *SE* = 0.28). This difference, -0.72, BCa 95% CI [-1.76, 0.09], was not significant, *t* = -1.73, *p* = 0.071; however, it produced a medium effect, *d* = -0.67, 0.95, -1.34, 0.01.

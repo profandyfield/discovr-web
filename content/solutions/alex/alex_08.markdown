@@ -87,7 +87,6 @@ pub_lm %>%
 |     0.649|         0.591| 1864.431|    11.117|   0.016|  1| -70.446| 146.893| 147.131| 20856611|           6|    8|
 
 ```r
-
 pub_lm %>%
   broom::tidy() %>% 
   knitr::kable(digits = 3)
@@ -113,8 +112,8 @@ pub_lm %>%
 
 |Parameter   | Coefficient| CI_low|  CI_high|     p|
 |:-----------|-----------:|------:|--------:|-----:|
-|(Intercept) |    2810.464|  0.000| 4677.142| 0.507|
-|pubs        |      15.077| 11.084|  100.000| 0.000|
+|(Intercept) |    2887.784|  0.000| 4717.207| 0.492|
+|pubs        |      14.966| 10.958|  100.000| 0.000|
 
 The bootstrapped confidence intervals are both positive values – they do not cross zero (10.92, 100.00) – then assuming this interval is one of the 95% that contain the population value we can gain confidence that there is a positive and non-zero relationship between number of pubs in an area and its mortality rate.
 
@@ -142,7 +141,6 @@ honest_lm %>%
 |     0.691|         0.688| 1.203|   219.097|       0|  1| -159.406| 324.812| 332.627|  141.941|          98|  100|
 
 ```r
-
 honest_lm %>%
   broom::tidy() %>% 
   knitr::kable(digits = 3)
@@ -168,8 +166,8 @@ honest_lm %>%
 
 |Parameter    | Coefficient| CI_low| CI_high|  p|
 |:------------|-----------:|------:|-------:|--:|
-|(Intercept)  |      -1.863| -2.461|  -1.344|  0|
-|likeableness |       0.940|  0.817|   1.080|  0|
+|(Intercept)  |      -1.846| -2.492|  -1.345|  0|
+|likeableness |       0.936|  0.813|   1.068|  0|
 
 The bootstrapped confidence intervals do not cross zero (0.82, 1.08), then assuming this interval is one of the 95% that contain the population value we can gain confidence that there is a non-zero relationship between the likeableness of the perpetrator and ratings of dishonest acts. 
 
@@ -199,7 +197,6 @@ model_lm %>%
 |     0.184|         0.173| 14.572|    17.066|       0|  3| -944.632| 1899.264| 1916.476| 48202.79|         227|  231|
 
 ```r
-
 model_lm %>%
   broom::tidy() %>% 
   knitr::kable(digits = 3)
@@ -312,14 +309,29 @@ The scatterplots of fitted values vs residuals do not show a random pattern. The
 
 ```r
 car::vif(model_lm)
-#>       age     years    status 
-#> 12.652841 12.156757  1.153364
+```
+
+```
+##       age     years    status 
+## 12.652841 12.156757  1.153364
+```
+
+```r
 1/car::vif(model_lm)
-#>        age      years     status 
-#> 0.07903364 0.08225878 0.86702902
+```
+
+```
+##        age      years     status 
+## 0.07903364 0.08225878 0.86702902
+```
+
+```r
 car::vif(model_lm) %>% 
   mean()
-#> [1] 8.65432
+```
+
+```
+## [1] 8.65432
 ```
 
 For the age and experience variables in the model, VIF values are above 10 (or alternatively, tolerance values are all well below 0.2), indicating multicollinearity in the data. In fact, the correlation between these two variables is around .9! So, these two variables are measuring very similar things. Of course, this makes perfect sense because the older a model is, the more years she would’ve spent modelling! So, it was fairly stupid to measure both of these things! This also explains the weird result that the number of years spent modelling negatively predicted salary (i.e. more experience = less salary!): in fact if you do a simple regression with experience as the only predictor of salary you’ll find it has the expected positive relationship. This hopefully demonstrates why multicollinearity can bias the regression model.
@@ -339,28 +351,31 @@ aggress_tib <- discovr::child_aggression
 agress_lm <- lm(aggression ~ parenting_style + sibling_aggression, data = aggress_tib, na.action = na.exclude)
 agress_full_lm <- update(agress_lm, .~. + television + computer_games + diet) %>%
   step()
-#> Start:  AIC=-1566.61
-#> aggression ~ parenting_style + sibling_aggression + television + 
-#>     computer_games + diet
-#> 
-#>                      Df Sum of Sq    RSS     AIC
-#> - television          1   0.04817 62.288 -1568.1
-#> <none>                            62.240 -1566.6
-#> - sibling_aggression  1   0.41840 62.658 -1564.2
-#> - diet                1   0.77357 63.014 -1560.4
-#> - computer_games      1   1.39822 63.638 -1553.8
-#> - parenting_style     1   1.42809 63.668 -1553.5
-#> 
-#> Step:  AIC=-1568.1
-#> aggression ~ parenting_style + sibling_aggression + computer_games + 
-#>     diet
-#> 
-#>                      Df Sum of Sq    RSS     AIC
-#> <none>                            62.288 -1568.1
-#> - sibling_aggression  1   0.48054 62.769 -1565.0
-#> - diet                1   0.81815 63.106 -1561.4
-#> - computer_games      1   1.42689 63.715 -1555.0
-#> - parenting_style     1   2.28530 64.573 -1546.1
+```
+
+```
+## Start:  AIC=-1566.61
+## aggression ~ parenting_style + sibling_aggression + television + 
+##     computer_games + diet
+## 
+##                      Df Sum of Sq    RSS     AIC
+## - television          1   0.04817 62.288 -1568.1
+## <none>                            62.240 -1566.6
+## - sibling_aggression  1   0.41840 62.658 -1564.2
+## - diet                1   0.77357 63.014 -1560.4
+## - computer_games      1   1.39822 63.638 -1553.8
+## - parenting_style     1   1.42809 63.668 -1553.5
+## 
+## Step:  AIC=-1568.1
+## aggression ~ parenting_style + sibling_aggression + computer_games + 
+##     diet
+## 
+##                      Df Sum of Sq    RSS     AIC
+## <none>                            62.288 -1568.1
+## - sibling_aggression  1   0.48054 62.769 -1565.0
+## - diet                1   0.81815 63.106 -1561.4
+## - computer_games      1   1.42689 63.715 -1555.0
+## - parenting_style     1   2.28530 64.573 -1546.1
 ```
 
 
@@ -377,7 +392,6 @@ agress_full_lm %>%
 |     0.082|         0.076| 0.307|    14.735|       0|  4| -155.963| 323.927| 350.935|   62.288|         661|  666|
 
 ```r
-
 agress_full_lm %>%
   broom::tidy() %>% 
   knitr::kable(digits = 3)
@@ -394,7 +408,6 @@ agress_full_lm %>%
 |diet               |   -0.112|     0.038|    -2.947|   0.003|
 
 ```r
-
 agress_full_lm %>%
   parameters::model_parameters(standardize = "refit", digits = 3) %>% 
   knitr::kable()
@@ -413,9 +426,12 @@ agress_full_lm %>%
 
 ```r
 agress_full_lm$anova
-#>           Step Df   Deviance Resid. Df Resid. Dev       AIC
-#> 1              NA         NA       660   62.23999 -1566.614
-#> 2 - television  1 0.04816702       661   62.28816 -1568.099
+```
+
+```
+##           Step Df   Deviance Resid. Df Resid. Dev       AIC
+## 1              NA         NA       660   62.23999 -1566.614
+## 2 - television  1 0.04816702       661   62.28816 -1568.099
 ```
 
 Based on the final model (which is actually all we’re interested in) the following variables predict aggression:
@@ -556,13 +572,13 @@ ong_ncs_lm %>%
 
 |Parameter    | Coefficient| CI_low| CI_high|     p|
 |:------------|-----------:|------:|-------:|-----:|
-|(Intercept)  |       0.194| -5.521|   4.985| 0.951|
-|sexMale      |      -0.954| -1.575|  -0.307| 0.000|
-|age          |      -0.002| -0.332|   0.370| 0.995|
-|gradeSec 2   |      -0.450| -1.307|   0.551| 0.314|
-|gradeSec 3   |      -1.054| -2.196|   0.087| 0.070|
-|extraversion |       0.011| -0.051|   0.071| 0.705|
-|narcissism   |       0.064|  0.021|   0.103| 0.000|
+|(Intercept)  |       0.281| -5.084|   4.899| 0.935|
+|sexMale      |      -0.949| -1.568|  -0.337| 0.006|
+|age          |      -0.011| -0.335|   0.371| 0.937|
+|gradeSec 2   |      -0.397| -1.287|   0.550| 0.344|
+|gradeSec 3   |      -1.042| -2.224|   0.016| 0.058|
+|extraversion |       0.008| -0.053|   0.071| 0.791|
+|narcissism   |       0.065|  0.023|   0.102| 0.002|
 
 
 The main benefit of the bootstrap confidence intervals and significance values is that they do not rely on assumptions of normality or homoscedasticity, so they give us an accurate estimate of the true population value of *b* for each predictor. The bootstrapped confidence intervals in the output do not affect the conclusions reported in Ong et al. (2011). Ong et al.’s prediction was still supported in that, after controlling for **age**, **grade** and **sex**, narcissism significantly predicted the frequency of Facebook status updates over and above extroversion, *b* = 0.066 [0.03, 0.10], *p* < 0.001.
@@ -582,13 +598,13 @@ prof_ncs_lm %>%
 
 |Parameter    | Coefficient|  CI_low| CI_high|     p|
 |:------------|-----------:|-------:|-------:|-----:|
-|(Intercept)  |      -3.792| -19.602|   7.500| 0.557|
-|sexMale      |       0.689|  -0.499|   1.853| 0.272|
-|age          |       0.358|  -0.496|   1.486| 0.424|
-|gradeSec 2   |      -0.567|  -2.138|   0.972| 0.533|
-|gradeSec 3   |      -0.599|  -2.929|   1.410| 0.565|
-|extraversion |       0.108|   0.030|   0.199| 0.006|
-|narcissism   |       0.170|   0.104|   0.236| 0.000|
+|(Intercept)  |      -3.555| -20.113|   8.695| 0.579|
+|sexMale      |       0.592|  -0.606|   1.702| 0.350|
+|age          |       0.355|  -0.549|   1.498| 0.468|
+|gradeSec 2   |      -0.534|  -2.053|   1.054| 0.527|
+|gradeSec 3   |      -0.627|  -3.049|   1.549| 0.575|
+|extraversion |       0.109|   0.027|   0.201| 0.008|
+|narcissism   |       0.172|   0.101|   0.243| 0.000|
 
 Similarly, the bootstrapped confidence intervals for the second regression are consistent with the conclusions reported in Ong et al. (2011). That is, after adjusting for **age**, **grade** and **sex**, narcissism significantly predicted the Facebook profile picture ratings over and above extroversion, *b* = 0.171 [0.10, 0.24], *p* < 0.001.
 
@@ -639,7 +655,6 @@ chaos_base_lm %>%
 |     0.001|        -0.009| 0.172|     0.095|   0.759|  1| 37.285| -68.569| -60.551|    3.121|         105|  107|
 
 ```r
-
 chaos_base_lm %>% 
   broom::tidy() %>% 
   round_values() %>% 
@@ -671,7 +686,6 @@ chaos_emo_lm %>%
 |     0.061|         0.008| 0.174|     1.159|   0.335|  5|  34.65| -55.301| -37.35|    2.731|          90|   96|
 
 ```r
-
 chaos_emo_lm %>% 
   broom::tidy() %>% 
   round_values() %>% 
@@ -707,7 +721,6 @@ chaos_chaos_lm %>%
 |     0.104|         0.044| 0.171|     1.725|   0.124|  6| 36.934| -57.867| -37.352|    2.604|          89|   96|
 
 ```r
-
 chaos_chaos_lm %>% 
   broom::tidy() %>% 
   round_values() %>% 
@@ -727,7 +740,6 @@ chaos_chaos_lm %>%
 |chaos        |    0.074|     0.036|     2.082|   0.040|
 
 ```r
-
 chaos_chaos_lm %>% 
   parameters::model_parameters(standardize = "refit", digits = 3) %>% 
   knitr::kable()

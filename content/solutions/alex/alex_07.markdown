@@ -86,19 +86,22 @@ The second part of the question asks us to do the same analysis but when the per
 
 ```r
 essay_tib$grade
-#>  [1] Upper second class First class        Third class        First class       
-#>  [5] Lower second class Upper second class Upper second class Upper second class
-#>  [9] Upper second class Third class        Upper second class First class       
-#> [13] First class        Lower second class Lower second class Upper second class
-#> [17] Upper second class Upper second class Upper second class Lower second class
-#> [21] Lower second class First class        Upper second class Upper second class
-#> [25] First class        Upper second class Lower second class Lower second class
-#> [29] Lower second class First class        Upper second class Upper second class
-#> [33] Upper second class First class        First class        Upper second class
-#> [37] Upper second class Upper second class Upper second class Upper second class
-#> [41] Upper second class Upper second class Lower second class Lower second class
-#> [45] First class       
-#> Levels: First class Upper second class Lower second class Third class
+```
+
+```
+##  [1] Upper second class First class        Third class        First class       
+##  [5] Lower second class Upper second class Upper second class Upper second class
+##  [9] Upper second class Third class        Upper second class First class       
+## [13] First class        Lower second class Lower second class Upper second class
+## [17] Upper second class Upper second class Upper second class Lower second class
+## [21] Lower second class First class        Upper second class Upper second class
+## [25] First class        Upper second class Lower second class Lower second class
+## [29] Lower second class First class        Upper second class Upper second class
+## [33] Upper second class First class        First class        Upper second class
+## [37] Upper second class Upper second class Upper second class Upper second class
+## [41] Upper second class Upper second class Lower second class Lower second class
+## [45] First class       
+## Levels: First class Upper second class Lower second class Third class
 ```
 
 We need to convert it into numbers using `as.numeric`:

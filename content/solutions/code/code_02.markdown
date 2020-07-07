@@ -41,18 +41,26 @@ fb_tib <- tibble::tibble(
 # Base R:
 
 median(fb_tib$friends)
-#> [1] 98
+```
 
+```
+## [1] 98
+```
+
+```r
 # One pipe:
 
 fb_tib %>%
   dplyr::summarize(
     median =  median(friends)
   )
-#> # A tibble: 1 x 1
-#>   median
-#>    <dbl>
-#> 1     98
+```
+
+```
+## # A tibble: 1 x 1
+##   median
+##    <dbl>
+## 1     98
 ```
 
 ## The mean
@@ -62,10 +70,21 @@ fb_tib %>%
 # Base R:
 
 mean(fb_tib$friends)
-#> [1] 95
-mean(fb_tib$friends, trim = 0.1)
-#> [1] 87.66667
+```
 
+```
+## [1] 95
+```
+
+```r
+mean(fb_tib$friends, trim = 0.1)
+```
+
+```
+## [1] 87.66667
+```
+
+```r
 # A pipe to get the mean, trimmed mean and median:
 
 fb_tib %>%
@@ -74,48 +93,85 @@ fb_tib %>%
     mean =  mean(friends),
     `trimmed mean 10%` =  mean(friends, trim = 0.1)
   )
-#> # A tibble: 1 x 3
-#>   median  mean `trimmed mean 10%`
-#>    <dbl> <dbl>              <dbl>
-#> 1     98    95               87.7
+```
+
+```
+## # A tibble: 1 x 3
+##   median  mean `trimmed mean 10%`
+##    <dbl> <dbl>              <dbl>
+## 1     98    95               87.7
 ```
 
 ###	The dispersion in a distribution 
 
 
 ```r
-
 # The range
 max(fb_tib$friends) - min(fb_tib$friends)
-#> [1] 212
+```
 
+```
+## [1] 212
+```
+
+```r
 # Quartiles
 quantile(fb_tib$friends, probs = c(0.25, 0.5, 0.75))
-#> 25% 50% 75% 
-#>  55  98 112
+```
 
+```
+## 25% 50% 75% 
+##  55  98 112
+```
+
+```r
 # Lower quartile
 quantile(fb_tib$friends, probs = 0.25)
-#> 25% 
-#>  55
+```
 
+```
+## 25% 
+##  55
+```
+
+```r
 # Upper quartile
 quantile(fb_tib$friends, probs = 0.75)
-#> 75% 
-#> 112
+```
 
+```
+## 75% 
+## 112
+```
+
+```r
 # Inter-quartile range
 IQR(fb_tib$friends)
-#> [1] 57
+```
 
+```
+## [1] 57
+```
+
+```r
 # Variance
 var(fb_tib$friends)
-#> [1] 3224.6
+```
 
+```
+## [1] 3224.6
+```
+
+```r
 # standard deviation
 sd(fb_tib$friends)
-#> [1] 56.78556
+```
 
+```
+## [1] 56.78556
+```
+
+```r
 # Tidyverse sumptuousness:
 
 fb_tib %>%
@@ -131,11 +187,14 @@ fb_tib %>%
     sd = sd(friends)
 ) %>% 
   round(., 2)
-#> # A tibble: 1 x 9
-#>   median  mean `trimmed mean 1… range `lower quartile` `upper quartile`   IQR
-#>    <dbl> <dbl>            <dbl> <dbl>            <dbl>            <dbl> <dbl>
-#> 1     98    95             87.7   212               55              112    57
-#> # … with 2 more variables: var <dbl>, sd <dbl>
+```
+
+```
+## # A tibble: 1 x 9
+##   median  mean `trimmed mean 1… range `lower quartile` `upper quartile`   IQR
+##    <dbl> <dbl>            <dbl> <dbl>            <dbl>            <dbl> <dbl>
+## 1     98    95             87.7   212               55              112    57
+## # … with 2 more variables: var <dbl>, sd <dbl>
 ```
 
 
@@ -148,18 +207,45 @@ fb_tib %>%
 
 ```r
 round(3.211420)
-#> [1] 3
+```
+
+```
+## [1] 3
+```
+
+```r
 round(3.211420, 2)
-#> [1] 3.21
+```
+
+```
+## [1] 3.21
+```
+
+```r
 round(3.211420, 4)
-#> [1] 3.2114
+```
 
+```
+## [1] 3.2114
+```
+
+```r
 round(mean(fb_tib$friends, trim = 0.1), 2)
-#> [1] 87.67
+```
+
+```
+## [1] 87.67
+```
+
+```r
 mean(fb_tib$friends, trim = 0.1) %>% round(., 2)
-#> [1] 87.67
+```
 
+```
+## [1] 87.67
+```
 
+```r
 fb_tib %>%
   dplyr::summarize(
     median =  median(friends),
@@ -167,10 +253,13 @@ fb_tib %>%
     `trimmed mean 10%` =  mean(friends, trim = 0.1)
   ) %>% 
   round(., 2)
-#> # A tibble: 1 x 3
-#>   median  mean `trimmed mean 10%`
-#>    <dbl> <dbl>              <dbl>
-#> 1     98    95               87.7
+```
+
+```
+## # A tibble: 1 x 3
+##   median  mean `trimmed mean 10%`
+##    <dbl> <dbl>              <dbl>
+## 1     98    95               87.7
 ```
 
 ### Pieces of great 2.2
@@ -194,10 +283,13 @@ return(summary)
 
 fb_tib %>% 
   get_summary(., friends)
-#> # A tibble: 1 x 3
-#>   median  mean `trimmed mean 10%`
-#>    <dbl> <dbl>              <dbl>
-#> 1     98    95               87.7
+```
+
+```
+## # A tibble: 1 x 3
+##   median  mean `trimmed mean 10%`
+##    <dbl> <dbl>              <dbl>
+## 1     98    95               87.7
 ```
 
 Or, annoy people by using random names for the inputs of the function:
@@ -221,10 +313,13 @@ return(summary)
 
 fb_tib %>% 
   get_summary(., friends)
-#> # A tibble: 1 x 3
-#>   median  mean `trimmed mean 10%`
-#>    <dbl> <dbl>              <dbl>
-#> 1     98    95               87.7
+```
+
+```
+## # A tibble: 1 x 3
+##   median  mean `trimmed mean 10%`
+##    <dbl> <dbl>              <dbl>
+## 1     98    95               87.7
 ```
 
 Include options relating to `mean()` and `median()`
@@ -246,10 +341,13 @@ return(summary)
 
 fb_tib %>% 
   get_summary(., friends, na_remove = TRUE, trim_val  = 0.1)
-#> # A tibble: 1 x 2
-#>   median  mean
-#>    <dbl> <dbl>
-#> 1     98  87.7
+```
+
+```
+## # A tibble: 1 x 2
+##   median  mean
+##    <dbl> <dbl>
+## 1     98  87.7
 ```
 
 

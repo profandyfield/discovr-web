@@ -66,19 +66,22 @@ We will conduct an independent samples *t*-test on these data because there were
 ```r
 tuk_mod <- t.test(ll_sum ~ urgency, data = tuk_tib)
 tuk_mod
-#> 
-#> 	Welch Two Sample t-test
-#> 
-#> data:  ll_sum by urgency
-#> t = 2.2001, df = 98.89, p-value = 0.03013
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  0.06603939 1.28011446
-#> sample estimates:
-#>        mean in group High urgency (drink everything) 
-#>                                             4.500000 
-#> mean in group Low urgency (take sips from the water) 
-#>                                             3.826923
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  ll_sum by urgency
+## t = 2.2001, df = 98.89, p-value = 0.03013
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.06603939 1.28011446
+## sample estimates:
+##        mean in group High urgency (drink everything) 
+##                                             4.500000 
+## mean in group Low urgency (take sips from the water) 
+##                                             3.826923
 ```
 
 
@@ -89,9 +92,12 @@ To calculate the effect size *d*:
 
 ```r
 effectsize::cohens_d(ll_sum ~ urgency, data = tuk_tib)
-#> Cohen's d |       95% CI
-#> ------------------------
-#>      0.44 | [0.04, 0.83]
+```
+
+```
+## Cohen's d |       95% CI
+## ------------------------
+##      0.44 | [0.04, 0.83]
 ```
 
 
@@ -126,17 +132,20 @@ gelman_mod <- gelman_tib %>%
   t.test(number ~ child, data = ., paired = TRUE, na.action = "na.exclude")
 
 gelman_mod
-#> 
-#> 	Paired t-test
-#> 
-#> data:  number by child
-#> t = -0.80702, df = 253, p-value = 0.4204
-#> alternative hypothesis: true difference in means is not equal to 0
-#> 95 percent confidence interval:
-#>  -0.20316864  0.08505841
-#> sample estimates:
-#> mean of the differences 
-#>             -0.05905512
+```
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  number by child
+## t = -0.80702, df = 253, p-value = 0.4204
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.20316864  0.08505841
+## sample estimates:
+## mean of the differences 
+##             -0.05905512
 ```
 
 Looking at the output, we can see that there was a non-significant difference between the number
@@ -147,9 +156,12 @@ To calculate the effect size *d*:
 
 ```r
 effectsize::cohens_d(number ~ child, data = gelman_tib)
-#> Cohen's d |        95% CI
-#> -------------------------
-#>     -0.07 | [-0.23, 0.10]
+```
+
+```
+## Cohen's d |        95% CI
+## -------------------------
+##     -0.07 | [-0.23, 0.10]
 ```
 
 

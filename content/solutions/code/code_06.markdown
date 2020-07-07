@@ -87,9 +87,18 @@ mean_old <- mean(friends)
 ss_old <- (friends-mean_old)^2 %>% sum(.)
 
 print(paste0("Original mean: ", mean_old))
-#> [1] "Original mean: 2.6"
+```
+
+```
+## [1] "Original mean: 2.6"
+```
+
+```r
 print(paste0("Original SS: ", ss_old))
-#> [1] "Original SS: 5.2"
+```
+
+```
+## [1] "Original SS: 5.2"
 ```
 
 The data with the 4 replaced with a 10: 1, 3, 10, 3, and 2. The mean and sum of squares are:
@@ -101,9 +110,18 @@ mean_out <- mean(friends_out)
 ss_out <- (friends_out-mean_out)^2 %>% sum(.)
 
 print(paste0("Mean with outlier: ", mean_out))
-#> [1] "Mean with outlier: 3.8"
+```
+
+```
+## [1] "Mean with outlier: 3.8"
+```
+
+```r
 print(paste0("SS with outlier: ", ss_out))
-#> [1] "SS with outlier: 50.8"
+```
+
+```
+## [1] "SS with outlier: 50.8"
 ```
 
 ## plot histogram
@@ -138,10 +156,13 @@ ggplot2::ggplot(download_tib, aes(x = "Day 1", y = day_1)) +
 ```r
 download_tib %>% 
   dplyr::filter(day_1 > 4)
-#> # A tibble: 1 x 5
-#>   ticket_no gender day_1 day_2 day_3
-#>   <chr>     <fct>  <dbl> <dbl> <dbl>
-#> 1 4158      Female  20.0  2.44    NA
+```
+
+```
+## # A tibble: 1 x 5
+##   ticket_no gender day_1 day_2 day_3
+##   <chr>     <fct>  <dbl> <dbl> <dbl>
+## 1 4158      Female  20.0  2.44    NA
 ```
 
 ## Replace the incorrect value
@@ -168,7 +189,6 @@ ggplot2::ggplot(download_tib, aes(day_1)) +
 <img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 ```r
-
 ggplot2::ggplot(download_tib, aes(x = "Day 1", y = day_1)) +
   geom_boxplot(fill = "#5c97bf", alpha = 0.7) +
   scale_y_continuous(breaks = seq(0, 4, 1)) +
@@ -219,7 +239,6 @@ splitting multiple variables
 
 
 ```r
-
 # Generate some random 'messy' format data
 
 set.seed(666)
@@ -275,7 +294,6 @@ Manually convert to z:
 
 
 ```r
-
 make_z <- function(x){
   (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
 }
@@ -288,20 +306,23 @@ download_tib <- download_tib %>%
   )
 
 download_tib
-#> # A tibble: 810 x 8
-#>    ticket_no gender day_1 day_2  day_3 day_1_z day_2_z day_3_z
-#>    <chr>     <fct>  <dbl> <dbl>  <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 2111      Male    2.64  1.35  1.61    1.25    0.540   0.892
-#>  2 2229      Female  0.97  1.41  0.290  -1.16    0.623  -0.967
-#>  3 2338      Male    0.84 NA    NA      -1.34   NA      NA    
-#>  4 2384      Female  3.03 NA    NA       1.82   NA      NA    
-#>  5 2401      Female  0.88  0.08 NA      -1.28   -1.22   NA    
-#>  6 2405      Male    0.85 NA    NA      -1.33   NA      NA    
-#>  7 2467      Female  1.56 NA    NA      -0.304  NA      NA    
-#>  8 2478      Female  3.02 NA    NA       1.80   NA      NA    
-#>  9 2490      Male    2.29 NA    NA       0.748  NA      NA    
-#> 10 2504      Female  1.11  0.44  0.55   -0.953  -0.723  -0.600
-#> # … with 800 more rows
+```
+
+```
+## # A tibble: 810 x 8
+##    ticket_no gender day_1 day_2  day_3 day_1_z day_2_z day_3_z
+##    <chr>     <fct>  <dbl> <dbl>  <dbl>   <dbl>   <dbl>   <dbl>
+##  1 2111      Male    2.64  1.35  1.61    1.25    0.540   0.892
+##  2 2229      Female  0.97  1.41  0.290  -1.16    0.623  -0.967
+##  3 2338      Male    0.84 NA    NA      -1.34   NA      NA    
+##  4 2384      Female  3.03 NA    NA       1.82   NA      NA    
+##  5 2401      Female  0.88  0.08 NA      -1.28   -1.22   NA    
+##  6 2405      Male    0.85 NA    NA      -1.33   NA      NA    
+##  7 2467      Female  1.56 NA    NA      -0.304  NA      NA    
+##  8 2478      Female  3.02 NA    NA       1.80   NA      NA    
+##  9 2490      Male    2.29 NA    NA       0.748  NA      NA    
+## 10 2504      Female  1.11  0.44  0.55   -0.953  -0.723  -0.600
+## # … with 800 more rows
 ```
 
 Using `mutate_at()`:
@@ -322,20 +343,23 @@ Filter a variable at a time
 download_tib %>% 
   dplyr::filter(abs(day_1_z) >= 1.96) %>% 
   dplyr::arrange(day_1_z)
-#> # A tibble: 39 x 8
-#>    ticket_no gender     day_1  day_2 day_3 day_1_z day_2_z day_3_z
-#>    <chr>     <fct>      <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 4107      Female     0.02  NA        NA   -2.52  NA          NA
-#>  2 3540      Non-binary 0.05  NA        NA   -2.48  NA          NA
-#>  3 2662      Female     0.11  NA        NA   -2.40  NA          NA
-#>  4 3030      Non-binary 0.11   0.290    NA   -2.40  -0.931      NA
-#>  5 3511      Female     0.23   0.14     NA   -2.22  -1.14       NA
-#>  6 4011      Female     0.23   0.84     NA   -2.22  -0.168      NA
-#>  7 2606      Non-binary 0.26  NA        NA   -2.18  NA          NA
-#>  8 4697      Male       0.290  0.14     NA   -2.14  -1.14       NA
-#>  9 3587      Male       0.3   NA        NA   -2.12  NA          NA
-#> 10 3260      Male       0.32  NA        NA   -2.09  NA          NA
-#> # … with 29 more rows
+```
+
+```
+## # A tibble: 39 x 8
+##    ticket_no gender     day_1  day_2 day_3 day_1_z day_2_z day_3_z
+##    <chr>     <fct>      <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>
+##  1 4107      Female     0.02  NA        NA   -2.52  NA          NA
+##  2 3540      Non-binary 0.05  NA        NA   -2.48  NA          NA
+##  3 2662      Female     0.11  NA        NA   -2.40  NA          NA
+##  4 3030      Non-binary 0.11   0.290    NA   -2.40  -0.931      NA
+##  5 3511      Female     0.23   0.14     NA   -2.22  -1.14       NA
+##  6 4011      Female     0.23   0.84     NA   -2.22  -0.168      NA
+##  7 2606      Non-binary 0.26  NA        NA   -2.18  NA          NA
+##  8 4697      Male       0.290  0.14     NA   -2.14  -1.14       NA
+##  9 3587      Male       0.3   NA        NA   -2.12  NA          NA
+## 10 3260      Male       0.32  NA        NA   -2.09  NA          NA
+## # … with 29 more rows
 ```
 
 Filter by all variables: 
@@ -347,17 +371,20 @@ download_tib %>%
     vars(day_1_z:day_3_z), any_vars(. >= 2.58)
     ) %>% 
   dplyr::select(-c(day_1:day_3))
-#> # A tibble: 8 x 5
-#>   ticket_no gender     day_1_z day_2_z day_3_z
-#>   <chr>     <fct>        <dbl>   <dbl>   <dbl>
-#> 1 3374      Male          2.61    3.31   NA   
-#> 2 3787      Non-binary    1.99    2.83   NA   
-#> 3 3828      Female        2.23    3.12   NA   
-#> 4 4016      Female        2.77   NA      NA   
-#> 5 4165      Female        1.51    2.29    2.88
-#> 6 4172      Non-binary    2.23    2.70    2.88
-#> 7 4564      Female        2.32    3.44    3.43
-#> 8 4590      Female        2.07    2.62   NA
+```
+
+```
+## # A tibble: 8 x 5
+##   ticket_no gender     day_1_z day_2_z day_3_z
+##   <chr>     <fct>        <dbl>   <dbl>   <dbl>
+## 1 3374      Male          2.61    3.31   NA   
+## 2 3787      Non-binary    1.99    2.83   NA   
+## 3 3828      Female        2.23    3.12   NA   
+## 4 4016      Female        2.77   NA      NA   
+## 5 4165      Female        1.51    2.29    2.88
+## 6 4172      Non-binary    2.23    2.70    2.88
+## 7 4564      Female        2.32    3.44    3.43
+## 8 4590      Female        2.07    2.62   NA
 ```
 
 
@@ -375,10 +402,13 @@ download_tib %>%
     `z >= 2.58` = get_cum_percent(day_1_z,cut_off = 2.58),
     `z >= 3.29` = get_cum_percent(day_1_z,cut_off = 3.29)
   )
-#> # A tibble: 1 x 3
-#>   `z >= 1.96` `z >= 2.58` `z >= 3.29`
-#>         <dbl>       <dbl>       <dbl>
-#> 1        4.81       0.247           0
+```
+
+```
+## # A tibble: 1 x 3
+##   `z >= 1.96` `z >= 2.58` `z >= 3.29`
+##         <dbl>       <dbl>       <dbl>
+## 1        4.81       0.247           0
 ```
 
 
@@ -398,12 +428,15 @@ download_tidy_tib %>%
     `z >= 2.58` = get_cum_percent(zhygiene,cut_off = 2.58),
     `z >= 3.29` = get_cum_percent(zhygiene,cut_off = 3.29)
   )
-#> # A tibble: 3 x 4
-#>   day   `z >= 1.96` `z >= 2.58` `z >= 3.29`
-#>   <chr>       <dbl>       <dbl>       <dbl>
-#> 1 day_1        4.81       0.247       0    
-#> 2 day_2        6.82       2.27        0.758
-#> 3 day_3        4.07       2.44        0.813
+```
+
+```
+## # A tibble: 3 x 4
+##   day   `z >= 1.96` `z >= 2.58` `z >= 3.29`
+##   <chr>       <dbl>       <dbl>       <dbl>
+## 1 day_1        4.81       0.247       0    
+## 2 day_2        6.82       2.27        0.758
+## 3 day_3        4.07       2.44        0.813
 ```
 
 ## Q-Q plots
@@ -455,12 +488,15 @@ download_tidy_tib %>%
     skew = moments::skewness(hygiene, na.rm = TRUE),
     kurtosis = moments::kurtosis(hygiene, na.rm = TRUE)
   ) 
-#> # A tibble: 3 x 7
-#>   day   valid_cases  mean ci_lower ci_upper     skew kurtosis
-#>   <chr>       <int> <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
-#> 1 day_1         810 1.77     1.72      1.82 -0.00444     2.58
-#> 2 day_2         264 0.961    0.874     1.05  1.09        3.78
-#> 3 day_3         123 0.977    0.850     1.10  1.02        3.65
+```
+
+```
+## # A tibble: 3 x 7
+##   day   valid_cases  mean ci_lower ci_upper     skew kurtosis
+##   <chr>       <int> <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+## 1 day_1         810 1.77     1.72      1.82 -0.00444     2.58
+## 2 day_2         264 0.961    0.874     1.05  1.09        3.78
+## 3 day_3         123 0.977    0.850     1.10  1.02        3.65
 ```
 
 ## Splitting by gender
@@ -477,19 +513,22 @@ download_tidy_tib %>%
     skew = moments::skewness(hygiene, na.rm = TRUE),
     kurtosis = moments::kurtosis(hygiene, na.rm = TRUE)
   )
-#> # A tibble: 9 x 8
-#> # Groups:   gender [3]
-#>   gender     day   valid_cases  mean ci_lower ci_upper    skew kurtosis
-#>   <fct>      <chr>       <int> <dbl>    <dbl>    <dbl>   <dbl>    <dbl>
-#> 1 Male       day_1         277 1.61     1.53     1.68   0.204      2.87
-#> 2 Male       day_2          94 0.789    0.665    0.912  1.46       6.01
-#> 3 Male       day_3          53 0.855    0.705    1.00   0.636      2.56
-#> 4 Female     day_1         443 1.88     1.82     1.95  -0.167      2.56
-#> 5 Female     day_2         143 1.08     0.953    1.20   0.839      3.05
-#> 6 Female     day_3          60 1.08     0.879    1.27   0.887      3.22
-#> 7 Non-binary day_1          90 1.72     1.56     1.88  -0.0165     2.66
-#> 8 Non-binary day_2          27 0.942    0.624    1.26   1.22       3.67
-#> 9 Non-binary day_3          10 1.03     0.247    1.81   0.920      2.31
+```
+
+```
+## # A tibble: 9 x 8
+## # Groups:   gender [3]
+##   gender     day   valid_cases  mean ci_lower ci_upper    skew kurtosis
+##   <fct>      <chr>       <int> <dbl>    <dbl>    <dbl>   <dbl>    <dbl>
+## 1 Male       day_1         277 1.61     1.53     1.68   0.204      2.87
+## 2 Male       day_2          94 0.789    0.665    0.912  1.46       6.01
+## 3 Male       day_3          53 0.855    0.705    1.00   0.636      2.56
+## 4 Female     day_1         443 1.88     1.82     1.95  -0.167      2.56
+## 5 Female     day_2         143 1.08     0.953    1.20   0.839      3.05
+## 6 Female     day_3          60 1.08     0.879    1.27   0.887      3.22
+## 7 Non-binary day_1          90 1.72     1.56     1.88  -0.0165     2.66
+## 8 Non-binary day_2          27 0.942    0.624    1.26   1.22       3.67
+## 9 Non-binary day_3          10 1.03     0.247    1.81   0.920      2.31
 ```
 
 

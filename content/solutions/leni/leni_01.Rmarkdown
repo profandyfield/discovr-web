@@ -23,13 +23,6 @@ This document may contain abridged sections from *Discovering Statistics Using R
 
 ***
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 There are several ways to enter the Oxoby data, here's one of them:
 
 ```{r 1_1, echo = TRUE, eval = FALSE}
