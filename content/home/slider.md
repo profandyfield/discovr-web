@@ -71,4 +71,23 @@ height = ""
   cta_url = "/solutions/leni/"
   cta_icon_pack = "fas"
   cta_icon = "microscope"
+  
+[[item]]
+  title = "Interactive R tutorials"
+  content = "Learn R using interactive tutorials"
+  align = "center"  # Choose `center`, `left`, or `right`.
+
+  # Overlay a color or image (optional).
+  #   Deactivate an option by commenting out the line, prefixing it with `#`.
+  overlay_color = "#666"  # An HTML color value.
+  overlay_img = "discovr_tutorial.png"  # Image path relative to your `static/img/` folder.
+  overlay_filter = 0.7  # Darken the image. Value in range 0-1.
+
+  # Call to action button (optional).
+  #   Activate the button by specifying a URL and button label below.
+  #   Deactivate by commenting out parameters, prefixing lines with `#`.
+  cta_label = "Fuck yeah!"
+  cta_url = "/discovr/"
+  cta_icon_pack = "fab"
+  cta_icon = "r-project"
 +++
