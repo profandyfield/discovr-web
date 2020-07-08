@@ -11,6 +11,7 @@ link-citations: true
 
 <div style="float: right"><img src="/img/discovr_hex.png" width="150"></div>
 
+
 ## What is discovr?
 
 The `discovr` package will contain tutorials associated with my textbook [Discovering Statistics using R and RStudio](https://www.discoveringstatistics.com/books/discovering-statistics-using-r/), due out in early 2021. It will include all datasets, but most important it will contain a series of interactive tutorials that teach {{< icon name="r-project" pack="fab" >}} alongside the chapters of the book. The tutorials are written using a package called [learnr](https://rstudio.github.io/learnr/). Once a tutorial is running it's a bit like reading excerpts of the book but with places where you can practice the R code that you have just been taught. The `discovr` package is free (as are all things {{< icon name="r-project" pack="fab" >}}-related) and offered to support tutors and students using my textbook.
@@ -40,7 +41,12 @@ The tutorials are named to correspond (roughly) to the relevant chapter of the b
 
 ## Installing discovr
 
-<p style =   "border-radius: 10px; padding: 10px; border: 2px solid #CA3E34; background-color: #CA3E34; background-color: rgba(202, 62, 52, 0.1); color: #CA3E34;"> **NOTE**: This package is incomplete but under active development. I have released it early in case it is useful for instructors needing to move rapidly to remote learning because of the current global pandemic. Check [the GitHub page](https://github.com/profandyfield/discovr) for updates/new tutorials.</p>
+{{% alert warning %}}
+
+This package is incomplete but under active development. I have released it early in case it is useful for instructors needing to move rapidly to remote learning because of the current global pandemic. Check <a href = "https://github.com/profandyfield/discovr">the GitHub page</a> for updates/new tutorials.
+
+{{% /alert %}}
+
 
 To use `discovr` you first need to install {{< icon name="r-project" pack="fab" >}} and RStudio. To learn how to do this and to get oriented with {{< icon name="r-project" pack="fab" >}} and RStudio complete my interactive tutorial, [getting started with R and RStudio](/learnr/r/r_getting_started/).
 
