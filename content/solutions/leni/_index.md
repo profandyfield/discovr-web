@@ -2,7 +2,7 @@
 # Course title, summary, and position in the list.
 linktitle: Labcoat Leni solutions
 summary: Solutions to Labcoat Leni real research tasks.
-weight: 2
+weight: 1
 
 # Page metadata.
 title: Overview
@@ -17,7 +17,7 @@ type: docs  # Do not modify.
 # - weight: Position of link in menu.
 menu:
   leni:
-    name: Overview
+    name: Labcoat Leni
     weight: 1
 ---
 
@@ -25,4 +25,4 @@ menu:
 
 <img src="/img/leni_banner.png" alt = "Labcoat Leni charatcer from Discovering Statistics using R and RStudio" width="600">
 
-These pages provide the solutions and code for the Labcoat Leni real research tasks within [Discovering Statistics Using R and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/).
+These pages provide the solutions and {{< icon name="r-project" pack="fab" >}} code for the Labcoat Leni real research tasks within [Discovering Statistics Using {{< icon name="r-project" pack="fab" >}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to navigate to the chapter you want.
