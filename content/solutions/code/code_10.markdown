@@ -15,13 +15,13 @@ weight: 10
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+<!--html_preserve--><img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -242,7 +242,7 @@ interactions::sim_slopes(
 ## Note: The range of observed values of caunts_cent is [-18.60, 24.40]
 ```
 
-<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```
 ## SIMPLE SLOPES ANALYSIS 
@@ -281,7 +281,7 @@ interactions::interact_plot(
   ) 
 ```
 
-<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 # Mediation
 ## Self-test
@@ -339,7 +339,7 @@ infidelity_tib %>%
   mice::md.pattern()
 ```
 
-<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```
 ##     id ln_porn phys_inf commit  
@@ -499,19 +499,19 @@ newz_fit <- lavaan::sem(newz_mod, data = newz_tib, se = "bootstrap")
 ## # A tibble: 13 x 12
 ##    term  op    label estimate std.error statistic p.value conf.low conf.high
 ##    <chr> <chr> <chr>    <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-##  1 fake… ~     "c"      0.153     0.036      4.26       0    0.082     0.219
-##  2 fake… ~     "b1"    -0.171     0.034     -5.07       0   -0.235    -0.106
-##  3 fake… ~     "b2"    -0.141     0.035     -4.06       0   -0.207    -0.075
-##  4 thin… ~     "a1"    -0.303     0.032     -9.57       0   -0.369    -0.244
-##  5 thin… ~     "a2"    -0.266     0.031     -8.49       0   -0.327    -0.203
-##  6 thin… ~~    ""       0.242     0.029      8.34       0    0.181     0.298
-##  7 fake… ~~    ""       0.884     0.045     19.8        0    0.794     0.966
-##  8 thin… ~~    ""       0.907     0.036     25.2        0    0.832     0.98 
-##  9 thin… ~~    ""       0.928     0.032     28.9        0    0.861     0.993
+##  1 fake… ~     "c"      0.153     0.037      4.18       0    0.077     0.226
+##  2 fake… ~     "b1"    -0.171     0.033     -5.15       0   -0.235    -0.105
+##  3 fake… ~     "b2"    -0.141     0.034     -4.16       0   -0.21     -0.075
+##  4 thin… ~     "a1"    -0.303     0.03     -10.1        0   -0.363    -0.243
+##  5 thin… ~     "a2"    -0.266     0.032     -8.43       0   -0.328    -0.205
+##  6 thin… ~~    ""       0.242     0.029      8.23       0    0.185     0.298
+##  7 fake… ~~    ""       0.884     0.044     20.1        0    0.794     0.969
+##  8 thin… ~~    ""       0.907     0.036     25.5        0    0.833     0.978
+##  9 thin… ~~    ""       0.928     0.032     29.5        0    0.861     0.984
 ## 10 delu… ~~    ""       0.999     0         NA         NA    0.999     0.999
-## 11 indi… :=    "ind…    0.052     0.011      4.69       0    0.03      0.074
-## 12 indi… :=    "ind…    0.038     0.01       3.72       0    0.019     0.057
-## 13 tota… :=    "tot…    0.242     0.035      6.86       0    0.176     0.309
+## 11 indi… :=    "ind…    0.052     0.011      4.66       0    0.03      0.074
+## 12 indi… :=    "ind…    0.038     0.01       3.84       0    0.02      0.058
+## 13 tota… :=    "tot…    0.242     0.035      6.85       0    0.167     0.31 
 ## # … with 3 more variables: std.lv <dbl>, std.all <dbl>, std.nox <dbl>
 ```
 
@@ -526,7 +526,7 @@ newz_md_tib %>%
   mice::md.pattern(., rotate.names = TRUE)
 ```
 
-<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="/solutions/code/code_10_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 ```
 ##     delusionz thinkz_open fake_newz thinkz_anal    
@@ -781,13 +781,13 @@ summary(newz_pool, conf.int=TRUE)
 
 ```
 ##          term   estimate  std.error statistic       df      p.value       2.5 %
-## 1   delusionz  0.1631821 0.03417728  4.774579 639.0017 2.234677e-06  0.09606878
-## 2 thinkz_open -0.1718996 0.03490115 -4.925328 558.7858 1.110790e-06 -0.24045312
-## 3 thinkz_anal -0.1321503 0.03579315 -3.692056 364.4266 2.564691e-04 -0.20253738
+## 1   delusionz  0.1604861 0.03372708  4.758375 768.0114 2.331705e-06  0.09427789
+## 2 thinkz_open -0.1726671 0.03503790 -4.928008 521.0761 1.117867e-06 -0.24149996
+## 3 thinkz_anal -0.1285271 0.03518123 -3.653285 462.9729 2.885083e-04 -0.19766176
 ##        97.5 %
-## 1  0.23029549
-## 2 -0.10334615
-## 3 -0.06176327
+## 1  0.22669431
+## 2 -0.10383415
+## 3 -0.05939239
 ```
 
 ```r
@@ -803,8 +803,8 @@ summary(newz_pool, conf.int=TRUE) %>%
 ## # A tibble: 3 x 8
 ##   term        estimate std.error statistic    df p.value `2.5 %` `97.5 %`
 ##   <fct>          <dbl>     <dbl>     <dbl> <dbl>   <dbl>   <dbl>    <dbl>
-## 1 delusionz      0.163     0.034      4.78  639.       0   0.096    0.23 
-## 2 thinkz_open   -0.172     0.035     -4.92  559.       0  -0.24    -0.103
-## 3 thinkz_anal   -0.132     0.036     -3.69  364.       0  -0.203   -0.062
+## 1 delusionz      0.16      0.034      4.76  768.       0   0.094    0.227
+## 2 thinkz_open   -0.173     0.035     -4.93  521.       0  -0.241   -0.104
+## 3 thinkz_anal   -0.129     0.035     -3.65  463.       0  -0.198   -0.059
 ```
 

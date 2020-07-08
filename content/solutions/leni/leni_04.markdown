@@ -15,7 +15,7 @@ weight: 4
 
 ---
 
-<img src="/img/leni_banner.png" alt = "Labcoat Leni character from Discovering Statistics using R and RStudio" width="600">
+<!--html_preserve--><img src="/img/leni_banner.png" alt = "Labcoat Leni character from Discovering Statistics using R and RStudio" width="600"><!--/html_preserve-->
 
 
 No Labcoat Leni task in this chapter.

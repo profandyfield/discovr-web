@@ -15,17 +15,16 @@ weight: 7
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+<!--html_preserve--><img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200"><!--/html_preserve-->
+
+{{% alert note %}}
+
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
+
+{{% /alert %}}
 
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
 
-***
-
-
-
-***
 
 ## Load the data
 
@@ -78,7 +77,7 @@ GGally::ggscatmat(exam_tib, columns = c("exam_grade", "revise", "anxiety")) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_07_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="/solutions/code/code_07_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ## Pearson's r
 
@@ -310,8 +309,8 @@ grade_revise_bs
 ## 
 ## 
 ## Bootstrap Statistics :
-##      original       bias    std. error
-## t1* 0.3967207 -0.002000142  0.06959546
+##      original        bias    std. error
+## t1* 0.3967207 -0.0008522653   0.0704334
 ```
 
 ```r
@@ -327,10 +326,10 @@ boot::boot.ci(grade_revise_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   ( 0.2623,  0.5351 )   ( 0.2766,  0.5492 )  
+## 95%   ( 0.2595,  0.5356 )   ( 0.2686,  0.5430 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   ( 0.2442,  0.5169 )   ( 0.2362,  0.5126 )  
+## 95%   ( 0.2504,  0.5248 )   ( 0.2504,  0.5248 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -358,7 +357,7 @@ grade_revise_bs
 ## 
 ## Bootstrap Statistics :
 ##      original       bias    std. error
-## t1* 0.3967207 -0.002110552  0.06845164
+## t1* 0.3967207 -0.001585265  0.06688795
 ```
 
 ```r
@@ -374,10 +373,10 @@ boot::boot.ci(grade_revise_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   ( 0.2647,  0.5330 )   ( 0.2731,  0.5427 )  
+## 95%   ( 0.2672,  0.5294 )   ( 0.2761,  0.5363 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   ( 0.2507,  0.5203 )   ( 0.2468,  0.5171 )  
+## 95%   ( 0.2571,  0.5173 )   ( 0.2554,  0.5162 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -398,8 +397,8 @@ grade_anx_bs
 ## 
 ## 
 ## Bootstrap Statistics :
-##       original      bias    std. error
-## t1* -0.4409934 0.002899193  0.06322153
+##       original       bias    std. error
+## t1* -0.4409934 0.0001060632  0.06611101
 ```
 
 ```r
@@ -415,10 +414,10 @@ boot::boot.ci(grade_anx_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-0.5678, -0.3200 )   (-0.5775, -0.3268 )  
+## 95%   (-0.5707, -0.3115 )   (-0.5801, -0.3255 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   (-0.5552, -0.3045 )   (-0.5572, -0.3123 )  
+## 95%   (-0.5565, -0.3019 )   (-0.5535, -0.2974 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -440,7 +439,7 @@ revise_anx_bs
 ## 
 ## Bootstrap Statistics :
 ##       original      bias    std. error
-## t1* -0.7092493 0.001421546   0.1100062
+## t1* -0.7092493 0.004526638   0.1120654
 ```
 
 ```r
@@ -456,10 +455,10 @@ boot::boot.ci(revise_anx_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-0.9263, -0.4951 )   (-0.9664, -0.5468 )  
+## 95%   (-0.9334, -0.4941 )   (-0.9547, -0.5469 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   (-0.8717, -0.4521 )   (-0.8540, -0.3481 )  
+## 95%   (-0.8716, -0.4638 )   (-0.8549, -0.3636 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -484,10 +483,10 @@ boot::boot.ci(liar_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-0.6215, -0.1403 )   (-0.6252, -0.1463 )  
+## 95%   (-0.6187, -0.1455 )   (-0.6415, -0.1629 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   (-0.6069, -0.1279 )   (-0.6063, -0.1257 )  
+## 95%   (-0.5902, -0.1116 )   (-0.5826, -0.1027 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -638,6 +637,6 @@ WRS2::twopcor(x1 = exam_men$exam_grade, y1 = exam_men$anxiety, x2 = exam_women$e
 ## 
 ## First correlation coefficient: -0.5057
 ## Second correlation coefficient: -0.3814
-## Confidence interval (difference): -0.4105 0.1293
+## Confidence interval (difference): -0.4617 0.1475
 ```
 

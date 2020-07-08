@@ -15,13 +15,13 @@ weight: 8
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+<!--html_preserve--><img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -267,7 +267,7 @@ ggplot2::ggplot(album_tib, aes(adverts, sales)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ## Fit a model with one predictor
 
@@ -433,7 +433,7 @@ GGally::ggscatmat(album_tib, columns = c("adverts", "airplay", "image", "sales")
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 
 ### Build the model
@@ -838,7 +838,7 @@ Standard influence plots
 plot(album_full_lm, which = 4:6)
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-40-1.png" width="672" /><img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-40-2.png" width="672" /><img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-40-3.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-42-1.png" width="672" /><img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-42-2.png" width="672" /><img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-42-3.png" width="672" />
 
 Residual plot:
 
@@ -847,7 +847,7 @@ Residual plot:
 plot(album_full_lm, which = c(1, 3))
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-41-1.png" width="672" /><img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-41-2.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-43-1.png" width="672" /><img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-43-2.png" width="672" />
 
 Q-Q plot:
 
@@ -856,7 +856,7 @@ Q-Q plot:
 plot(album_full_lm, which = 2)
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-42-1.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-44-1.png" width="672" />
 
 ### Prettier diagnostic plots
 
@@ -875,7 +875,7 @@ ggplot2::autoplot(album_full_lm, which = 4:6,
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-43-1.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-45-1.png" width="672" />
 
 Residual plot:
 
@@ -889,7 +889,7 @@ ggplot2::autoplot(album_full_lm, which = c(1, 3),
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-46-1.png" width="672" />
 
 Q-Q plot:
 
@@ -903,7 +903,7 @@ ggplot2::autoplot(album_full_lm, which = 2,
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+<img src="/solutions/code/code_08_files/figure-html/unnamed-chunk-47-1.png" width="672" />
 
 
 
@@ -980,10 +980,10 @@ parameters::model_parameters(
 ```
 ## Parameter   | Coefficient |          95% CI |      p
 ## ----------------------------------------------------
-## (Intercept) |     -26.038 | [-54.87,  6.09] | 0.110 
+## (Intercept) |     -27.341 | [-55.60, 11.19] | 0.140 
 ## adverts     |       0.085 | [  0.07,  0.10] | < .001
-## airplay     |       3.358 | [  2.79,  3.93] | < .001
-## image       |      11.053 | [  6.86, 15.10] | < .001
+## airplay     |       3.366 | [  2.74,  3.96] | < .001
+## image       |      11.202 | [  6.09, 15.09] | < .001
 ```
 
 ### Bayes factors
@@ -1035,21 +1035,21 @@ summary(album_full_post)
 ##    plus standard error of the mean:
 ## 
 ##              Mean        SD  Naive SE Time-series SE
-## mu      1.932e+02   3.37360 0.0337360      3.374e-02
-## adverts 8.407e-02   0.00697 0.0000697      7.193e-05
-## airplay 3.334e+00   0.27979 0.0027979      2.848e-03
-## image   1.097e+01   2.41890 0.0241890      2.419e-02
-## sig2    2.246e+03 229.17063 2.2917063      2.395e+00
-## g       1.044e+00   2.58930 0.0258930      2.589e-02
+## mu       193.2020 3.338e+00 3.338e-02      3.338e-02
+## adverts    0.0841 6.969e-03 6.969e-05      7.039e-05
+## airplay    3.3343 2.778e-01 2.778e-03      2.778e-03
+## image     10.9925 2.447e+00 2.447e-02      2.647e-02
+## sig2    2248.0319 2.283e+02 2.283e+00      2.341e+00
+## g          1.0635 3.016e+00 3.016e-02      3.016e-02
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##              2.5%       25%       50%       75%     97.5%
-## mu      1.866e+02  190.8630 1.932e+02 1.955e+02 1.997e+02
-## adverts 7.058e-02    0.0794 8.406e-02 8.879e-02 9.759e-02
-## airplay 2.781e+00    3.1469 3.335e+00 3.520e+00 3.885e+00
-## image   6.224e+00    9.3248 1.098e+01 1.262e+01 1.574e+01
-## sig2    1.844e+03 2084.6522 2.231e+03 2.389e+03 2.751e+03
-## g       1.736e-01    0.3745 6.149e-01 1.081e+00 4.220e+00
+## mu      1.867e+02 1.909e+02 1.932e+02 1.954e+02 1.997e+02
+## adverts 7.056e-02 7.939e-02 8.405e-02 8.872e-02 9.792e-02
+## airplay 2.784e+00 3.146e+00 3.334e+00 3.517e+00 3.880e+00
+## image   6.109e+00 9.386e+00 1.098e+01 1.260e+01 1.586e+01
+## sig2    1.846e+03 2.088e+03 2.235e+03 2.389e+03 2.739e+03
+## g       1.770e-01 3.787e-01 6.082e-01 1.069e+00 4.455e+00
 ```
 

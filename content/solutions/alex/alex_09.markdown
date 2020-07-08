@@ -15,13 +15,13 @@ weight: 9
 
 ---
 
-<img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600">
+<!--html_preserve--><img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -187,18 +187,18 @@ BayesFactor::posterior(spider_bf, iterations = 1000) %>%
 ##    plus standard error of the mean:
 ## 
 ##           Mean      SD Naive SE Time-series SE
-## mu     -5.9550  3.0480  0.09639        0.10243
-## sig2  114.9682 53.8862  1.70403        1.84285
-## delta  -0.5979  0.3197  0.01011        0.01301
-## g       3.0629 16.9326  0.53545        0.53545
+## mu     -5.9255  2.9385 0.092925        0.10640
+## sig2  114.5136 55.1995 1.745560        1.90699
+## delta  -0.5959  0.3091 0.009774        0.01137
+## g       4.8136 45.1384 1.427402        1.42740
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##           2.5%     25%      50%     75%     97.5%
-## mu    -12.0740 -7.9302  -5.8382  -4.020  -0.19122
-## sig2   48.9453 78.6516 103.7309 138.329 243.21835
-## delta  -1.2736 -0.8127  -0.5759  -0.377  -0.01724
-## g       0.1043  0.3158   0.6795   1.438  17.79028
+##            2.5%     25%      50%      75%      97.5%
+## mu    -11.49773 -7.8859  -6.0097  -3.9913  -0.098881
+## sig2   48.92183 78.2696 100.4749 136.8231 258.468777
+## delta  -1.21297 -0.8052  -0.5941  -0.3792  -0.009222
+## g       0.09906  0.2945   0.6395   1.5788  13.926521
 ```
 
 The Bayes factor, $ \mathrm{BF}_{10} $ = 2.40, suggested that the data were 2.4 times more probable under the alternative hypothesis than under the null.
@@ -898,14 +898,14 @@ acdc_mod
 ## WRS2::yuenbt(formula = offer ~ singer, data = oxoby_tib, nboot = 1000, 
 ##     side = TRUE)
 ## 
-## Test statistic: -1.7339 (df = NA), p-value = 0.071
+## Test statistic: -1.7339 (df = NA), p-value = 0.066
 ## 
 ## Trimmed mean difference:  -0.83333 
 ## 95 percent confidence interval:
-## -1.7591     0.0925
+## -1.7316     0.0649
 ```
 
-The bootstrap confidence interval ranged from -1.76 to 0.09, which just about crosses zero suggesting that (if we assume that it is one of the 95% of confidence intervals that contain the true value) that the effect in the population could be zero.
+The bootstrap confidence interval ranged from -1.73 to 0.06, which just about crosses zero suggesting that (if we assume that it is one of the 95% of confidence intervals that contain the true value) that the effect in the population could be zero.
 
 We can estimate Cohen's $ d $ as follows:
 
@@ -926,4 +926,4 @@ d_acdc
 
 We could report:
 
-* On average, more offers were made when listening to Brian Johnson (*M* = 4.00, *SE* = 0.23) than Bon Scott (*M* = 3.28, *SE* = 0.28). This difference, -0.72, BCa 95% CI [-1.76, 0.09], was not significant, *t* = -1.73, *p* = 0.071; however, it produced a medium effect, *d* = -0.67, 0.95, -1.34, 0.01.
+* On average, more offers were made when listening to Brian Johnson (*M* = 4.00, *SE* = 0.23) than Bon Scott (*M* = 3.28, *SE* = 0.28). This difference, -0.72, BCa 95% CI [-1.73, 0.06], was not significant, *t* = -1.73, *p* = 0.066; however, it produced a medium effect, *d* = -0.67, 0.95, -1.34, 0.01.

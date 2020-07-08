@@ -15,6 +15,9 @@ weight: 4
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/img_code.html")
+```
+
 
 There is no R code used in Chapter 4.

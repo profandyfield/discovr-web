@@ -15,13 +15,13 @@ weight: 6
 
 ---
 
-<img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600">
+<!--html_preserve--><img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -51,7 +51,7 @@ notebook_tib %>%
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 For both films the expected quantile points are close, on the whole, to those that would be expected from a normal distribution (i.e. the dots fall within the confidence interval for the line).
 
@@ -119,7 +119,7 @@ ggplot2::ggplot(rexam_tidy_tib, aes(score)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
 The histograms show us several things. The exam scores are very interesting because this distribution is quite clearly not normal; in fact, it looks suspiciously bimodal (there are two peaks, indicative of two modes). It looks as though computer literacy is fairly normally distributed (a few people are very good with computers and a few are very bad, but the majority of people have a similar degree of knowledge) as is the lecture attendance. Finally, the numeracy test has produced very positively skewed data (the majority of people did very badly on this test and only a few did well).
@@ -142,7 +142,7 @@ rexam_tidy_tib %>%
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 
 
@@ -205,7 +205,7 @@ ggplot2::ggplot(rexam_tidy_tib, aes(score)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="/solutions/alex/alex_06_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 
 The histograms of these variables split according to the university attended show numerous things. The first interesting thing to note is that for exam marks, the distributions are both fairly normal. This seems odd because the overall distribution was bimodal. However, it starts to make sense when you consider that for Duncetown the distribution is centred around a mark of about 40%, but for Sussex the distribution is centred around a mark of about 76%. This illustrates how important it is to look at distributions within groups. If we were interested in comparing Duncetown to Sussex it wouldn’t matter that overall the distribution of scores was bimodal; all that’s important is that each group comes from a normal population, and in this case it appears to be true. When the two samples are combined, these two normal distributions create a bimodal one (one of the modes being around the centre of the Duncetown distribution, and the other being around the centre of the Sussex data!).

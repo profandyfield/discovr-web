@@ -15,13 +15,13 @@ weight: 5
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+<!--html_preserve--><img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -94,7 +94,7 @@ ggplot2::ggplot(wish_tib, aes(success)) +
  theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 
 
@@ -106,7 +106,7 @@ ggplot2::ggplot(wish_tib, aes(success)) +
  theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ## Frequency polygon
 
@@ -119,7 +119,7 @@ ggplot2::ggplot(wish_tib, aes(success)) +
  theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ## Boxplots
 
@@ -132,7 +132,7 @@ ggplot2::ggplot(wish_tib, aes(time, success)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
 ```r
@@ -144,7 +144,7 @@ ggplot2::ggplot(wish_tib, aes(time, success)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 
 ```r
@@ -155,7 +155,7 @@ ggplot2::ggplot(wish_tib, aes(time, success, fill = strategy)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ## Plotting means
 
@@ -170,7 +170,7 @@ note_mean +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 `
 
@@ -183,7 +183,7 @@ note_mean +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
 ```r
@@ -196,7 +196,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 
 ```r
@@ -208,7 +208,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal, colour = sex)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 ## Violin plots
 
@@ -223,7 +223,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal, fill = sex)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 
 ```r
@@ -236,7 +236,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal, fill = sex)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ## Repeated measures
 
@@ -273,7 +273,7 @@ ggplot2::ggplot(hiccups_tib, aes(intervention, hiccups)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ## Line plots and mixed designs
 
@@ -311,7 +311,7 @@ ggplot2::ggplot(grammar_tib, aes(time, grammar, colour = media_use)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 
 ## Scatterplots
@@ -328,7 +328,7 @@ ggplot(exam_tib, aes(anxiety, exam_grade)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 ### Catterplots
 
@@ -342,7 +342,7 @@ ggplot(cat_tib, aes(dinner_time, meow)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 ### Grouped scatteplots
 
@@ -362,7 +362,7 @@ ggplot(exam_tib, aes(anxiety, exam_grade, colour = sex))  +
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 ### Matrix scatterplots
 
@@ -395,7 +395,7 @@ GGally::ggpairs(ong_tib, columns = c("rating", "extraversion", "narcissism"))
 ## Warning: Removed 324 rows containing missing values (geom_point).
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 
 ```r
@@ -420,6 +420,6 @@ GGally::ggpairs(ong_tib, columns = c("rating", "extraversion", "narcissism"), ma
 ## Warning: Removed 324 rows containing missing values (geom_point).
 ```
 
-<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 

@@ -15,13 +15,13 @@ weight: 6
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+<!--html_preserve--><img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -135,7 +135,7 @@ ggplot2::ggplot(download_tib, aes(day_1)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ## Boxplot day 1
 
@@ -148,7 +148,7 @@ ggplot2::ggplot(download_tib, aes(x = "Day 1", y = day_1)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 ## Filter the data
 
@@ -186,7 +186,7 @@ ggplot2::ggplot(download_tib, aes(day_1)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ```r
 ggplot2::ggplot(download_tib, aes(x = "Day 1", y = day_1)) +
@@ -196,7 +196,7 @@ ggplot2::ggplot(download_tib, aes(x = "Day 1", y = day_1)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-12-2.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-14-2.png" width="672" />
 
 ## Tranforming between messy and tidy data formats
 
@@ -285,7 +285,7 @@ ggplot2::ggplot(download_tidy_tib, aes(day, hygiene, fill = gender)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 
 ## Using z-scores
@@ -455,7 +455,7 @@ download_tidy_tib %>%
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 Detrended Q-Q plot
 
@@ -471,7 +471,7 @@ download_tidy_tib %>%
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 
 ## Skew and kurtosis
@@ -543,6 +543,6 @@ download_tidy_tib %>%
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="/solutions/code/code_06_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
 

@@ -15,13 +15,13 @@ weight: 9
 
 ---
 
-<img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200">
+<!--html_preserve--><img src="/img/space_pirate.png" alt = "Mae Jemstone character from Discovering Statistics using R and RStudio" width="200"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -173,7 +173,7 @@ ggplot2::ggplot(cloak_tib, aes(cloak, mischief)) +
   theme_minimal()
 ```
 
-<img src="/solutions/code/code_09_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="/solutions/code/code_09_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 ## Independent t-test
 
@@ -250,7 +250,7 @@ WRS2::yuenbt(mischief ~ cloak, data = cloak_tib, nboot = 1000, side = TRUE)
 ## 
 ## Trimmed mean difference:  -1 
 ## 95 percent confidence interval:
-## -2.5293     0.5293
+## -2.5     0.5
 ```
 ### `pb2gen()`
 
@@ -263,9 +263,9 @@ WRS2::pb2gen(mischief ~ cloak, data = cloak_tib, nboot = 1000)
 ## Call:
 ## WRS2::pb2gen(formula = mischief ~ cloak, data = cloak_tib, nboot = 1000)
 ## 
-## Test statistic: -0.9091, p-value = 0.24
+## Test statistic: -0.9091, p-value = 0.244
 ## 95% confidence interval:
-## -2.6667    0.5278
+## -2.6667    0.5333
 ```
 
 ## Bayes factor for indepedent means
@@ -304,20 +304,20 @@ BayesFactor::posterior(cloak_bf, iterations = 1000) %>%
 ##    plus standard error of the mean:
 ## 
 ##                            Mean      SD Naive SE Time-series SE
-## mu                       4.3731  0.3968  0.01255        0.01255
-## beta (No cloak - Cloak) -0.9461  0.7192  0.02274        0.02616
-## sig2                     3.4966  1.1330  0.03583        0.03775
-## delta                   -0.5252  0.3989  0.01261        0.01469
-## g                        3.3344 17.8617  0.56484        0.56484
+## mu                       4.3612  0.3875  0.01225        0.01225
+## beta (No cloak - Cloak) -0.9176  0.6686  0.02114        0.02490
+## sig2                     3.4620  1.1013  0.03482        0.03735
+## delta                   -0.5140  0.3762  0.01190        0.01398
+## g                        3.2559 22.9528  0.72583        0.72583
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##                             2.5%     25%     50%     75%   97.5%
-## mu                       3.56650  4.1189  4.3724  4.6287  5.1166
-## beta (No cloak - Cloak) -2.34724 -1.4090 -0.8923 -0.4311  0.3900
-## sig2                     1.90622  2.7025  3.2933  4.0918  6.2199
-## delta                   -1.35468 -0.7922 -0.4923 -0.2379  0.2113
-## g                        0.09804  0.2873  0.6322  1.7272 20.5483
+## mu                       3.58203  4.0980  4.3776  4.6234  5.0966
+## beta (No cloak - Cloak) -2.27040 -1.3528 -0.9114 -0.4677  0.3839
+## sig2                     1.85419  2.6661  3.2815  4.0793  6.0981
+## delta                   -1.27113 -0.7624 -0.5017 -0.2538  0.1734
+## g                        0.09155  0.2704  0.5851  1.4440 15.7681
 ```
 
 
@@ -440,7 +440,7 @@ cloak_rm_tib %>%
     theme_minimal()
 ```
 
-<img src="/solutions/code/code_09_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="/solutions/code/code_09_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 ## Paired *t*-test
 
@@ -478,10 +478,10 @@ cloak_rm_tib %>%
 ## 	Paired t-test
 ## 
 ## data:  mischief by cloak
-## t = -2.5289, df = 11, p-value = 0.02803
+## t = -1.5646, df = 11, p-value = 0.146
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -2.3379151 -0.1620849
+##  -3.0083896  0.5083896
 ## sample estimates:
 ## mean of the differences 
 ##                   -1.25
@@ -569,19 +569,19 @@ BayesFactor::posterior(cloak_rm_bf, iterations = 1000) %>%
 ## 1. Empirical mean and standard deviation for each variable,
 ##    plus standard error of the mean:
 ## 
-##          Mean       SD Naive SE Time-series SE
-## mu     1.1218   0.3542  0.01120        0.01234
-## sig2   1.5884   0.8496  0.02687        0.02972
-## delta  0.9705   0.3764  0.01190        0.01396
-## g     15.6208 262.6098  8.30445        8.30445
+##         Mean      SD Naive SE Time-series SE
+## mu    1.1031  0.3614  0.01143        0.01291
+## sig2  1.6357  0.8525  0.02696        0.03023
+## delta 0.9317  0.3559  0.01125        0.01353
+## g     5.3619 22.5048  0.71166        0.80593
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##         2.5%    25%    50%   75%  97.5%
-## mu    0.4303 0.8824 1.1327 1.349  1.820
-## sig2  0.6544 1.0462 1.3634 1.871  3.759
-## delta 0.2982 0.6905 0.9513 1.231  1.695
-## g     0.1733 0.4965 1.0179 2.638 33.480
+## mu    0.3743 0.8698 1.1109 1.334  1.815
+## sig2  0.6774 1.0835 1.4352 1.923  3.936
+## delta 0.2623 0.6798 0.9290 1.170  1.605
+## g     0.1447 0.4604 0.9867 2.546 42.049
 ```
 
 

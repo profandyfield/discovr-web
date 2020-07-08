@@ -15,7 +15,9 @@ weight: 3
 
 ---
 
-<img src="/img/leni_banner.png" alt = "Labcoat Leni character from Discovering Statistics using R and RStudio" width="600">
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/img_leni.html")
+```
 
 
 No Labcoat Leni task in this chapter.

@@ -15,13 +15,13 @@ weight: 5
 
 ---
 
-<img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600">
+<!--html_preserve--><img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -68,7 +68,7 @@ ggplot2::ggplot(student_tib, aes(group, friends)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 We can conclude that, on average, students had more friends than lecturers.
 
@@ -88,7 +88,7 @@ ggplot2::ggplot(student_tib, aes(group, alcohol)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 We can conclude that, on average, students and lecturers drank similar amounts, but the error bars tell us that the mean is a better representation of the population for students than for lecturers (there is more variability in lecturers’ drinking habits compared to students’).
 
@@ -108,7 +108,7 @@ ggplot2::ggplot(student_tib, aes(group, income)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 We can conclude that, on average, students earn less than lecturers, but the error bars tell us that the mean is a better representation of the population for students than for lecturers (there is more variability in lecturers’ income compared to students’).
 
@@ -128,7 +128,7 @@ ggplot2::ggplot(student_tib, aes(group, neurotic)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 We can conclude that, on average, students are slightly less neurotic than lecturers.
 
@@ -150,7 +150,7 @@ ggplot2::ggplot(student_tib, aes(alcohol, neurotic, colour = group)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
 We can conclude that for lecturers, as neuroticism increases so does alcohol consumption (a positive relationship), but for students the opposite is true, as neuroticism increases alcohol consumption decreases.
@@ -174,7 +174,7 @@ The code for the plot will be:
 GGally::ggpairs(student_tib, columns = c("alcohol", "neurotic", "friends"))
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 We can conclude that there is no relationship (flat line) between the number of friends and alcohol consumption; there was a negative relationship between how neurotic a person was and their number of friends ; and there was a slight positive relationship between how neurotic a person was and how much alcohol they drank.
 
@@ -216,7 +216,7 @@ ggplot2::ggplot(zhang_tib, aes(name_type, accuracy, colour = sex)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 The graph shows that, on average, males did better on the test than females when using their own name (the control) but also when using a fake female name. However, for participants who did the test under a fake male name, the women did better than males.
 
@@ -256,7 +256,7 @@ ggplot2::ggplot(teaching_tib, aes(method, mark, colour = sex)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 We can see that when the being nice method of teaching is used, males and females have comparable scores on their coursework, with females scoring slightly higher than males on average, although their scores are also more variable than the males’ scores as indicated by the longer error bar). However, when an electric shock is used, males score higher than females but there is more variability in the males’ scores than the females’ for this method (as seen by the longer error bar for males than for females). Additionally, the graph shows that females score higher when the being nice method is used compared to when an electric shock is used, but the opposite is true for males. This suggests that there may be an interaction effect of sex. 
 
@@ -295,7 +295,7 @@ ggplot2::ggplot(shopping_tib, aes(sex, distance)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 Looking at the graph above, we can see that, on average, females walk longer distances (probably not significantly so) while shopping than males. 
 
@@ -311,7 +311,7 @@ ggplot2::ggplot(shopping_tib, aes(sex, time)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 The graph shows that, on average, females spend more time shopping than males (but again, probably not significantly so). The females’ scores are more variable than the males’ scores (longer error bar).
 
@@ -350,7 +350,7 @@ ggplot2::ggplot(goat_tib, aes(wife, animal)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 
 The graph shows that the mean love of animals was the same for men married to a goat as for those married to a dog. As an aside, hope that you will never in your career have to label an axis 'Species of wife'. If ever you do , we've gone into strange times.
@@ -367,7 +367,7 @@ ggplot2::ggplot(goat_tib, aes(wife, life_satisfaction)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 The graph shows that, on average, life satisfaction was higher in men who were married to a dog compared to men who were married to a goat. 
 
@@ -389,7 +389,7 @@ ggplot2::ggplot(goat_tib, aes(animal, life_satisfaction, colour = wife)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 We can conclude that for men married to both goats and dogs, as love of animals increases so does life satisfaction (a positive relationship).
 
@@ -430,6 +430,6 @@ ggplot2::ggplot(tea15_tib, aes(tea, cog_fun)) +
   theme_minimal()
 ```
 
-<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 The scatterplot (and near-flat line especially) tells us that there is a tiny relationship (practically zero) between the number of cups of tea drunk per day and cognitive function.

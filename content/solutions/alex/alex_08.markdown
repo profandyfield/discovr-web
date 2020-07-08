@@ -15,13 +15,13 @@ weight: 8
 
 ---
 
-<img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600">
+<!--html_preserve--><img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600"><!--/html_preserve-->
 
+{{% alert note %}}
 
-***
-This document may contain abridged sections from *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/) so there are some copyright considerations, but the material is offered under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). Basically you can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work.
+<!--html_preserve--><p>This document contains abridged sections from <em>Discovering Statistics Using R and RStudio</em> by <a href="/index.html#about">Andy Field</a> so there are some copyright considerations. You can use this material for teaching and non-profit activities but please do not meddle with it or claim it as your own work. See the full license terms at the bottom of the page.</p><!--/html_preserve-->
 
-***
+{{% /alert %}}
 
 
 
@@ -112,8 +112,8 @@ pub_lm %>%
 
 |Parameter   | Coefficient| CI_low|  CI_high|     p|
 |:-----------|-----------:|------:|--------:|-----:|
-|(Intercept) |    2887.784|  0.000| 4717.207| 0.492|
-|pubs        |      14.966| 10.958|  100.000| 0.000|
+|(Intercept) |    2770.345|  0.000| 4688.372| 0.509|
+|pubs        |      15.271| 11.099|  100.000| 0.000|
 
 The bootstrapped confidence intervals are both positive values – they do not cross zero (10.92, 100.00) – then assuming this interval is one of the 95% that contain the population value we can gain confidence that there is a positive and non-zero relationship between number of pubs in an area and its mortality rate.
 
@@ -166,8 +166,8 @@ honest_lm %>%
 
 |Parameter    | Coefficient| CI_low| CI_high|  p|
 |:------------|-----------:|------:|-------:|--:|
-|(Intercept)  |      -1.846| -2.492|  -1.345|  0|
-|likeableness |       0.936|  0.813|   1.068|  0|
+|(Intercept)  |      -1.865| -2.465|  -1.365|  0|
+|likeableness |       0.941|  0.823|   1.062|  0|
 
 The bootstrapped confidence intervals do not cross zero (0.82, 1.08), then assuming this interval is one of the 95% that contain the population value we can gain confidence that there is a non-zero relationship between the likeableness of the perpetrator and ratings of dishonest acts. 
 
@@ -288,7 +288,7 @@ There are six cases that have a standardized residual greater than 3, and two of
 plot(model_lm, which = 2)
 ```
 
-<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 
 The normal Q-Q plot shows a highly non-normal distribution of residuals because the dashed line deviates considerably from the straight line (which indicates what you’d get from normally distributed errors).
@@ -300,7 +300,7 @@ The normal Q-Q plot shows a highly non-normal distribution of residuals because 
 plot(model_lm, which = c(1, 3))
 ```
 
-<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-12-1.png" width="672" /><img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-12-2.png" width="672" />
+<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-14-1.png" width="672" /><img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-14-2.png" width="672" />
 
 The scatterplots of fitted values vs residuals do not show a random pattern. There is a distinct funnelling, and the red trend line is not flat, indicating heteroscedasticity.
 
@@ -458,7 +458,7 @@ The Q-Q plot suggests that errors may well deviate from normally distributed:
 plot(agress_full_lm, which = 2)
 ```
 
-<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 The scatterplot of predicted values vs residuals helps us to assess both homoscedasticity and independence of errors. The plot does show a random scatter, but the trend line is not completely flat. It would be useful to run a robust model.
 
@@ -467,7 +467,7 @@ The scatterplot of predicted values vs residuals helps us to assess both homosce
 plot(agress_full_lm, which = c(1, 3))
 ```
 
-<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-18-1.png" width="672" /><img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-18-2.png" width="672" />
+<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-20-1.png" width="672" /><img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-20-2.png" width="672" />
 
 Using robust standard errors, sibling aggression is no longer significant.
 
@@ -497,7 +497,7 @@ The influence plot looks fine. There are no extreme Cook's distances and the tre
 plot(agress_full_lm, which = 5)
 ```
 
-<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="/solutions/alex/alex_08_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 ## Task 8.6
 
@@ -572,13 +572,13 @@ ong_ncs_lm %>%
 
 |Parameter    | Coefficient| CI_low| CI_high|     p|
 |:------------|-----------:|------:|-------:|-----:|
-|(Intercept)  |       0.281| -5.084|   4.899| 0.935|
-|sexMale      |      -0.949| -1.568|  -0.337| 0.006|
-|age          |      -0.011| -0.335|   0.371| 0.937|
-|gradeSec 2   |      -0.397| -1.287|   0.550| 0.344|
-|gradeSec 3   |      -1.042| -2.224|   0.016| 0.058|
-|extraversion |       0.008| -0.053|   0.071| 0.791|
-|narcissism   |       0.065|  0.023|   0.102| 0.002|
+|(Intercept)  |       0.005| -5.835|   5.029| 0.999|
+|sexMale      |      -0.949| -1.521|  -0.345| 0.004|
+|age          |      -0.002| -0.325|   0.385| 0.993|
+|gradeSec 2   |      -0.447| -1.350|   0.555| 0.344|
+|gradeSec 3   |      -1.054| -2.178|  -0.037| 0.044|
+|extraversion |       0.010| -0.046|   0.069| 0.709|
+|narcissism   |       0.066|  0.024|   0.106| 0.004|
 
 
 The main benefit of the bootstrap confidence intervals and significance values is that they do not rely on assumptions of normality or homoscedasticity, so they give us an accurate estimate of the true population value of *b* for each predictor. The bootstrapped confidence intervals in the output do not affect the conclusions reported in Ong et al. (2011). Ong et al.’s prediction was still supported in that, after controlling for **age**, **grade** and **sex**, narcissism significantly predicted the frequency of Facebook status updates over and above extroversion, *b* = 0.066 [0.03, 0.10], *p* < 0.001.
@@ -598,13 +598,13 @@ prof_ncs_lm %>%
 
 |Parameter    | Coefficient|  CI_low| CI_high|     p|
 |:------------|-----------:|-------:|-------:|-----:|
-|(Intercept)  |      -3.555| -20.113|   8.695| 0.579|
-|sexMale      |       0.592|  -0.606|   1.702| 0.350|
-|age          |       0.355|  -0.549|   1.498| 0.468|
-|gradeSec 2   |      -0.534|  -2.053|   1.054| 0.527|
-|gradeSec 3   |      -0.627|  -3.049|   1.549| 0.575|
-|extraversion |       0.109|   0.027|   0.201| 0.008|
-|narcissism   |       0.172|   0.101|   0.243| 0.000|
+|(Intercept)  |      -4.030| -20.793|   8.191| 0.537|
+|sexMale      |       0.638|  -0.537|   1.758| 0.322|
+|age          |       0.368|  -0.519|   1.548| 0.430|
+|gradeSec 2   |      -0.519|  -2.266|   0.906| 0.533|
+|gradeSec 3   |      -0.646|  -3.230|   1.503| 0.575|
+|extraversion |       0.110|   0.025|   0.200| 0.010|
+|narcissism   |       0.170|   0.101|   0.241| 0.000|
 
 Similarly, the bootstrapped confidence intervals for the second regression are consistent with the conclusions reported in Ong et al. (2011). That is, after adjusting for **age**, **grade** and **sex**, narcissism significantly predicted the Facebook profile picture ratings over and above extroversion, *b* = 0.171 [0.10, 0.24], *p* < 0.001.
 
