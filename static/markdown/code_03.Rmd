@@ -16,10 +16,12 @@ library(dplyr)
 library(ggplot2)
 ```
 
-
+***
 ## Usage
 
-This file contains code relevant to chapter 1 of *Discovering Statistics Using R and RStudio* by [Andy Field](https://www.discoveringstatistics.com/). These files contain abridged sections from the book so there are some copyright considerations but I offer them under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/), ^[Basically you can use this material for teaching and non-profit activities but do not meddle with it or claim it as your own work.]
+This file contains code relevant to chapter 1 of [Discovering Statistics Using R and RStudio](https://www.discovr.rocks) by [Andy Field](https://www.discoveringstatistics.com/about). These files contain abridged sections from the book so there are some copyright considerations but I offer them under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).^[Basically you can use this material for teaching and non-profit activities but do not meddle with it or claim it as your own work.]
+
+***
 
 ## Confidence intervals using `Hmisc` and `ggplot2`
 
