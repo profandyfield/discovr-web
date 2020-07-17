@@ -204,7 +204,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal, colour = sex)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "pointrange", position = position_dodge(width = 0.5)) +
   coord_cartesian(ylim = c(0, 50)) +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  labs(x = "Type of film", y = "Arousal (out of 100)", colour = "Biological sex") +
+  labs(x = "Type of film", y = "Arousal (out of 100)", colour = "Self-identified sex") +
   theme_minimal()
 ```
 
@@ -217,7 +217,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal, colour = sex)) +
 ggplot2::ggplot(notebook_tib, aes(film, arousal, fill = sex)) +
   geom_violin() +
   stat_summary(fun.data = "mean_cl_normal", geom = "pointrange", position = position_dodge(width = 0.9)) +
-  labs(x = "Biological sex", y = "Arousal", fill = "Film watched") +
+  labs(x = "Self-identified sex", y = "Arousal", fill = "Film watched") +
   coord_cartesian(ylim = c(0, 50)) +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
   theme_minimal()
@@ -230,7 +230,7 @@ ggplot2::ggplot(notebook_tib, aes(film, arousal, fill = sex)) +
 ggplot2::ggplot(notebook_tib, aes(film, arousal, fill = sex)) +
   geom_violin() +
   geom_boxplot(width = 0.2, position = position_dodge(width = 0.9)) +
-  labs(x = "Biological sex", y = "Arousal", fill = "Film watched") +
+  labs(x = "Self-identified sex", y = "Arousal", fill = "Film watched") +
   coord_cartesian(ylim = c(0, 50)) +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
   theme_minimal()
@@ -344,14 +344,14 @@ ggplot(cat_tib, aes(dinner_time, meow)) +
 
 <img src="/solutions/code/code_05_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
-### Grouped scatteplots
+### Grouped scatterplots
 
 
 ```r
 ggplot(exam_tib, aes(anxiety, exam_grade, colour = sex))  +
   geom_point() +
   geom_smooth(method = "lm", aes(fill = sex), alpha = 0.1) +
-  labs(x = "Exam anxiety", y = "Exam performance (%)", colour = "Biological sex", fill = "Biological sex") +
+  labs(x = "Exam anxiety", y = "Exam performance (%)", colour = "Self-identified sex", fill = "Self-identified sex") +
   coord_cartesian(ylim = c(0, 130)) +
   scale_y_continuous(breaks = seq(0, 130, 10)) +
   scale_x_continuous(breaks = seq(0, 100, 10)) +

@@ -309,8 +309,8 @@ grade_revise_bs
 ## 
 ## 
 ## Bootstrap Statistics :
-##      original        bias    std. error
-## t1* 0.3967207 -0.0008522653   0.0704334
+##      original       bias    std. error
+## t1* 0.3967207 -0.001476077  0.06983568
 ```
 
 ```r
@@ -326,10 +326,10 @@ boot::boot.ci(grade_revise_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   ( 0.2595,  0.5356 )   ( 0.2686,  0.5430 )  
+## 95%   ( 0.2613,  0.5351 )   ( 0.2673,  0.5424 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   ( 0.2504,  0.5248 )   ( 0.2504,  0.5248 )  
+## 95%   ( 0.2510,  0.5261 )   ( 0.2530,  0.5263 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -357,7 +357,7 @@ grade_revise_bs
 ## 
 ## Bootstrap Statistics :
 ##      original       bias    std. error
-## t1* 0.3967207 -0.001585265  0.06688795
+## t1* 0.3967207 -0.001593843  0.06788372
 ```
 
 ```r
@@ -373,10 +373,10 @@ boot::boot.ci(grade_revise_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   ( 0.2672,  0.5294 )   ( 0.2761,  0.5363 )  
+## 95%   ( 0.2653,  0.5314 )   ( 0.2732,  0.5405 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   ( 0.2571,  0.5173 )   ( 0.2554,  0.5162 )  
+## 95%   ( 0.2529,  0.5202 )   ( 0.2518,  0.5198 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -397,8 +397,8 @@ grade_anx_bs
 ## 
 ## 
 ## Bootstrap Statistics :
-##       original       bias    std. error
-## t1* -0.4409934 0.0001060632  0.06611101
+##       original      bias    std. error
+## t1* -0.4409934 0.002270827   0.0644994
 ```
 
 ```r
@@ -414,10 +414,10 @@ boot::boot.ci(grade_anx_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-0.5707, -0.3115 )   (-0.5801, -0.3255 )  
+## 95%   (-0.5697, -0.3168 )   (-0.5767, -0.3235 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   (-0.5565, -0.3019 )   (-0.5535, -0.2974 )  
+## 95%   (-0.5585, -0.3053 )   (-0.5609, -0.3088 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -439,7 +439,7 @@ revise_anx_bs
 ## 
 ## Bootstrap Statistics :
 ##       original      bias    std. error
-## t1* -0.7092493 0.004526638   0.1120654
+## t1* -0.7092493 0.001022998    0.108373
 ```
 
 ```r
@@ -455,10 +455,10 @@ boot::boot.ci(revise_anx_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-0.9334, -0.4941 )   (-0.9547, -0.5469 )  
+## 95%   (-0.9227, -0.4979 )   (-0.9525, -0.5483 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   (-0.8716, -0.4638 )   (-0.8549, -0.3636 )  
+## 95%   (-0.8702, -0.4660 )   (-0.8530, -0.3760 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -483,10 +483,10 @@ boot::boot.ci(liar_bs)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-0.6187, -0.1455 )   (-0.6415, -0.1629 )  
+## 95%   (-0.6204, -0.1376 )   (-0.6294, -0.1555 )  
 ## 
 ## Level     Percentile            BCa          
-## 95%   (-0.5902, -0.1116 )   (-0.5826, -0.1027 )  
+## 95%   (-0.5976, -0.1238 )   (-0.5818, -0.1042 )  
 ## Calculations and Intervals on Original Scale
 ```
 
@@ -587,7 +587,7 @@ exam_tib %>%
 
 ## Comparing rs
 
-The correlation between exam grade and anxiety for males:
+The correlation between exam grade and anxiety for self-identifying males:
 
 
 ```r
@@ -603,7 +603,7 @@ exam_tib %>%
 ## exam_grade |    anxiety | -0.51 | [-0.68, -0.27] | -4.14 | 50 | < .001 | Pearson |    52
 ```
 
-The correlation between exam grade and anxiety for males:
+The correlation between exam grade and anxiety for self-identifying females:
 
 
 ```r
@@ -621,22 +621,22 @@ exam_tib %>%
 
 
 ```r
-exam_men <- exam_tib %>% 
+exam_male <- exam_tib %>% 
   dplyr::filter(sex == "Male")
 
-exam_women <- exam_tib %>% 
+exam_female <- exam_tib %>% 
   dplyr::filter(sex == "Female")
 
-WRS2::twopcor(x1 = exam_men$exam_grade, y1 = exam_men$anxiety, x2 = exam_women$exam_grade, y2 = exam_women$anxiety)
+WRS2::twopcor(x1 = exam_male$exam_grade, y1 = exam_male$anxiety, x2 = exam_female$exam_grade, y2 = exam_female$anxiety)
 ```
 
 ```
 ## Call:
-## WRS2::twopcor(x1 = exam_men$exam_grade, y1 = exam_men$anxiety, 
-##     x2 = exam_women$exam_grade, y2 = exam_women$anxiety)
+## WRS2::twopcor(x1 = exam_male$exam_grade, y1 = exam_male$anxiety, 
+##     x2 = exam_female$exam_grade, y2 = exam_female$anxiety)
 ## 
 ## First correlation coefficient: -0.5057
 ## Second correlation coefficient: -0.3814
-## Confidence interval (difference): -0.4617 0.1475
+## Confidence interval (difference): -0.4574 0.1315
 ```
 

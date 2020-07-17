@@ -42,7 +42,7 @@ To load the data into a tibble called `student_tib`. Alterntaively, load it from
 
 
 ```r
-student_tib <- readr::read_csv("../data/students.csv") %>% 
+student_tib <- readr::read_csv("../data/students.csv") %>%
   dplyr::mutate(
     group = forcats::as_factor(group),
   )
@@ -196,7 +196,7 @@ To load the data into a tibble called `zhang_tib`. Alternatively, load it from t
 
 
 ```r
-zhang_tib <- readr::read_csv("../data/zhang_2013_subsample.csv") %>% 
+zhang_tib <- readr::read_csv("../data/zhang_2013_subsample.csv") %>%
   dplyr::mutate(
     id = forcats::as_factor(id),
     sex = forcats::as_factor(sex),
@@ -237,7 +237,7 @@ To load the data into a tibble called `teaching_tib`. Alternatively, load it fro
 
 
 ```r
-teaching_tib <- readr::read_csv("../data/method_of_teaching.csv") %>% 
+teaching_tib <- readr::read_csv("../data/method_of_teaching.csv") %>%
   dplyr::mutate(
     method = forcats::as_factor(method),
     sex = forcats::as_factor(sex)
@@ -252,13 +252,13 @@ ggplot2::ggplot(teaching_tib, aes(method, mark, colour = sex)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "pointrange", position = position_dodge(width = 0.5)) +
   coord_cartesian(ylim = c(0, 20)) +
   scale_y_continuous(breaks = seq(0, 20, 1)) +
-  labs(x = "Method of teaching", y = "Mark (out of 20)", colour = "Biological sex") +
+  labs(x = "Method of teaching", y = "Mark (out of 20)", colour = "Self-identified sex") +
   theme_minimal()
 ```
 
 <img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
-We can see that when the being nice method of teaching is used, males and females have comparable scores on their coursework, with females scoring slightly higher than males on average, although their scores are also more variable than the males’ scores as indicated by the longer error bar). However, when an electric shock is used, males score higher than females but there is more variability in the males’ scores than the females’ for this method (as seen by the longer error bar for males than for females). Additionally, the graph shows that females score higher when the being nice method is used compared to when an electric shock is used, but the opposite is true for males. This suggests that there may be an interaction effect of sex. 
+We can see that when the being nice method of teaching is used, males and females have comparable scores on their coursework, with females scoring slightly higher than males on average, although their scores are also more variable than the males’ scores as indicated by the longer error bar). However, when an electric shock is used, males score higher than females but there is more variability in the males’ scores than the females’ for this method (as seen by the longer error bar for males than for females). Additionally, the graph shows that females score higher when the being nice method is used compared to when an electric shock is used, but the opposite is true for males. This suggests that there may be an interaction effect of sex.
 
 ##  Task 5.9
 
@@ -277,7 +277,7 @@ To load the data into a tibble called `shopping_tib`. Alternatively, load it fro
 
 
 ```r
-shopping_tib <- readr::read_csv("../data/shopping_exercise.csv") %>% 
+shopping_tib <- readr::read_csv("../data/shopping_exercise.csv") %>%
   dplyr::mutate(
     sex = forcats::as_factor(sex)
   )
@@ -297,7 +297,7 @@ ggplot2::ggplot(shopping_tib, aes(sex, distance)) +
 
 <img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
-Looking at the graph above, we can see that, on average, females walk longer distances (probably not significantly so) while shopping than males. 
+Looking at the graph above, we can see that, on average, females walk longer distances (probably not significantly so) while shopping than males.
 
 To get the second plot execute:
 
@@ -332,7 +332,7 @@ To load the data into a tibble called `goat_tib`. Alternatively, load it from th
 
 
 ```r
-goat_tib <- readr::read_csv("../data/goat_or_dog.csv") %>% 
+goat_tib <- readr::read_csv("../data/goat_or_dog.csv") %>%
   dplyr::mutate(
     sex = forcats::as_factor(sex)
   )
@@ -369,7 +369,7 @@ ggplot2::ggplot(goat_tib, aes(wife, life_satisfaction)) +
 
 <img src="/solutions/alex/alex_05_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
-The graph shows that, on average, life satisfaction was higher in men who were married to a dog compared to men who were married to a goat. 
+The graph shows that, on average, life satisfaction was higher in men who were married to a dog compared to men who were married to a goat.
 
 ##  Task 5.11
 
@@ -410,7 +410,7 @@ To load the data into a tibble called `tea15_tib`. Alternatively, load it from t
 
 
 ```r
-tea15_tib <- readr::read_csv("../data/tea_makes_you_brainy_15.csv") %>% 
+tea15_tib <- readr::read_csv("../data/tea_makes_you_brainy_15.csv") %>%
   dplyr::mutate(
     sex = forcats::as_factor(sex)
   )

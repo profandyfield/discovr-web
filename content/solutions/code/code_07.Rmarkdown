@@ -313,7 +313,7 @@ exam_tib %>%
 
 ## Comparing rs
 
-The correlation between exam grade and anxiety for males:
+The correlation between exam grade and anxiety for self-identifying males:
 
 ```{r}
 exam_tib %>% 
@@ -322,7 +322,7 @@ exam_tib %>%
   correlation::correlation()
 ```
 
-The correlation between exam grade and anxiety for males:
+The correlation between exam grade and anxiety for self-identifying females:
 
 ```{r}
 exam_tib %>% 
@@ -332,12 +332,12 @@ exam_tib %>%
 ```
 
 ```{r}
-exam_men <- exam_tib %>% 
+exam_male <- exam_tib %>% 
   dplyr::filter(sex == "Male")
 
-exam_women <- exam_tib %>% 
+exam_female <- exam_tib %>% 
   dplyr::filter(sex == "Female")
 
-WRS2::twopcor(x1 = exam_men$exam_grade, y1 = exam_men$anxiety, x2 = exam_women$exam_grade, y2 = exam_women$anxiety)
+WRS2::twopcor(x1 = exam_male$exam_grade, y1 = exam_male$anxiety, x2 = exam_female$exam_grade, y2 = exam_female$anxiety)
 ```
 
