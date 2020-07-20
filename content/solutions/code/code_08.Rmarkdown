@@ -226,13 +226,12 @@ Also use `broom()` to get nicely tabulated parameter estimates (including confid
 broom::tidy(album_lm, conf.int = TRUE)
 ```
 
-Impress your friends by rounding values to 3 decimal places using `mutate_if()`
+Impress your friends by rounding values to 3 decimal places using `mutate()` and `across()`
 
 ```{r}
 broom::tidy(album_lm, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -310,9 +309,8 @@ Restrict the output to 3 decimal places
 
 ```{r}
 broom::tidy(album_full_lm, conf.int = TRUE) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -392,9 +390,8 @@ album_full_rsd %>%
 ```{r}
 album_full_inf %>%
   dplyr::arrange(desc(cook.d)) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -407,9 +404,8 @@ album_full_inf %>%
     any_vars(abs(.) > 1)
   ) %>% 
   dplyr::select(case_no, starts_with("dfb")) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -423,12 +419,9 @@ album_full_inf %>%
     hat > leverage_thresh | !between(cov.r, 1 - leverage_thresh, 1 + leverage_thresh)
     ) %>%  
   dplyr::select(case_no, cov.r, hat, cook.d) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-  )
-
-  
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  ) 
 ```
 
 ### Diagnostic plots

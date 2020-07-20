@@ -111,10 +111,10 @@ centre <- function(var){
 
 # use the general function to centre multiple variables at once
 vids_tib <- vids_tib %>% 
-  dplyr::mutate_at(
-    vars(vid_game, caunts),
-    list(cent = centre)
-  )
+  dplyr::mutate(
+    dplyr::across(c(vid_game, caunts), cent = centre)
+    ) 
+
 
 vids_tib
 ```
@@ -151,11 +151,9 @@ broom::tidy(aggress_lm, conf.int = TRUE)
 Or, also round the digits 
 
 ```{r}
-aggress_lm %>%
-  broom::tidy() %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., digits = 3))
+broom::tidy(aggress_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -177,7 +175,6 @@ interactions::sim_slopes(
   robust = TRUE,
   confint = TRUE
   )
-
 ```
 
 Simple slopes plot
@@ -204,9 +201,10 @@ m3 <- lm(phys_inf ~ ln_porn + commit, data = infidelity_tib)
 
 broom::tidy(m1, conf.int = TRUE)
 broom::tidy(m2, conf.int = TRUE)
-broom::tidy(m3, conf.int = TRUE) %>% mutate_if(vars(is.numeric(.)), list(~round(., 3)))
-
-
+broom::tidy(m3, conf.int = TRUE) %>%
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 
 ## The better method
@@ -214,7 +212,6 @@ broom::tidy(m3, conf.int = TRUE) %>% mutate_if(vars(is.numeric(.)), list(~round(
 Look at patterns of missing data
 
 ```{r}
-
 infidelity_tib %>% 
   dplyr::select(id, commit, ln_porn, phys_inf) %>% 
   mice::md.pattern()
@@ -223,11 +220,9 @@ infidelity_tib %>%
   dplyr::select(id, commit, ln_porn, phys_inf) %>%
   mice::ic()
 
-
 infidelity_tib <- infidelity_tib %>% 
   dplyr::select(id, commit, ln_porn, phys_inf) %>% 
   na.omit()
-
 ```
 
 Fit the model
@@ -245,9 +240,8 @@ infidelity_fit <- lavaan::sem(infidelity_mod, data = infidelity_tib, missing = "
 broom::glance(infidelity_fit)
 
 broom::tidy(infidelity_fit, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -257,9 +251,8 @@ Non-robust version for shits and giggles:
 infidelity_nonrob <- lavaan::sem(infidelity_mod, data = infidelity_tib, missing = "FIML")
 
 broom::tidy(infidelity_nonrob, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -286,9 +279,8 @@ newz_mod <- 'fake_newz ~ c*delusionz + b1*thinkz_open + b2*thinkz_anal
 newz_fit <- lavaan::sem(newz_mod, data = newz_tib, se = "bootstrap")
 
  broom::tidy(newz_fit, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -314,16 +306,14 @@ mice::ic(newz_md_tib)
 fake_lm <- lm(fake_newz ~ 0 + delusionz + thinkz_open + thinkz_anal, data = newz_md_tib)
 
 broom::glance(fake_lm) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 
 broom::tidy(fake_lm, conf.int = TRUE) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 
 ## FIML
@@ -338,9 +328,8 @@ newz_lm <- 'fake_newz ~ delusionz + thinkz_open + thinkz_anal'
 newz_lm_fit <- lavaan::sem(newz_lm, data = newz_md_tib, missing = "fiml.x")
 
 broom::tidy(newz_lm_fit, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -366,9 +355,8 @@ summary(newz_pool, conf.int=TRUE)
 
 summary(newz_pool, conf.int=TRUE) %>% 
   tibble::as_tibble() %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 

@@ -381,10 +381,9 @@ Write a function to round values in the output!
 round_values <- function(tibble, digits = 3){
   require(dplyr)
   tibble <- tibble %>% 
-    dplyr::mutate_if(
-      vars(is.numeric(.)),
-      list(~round(., digits))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
   return(tibble)
 }
 ```

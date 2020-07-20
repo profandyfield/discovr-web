@@ -247,7 +247,7 @@ ggplot2::ggplot(download_tidy_tib, aes(day, hygiene, fill = gender)) +
 
 ## Using z-scores
 
-Manually convert to z:
+Manually convert to *z*:
 
 ```{r}
 
@@ -265,13 +265,12 @@ download_tib <- download_tib %>%
 download_tib
 ```
 
-Using `mutate_at()`:
+Using the much cooler `dplyr::accross()`:
 
 ```{r}
 download_tib <- download_tib %>% 
-  dplyr::mutate_at(
-    vars(day_1:day_3),
-    list(z = make_z)
+  dplyr::mutate(
+    dplyr::across(day_1:day_3, list(make_z))
   )
 ```
 
