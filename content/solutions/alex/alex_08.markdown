@@ -112,8 +112,8 @@ pub_lm %>%
 
 |Parameter   | Coefficient| CI_low|  CI_high|     p|
 |:-----------|-----------:|------:|--------:|-----:|
-|(Intercept) |    2770.345|  0.000| 4688.372| 0.509|
-|pubs        |      15.271| 11.099|  100.000| 0.000|
+|(Intercept) |    2777.610|  0.000| 4710.824| 0.523|
+|pubs        |      15.175| 11.161|  100.000| 0.000|
 
 The bootstrapped confidence intervals are both positive values – they do not cross zero (10.92, 100.00) – then assuming this interval is one of the 95% that contain the population value we can gain confidence that there is a positive and non-zero relationship between number of pubs in an area and its mortality rate.
 
@@ -166,8 +166,8 @@ honest_lm %>%
 
 |Parameter    | Coefficient| CI_low| CI_high|  p|
 |:------------|-----------:|------:|-------:|--:|
-|(Intercept)  |      -1.865| -2.465|  -1.365|  0|
-|likeableness |       0.941|  0.823|   1.062|  0|
+|(Intercept)  |      -1.854| -2.521|  -1.353|  0|
+|likeableness |       0.937|  0.813|   1.069|  0|
 
 The bootstrapped confidence intervals do not cross zero (0.82, 1.08), then assuming this interval is one of the 95% that contain the population value we can gain confidence that there is a non-zero relationship between the likeableness of the perpetrator and ratings of dishonest acts. 
 
@@ -572,13 +572,13 @@ ong_ncs_lm %>%
 
 |Parameter    | Coefficient| CI_low| CI_high|     p|
 |:------------|-----------:|------:|-------:|-----:|
-|(Intercept)  |       0.005| -5.835|   5.029| 0.999|
-|sexMale      |      -0.949| -1.521|  -0.345| 0.004|
-|age          |      -0.002| -0.325|   0.385| 0.993|
-|gradeSec 2   |      -0.447| -1.350|   0.555| 0.344|
-|gradeSec 3   |      -1.054| -2.178|  -0.037| 0.044|
-|extraversion |       0.010| -0.046|   0.069| 0.709|
-|narcissism   |       0.066|  0.024|   0.106| 0.004|
+|(Intercept)  |       0.136| -5.152|   5.158| 0.943|
+|sexMale      |      -0.947| -1.572|  -0.363| 0.004|
+|age          |      -0.012| -0.341|   0.363| 0.933|
+|gradeSec 2   |      -0.432| -1.280|   0.505| 0.348|
+|gradeSec 3   |      -1.006| -2.101|  -0.001| 0.050|
+|extraversion |       0.010| -0.049|   0.063| 0.735|
+|narcissism   |       0.067|  0.025|   0.107| 0.004|
 
 
 The main benefit of the bootstrap confidence intervals and significance values is that they do not rely on assumptions of normality or homoscedasticity, so they give us an accurate estimate of the true population value of *b* for each predictor. The bootstrapped confidence intervals in the output do not affect the conclusions reported in Ong et al. (2011). Ong et al.’s prediction was still supported in that, after controlling for **age**, **grade** and **sex**, narcissism significantly predicted the frequency of Facebook status updates over and above extroversion, *b* = 0.066 [0.03, 0.10], *p* < 0.001.
@@ -598,13 +598,13 @@ prof_ncs_lm %>%
 
 |Parameter    | Coefficient|  CI_low| CI_high|     p|
 |:------------|-----------:|-------:|-------:|-----:|
-|(Intercept)  |      -4.030| -20.793|   8.191| 0.537|
-|sexMale      |       0.638|  -0.537|   1.758| 0.322|
-|age          |       0.368|  -0.519|   1.548| 0.430|
-|gradeSec 2   |      -0.519|  -2.266|   0.906| 0.533|
-|gradeSec 3   |      -0.646|  -3.230|   1.503| 0.575|
-|extraversion |       0.110|   0.025|   0.200| 0.010|
-|narcissism   |       0.170|   0.101|   0.241| 0.000|
+|(Intercept)  |      -3.843| -18.934|   8.564| 0.563|
+|sexMale      |       0.568|  -0.539|   1.650| 0.344|
+|age          |       0.348|  -0.541|   1.425| 0.426|
+|gradeSec 2   |      -0.522|  -2.163|   0.920| 0.501|
+|gradeSec 3   |      -0.634|  -3.056|   1.364| 0.567|
+|extraversion |       0.109|   0.023|   0.203| 0.006|
+|narcissism   |       0.173|   0.104|   0.242| 0.000|
 
 Similarly, the bootstrapped confidence intervals for the second regression are consistent with the conclusions reported in Ong et al. (2011). That is, after adjusting for **age**, **grade** and **sex**, narcissism significantly predicted the Facebook profile picture ratings over and above extroversion, *b* = 0.171 [0.10, 0.24], *p* < 0.001.
 
@@ -626,10 +626,9 @@ Write a function to round values in the output!
 round_values <- function(tibble, digits = 3){
   require(dplyr)
   tibble <- tibble %>% 
-    dplyr::mutate_if(
-      vars(is.numeric(.)),
-      list(~round(., digits))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
   return(tibble)
 }
 ```

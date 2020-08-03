@@ -112,7 +112,7 @@ centre <- function(var){
 # use the general function to centre multiple variables at once
 vids_tib <- vids_tib %>% 
   dplyr::mutate(
-    dplyr::across(c(vid_game, caunts), cent = centre)
+    dplyr::across(c(vid_game, caunts), list(cent = centre))
     ) 
 
 

@@ -102,10 +102,10 @@ centre <- function(var){
 
 # use the general function to centre multiple variables at once
 vids_tib <- vids_tib %>% 
-  dplyr::mutate_at(
-    vars(vid_game, caunts),
-    list(cent = centre)
-  )
+  dplyr::mutate(
+    dplyr::across(c(vid_game, caunts), list(cent = centre))
+    ) 
+
 
 vids_tib
 ```
@@ -184,22 +184,20 @@ Or, also round the digits
 
 
 ```r
-aggress_lm %>%
-  broom::tidy() %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., digits = 3))
+broom::tidy(aggress_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
 ```
-## # A tibble: 4 x 5
-##   term                      estimate std.error statistic p.value
-##   <chr>                        <dbl>     <dbl>     <dbl>   <dbl>
-## 1 (Intercept)                 40.0       0.475     84.1    0    
-## 2 caunts_cent                  0.76      0.049     15.4    0    
-## 3 vid_game_cent                0.17      0.068      2.48   0.014
-## 4 caunts_cent:vid_game_cent    0.027     0.007      3.88   0
+## # A tibble: 4 x 7
+##   term                   estimate std.error statistic p.value conf.low conf.high
+##   <chr>                     <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
+## 1 (Intercept)              40.0       0.475     84.1    0       39.0      40.9  
+## 2 caunts_cent               0.76      0.049     15.4    0        0.663     0.857
+## 3 vid_game_cent             0.17      0.068      2.48   0.014    0.035     0.304
+## 4 caunts_cent:vid_game_…    0.027     0.007      3.88   0        0.013     0.041
 ```
 
 Fit a robust model:
@@ -316,7 +314,10 @@ broom::tidy(m2, conf.int = TRUE)
 ```
 
 ```r
-broom::tidy(m3, conf.int = TRUE) %>% mutate_if(vars(is.numeric(.)), list(~round(., 3)))
+broom::tidy(m3, conf.int = TRUE) %>%
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 
 ```
@@ -394,9 +395,8 @@ broom::glance(infidelity_fit)
 
 ```r
 broom::tidy(infidelity_fit, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -425,9 +425,8 @@ Non-robust version for shits and giggles:
 infidelity_nonrob <- lavaan::sem(infidelity_mod, data = infidelity_tib, missing = "FIML")
 
 broom::tidy(infidelity_nonrob, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -489,9 +488,8 @@ newz_mod <- 'fake_newz ~ c*delusionz + b1*thinkz_open + b2*thinkz_anal
 newz_fit <- lavaan::sem(newz_mod, data = newz_tib, se = "bootstrap")
 
  broom::tidy(newz_fit, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -499,19 +497,19 @@ newz_fit <- lavaan::sem(newz_mod, data = newz_tib, se = "bootstrap")
 ## # A tibble: 13 x 12
 ##    term  op    label estimate std.error statistic p.value conf.low conf.high
 ##    <chr> <chr> <chr>    <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-##  1 fake… ~     "c"      0.153     0.037      4.18       0    0.077     0.226
-##  2 fake… ~     "b1"    -0.171     0.033     -5.15       0   -0.235    -0.105
-##  3 fake… ~     "b2"    -0.141     0.034     -4.16       0   -0.21     -0.075
-##  4 thin… ~     "a1"    -0.303     0.03     -10.1        0   -0.363    -0.243
-##  5 thin… ~     "a2"    -0.266     0.032     -8.43       0   -0.328    -0.205
-##  6 thin… ~~    ""       0.242     0.029      8.23       0    0.185     0.298
-##  7 fake… ~~    ""       0.884     0.044     20.1        0    0.794     0.969
-##  8 thin… ~~    ""       0.907     0.036     25.5        0    0.833     0.978
-##  9 thin… ~~    ""       0.928     0.032     29.5        0    0.861     0.984
+##  1 fake… ~     "c"      0.153     0.038      4.06       0    0.077     0.226
+##  2 fake… ~     "b1"    -0.171     0.035     -4.93       0   -0.239    -0.099
+##  3 fake… ~     "b2"    -0.141     0.035     -4.02       0   -0.209    -0.069
+##  4 thin… ~     "a1"    -0.303     0.032     -9.58       0   -0.367    -0.243
+##  5 thin… ~     "a2"    -0.266     0.031     -8.53       0   -0.328    -0.207
+##  6 thin… ~~    ""       0.242     0.028      8.53       0    0.188     0.301
+##  7 fake… ~~    ""       0.884     0.045     19.7        0    0.794     0.97 
+##  8 thin… ~~    ""       0.907     0.036     25.3        0    0.836     0.977
+##  9 thin… ~~    ""       0.928     0.034     27.6        0    0.862     0.992
 ## 10 delu… ~~    ""       0.999     0         NA         NA    0.999     0.999
-## 11 indi… :=    "ind…    0.052     0.011      4.66       0    0.03      0.074
-## 12 indi… :=    "ind…    0.038     0.01       3.84       0    0.02      0.058
-## 13 tota… :=    "tot…    0.242     0.035      6.85       0    0.167     0.31 
+## 11 indi… :=    "ind…    0.052     0.012      4.50       0    0.03      0.074
+## 12 indi… :=    "ind…    0.038     0.01       3.65       0    0.018     0.058
+## 13 tota… :=    "tot…    0.242     0.037      6.54       0    0.169     0.313
 ## # … with 3 more variables: std.lv <dbl>, std.all <dbl>, std.nox <dbl>
 ```
 
@@ -570,10 +568,9 @@ mice::ic(newz_md_tib)
 fake_lm <- lm(fake_newz ~ 0 + delusionz + thinkz_open + thinkz_anal, data = newz_md_tib)
 
 broom::glance(fake_lm) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 
 ```
@@ -586,10 +583,9 @@ broom::glance(fake_lm) %>%
 
 ```r
 broom::tidy(fake_lm, conf.int = TRUE) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 
 ```
@@ -613,9 +609,8 @@ newz_lm <- 'fake_newz ~ delusionz + thinkz_open + thinkz_anal'
 newz_lm_fit <- lavaan::sem(newz_lm, data = newz_md_tib, missing = "fiml.x")
 
 broom::tidy(newz_lm_fit, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -781,30 +776,29 @@ summary(newz_pool, conf.int=TRUE)
 
 ```
 ##          term   estimate  std.error statistic       df      p.value       2.5 %
-## 1   delusionz  0.1604861 0.03372708  4.758375 768.0114 2.331705e-06  0.09427789
-## 2 thinkz_open -0.1726671 0.03503790 -4.928008 521.0761 1.117867e-06 -0.24149996
-## 3 thinkz_anal -0.1285271 0.03518123 -3.653285 462.9729 2.885083e-04 -0.19766176
+## 1   delusionz  0.1629799 0.03489411  4.670700 488.0572 3.886229e-06  0.09441868
+## 2 thinkz_open -0.1726764 0.03530186 -4.891425 453.2541 1.392987e-06 -0.24205201
+## 3 thinkz_anal -0.1293757 0.03501683 -3.694673 472.2091 2.459457e-04 -0.19818381
 ##        97.5 %
-## 1  0.22669431
-## 2 -0.10383415
-## 3 -0.05939239
+## 1  0.23154113
+## 2 -0.10330077
+## 3 -0.06056765
 ```
 
 ```r
 summary(newz_pool, conf.int=TRUE) %>% 
   tibble::as_tibble() %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-    )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
 ```
 
 ```
 ## # A tibble: 3 x 8
 ##   term        estimate std.error statistic    df p.value `2.5 %` `97.5 %`
 ##   <fct>          <dbl>     <dbl>     <dbl> <dbl>   <dbl>   <dbl>    <dbl>
-## 1 delusionz      0.16      0.034      4.76  768.       0   0.094    0.227
-## 2 thinkz_open   -0.173     0.035     -4.93  521.       0  -0.241   -0.104
-## 3 thinkz_anal   -0.129     0.035     -3.65  463.       0  -0.198   -0.059
+## 1 delusionz      0.163     0.035      4.67  488.       0   0.094    0.232
+## 2 thinkz_open   -0.173     0.035     -4.89  453.       0  -0.242   -0.103
+## 3 thinkz_anal   -0.129     0.035     -3.70  472.       0  -0.198   -0.061
 ```
 

@@ -290,7 +290,7 @@ ggplot2::ggplot(download_tidy_tib, aes(day, hygiene, fill = gender)) +
 
 ## Using z-scores
 
-Manually convert to z:
+Manually convert to *z*:
 
 
 ```r
@@ -325,14 +325,13 @@ download_tib
 ## # … with 800 more rows
 ```
 
-Using `mutate_at()`:
+Using the much cooler `dplyr::accross()`:
 
 
 ```r
 download_tib <- download_tib %>% 
-  dplyr::mutate_at(
-    vars(day_1:day_3),
-    list(z = make_z)
+  dplyr::mutate(
+    dplyr::across(day_1:day_3, list(make_z))
   )
 ```
 
@@ -346,20 +345,20 @@ download_tib %>%
 ```
 
 ```
-## # A tibble: 39 x 8
-##    ticket_no gender     day_1  day_2 day_3 day_1_z day_2_z day_3_z
-##    <chr>     <fct>      <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>
-##  1 4107      Female     0.02  NA        NA   -2.52  NA          NA
-##  2 3540      Non-binary 0.05  NA        NA   -2.48  NA          NA
-##  3 2662      Female     0.11  NA        NA   -2.40  NA          NA
-##  4 3030      Non-binary 0.11   0.290    NA   -2.40  -0.931      NA
-##  5 3511      Female     0.23   0.14     NA   -2.22  -1.14       NA
-##  6 4011      Female     0.23   0.84     NA   -2.22  -0.168      NA
-##  7 2606      Non-binary 0.26  NA        NA   -2.18  NA          NA
-##  8 4697      Male       0.290  0.14     NA   -2.14  -1.14       NA
-##  9 3587      Male       0.3   NA        NA   -2.12  NA          NA
-## 10 3260      Male       0.32  NA        NA   -2.09  NA          NA
-## # … with 29 more rows
+## # A tibble: 39 x 11
+##    ticket_no gender day_1  day_2 day_3 day_1_z day_2_z day_3_z day_1_1 day_2_1
+##    <chr>     <fct>  <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+##  1 4107      Female 0.02  NA        NA   -2.52  NA          NA   -2.52  NA    
+##  2 3540      Non-b… 0.05  NA        NA   -2.48  NA          NA   -2.48  NA    
+##  3 2662      Female 0.11  NA        NA   -2.40  NA          NA   -2.40  NA    
+##  4 3030      Non-b… 0.11   0.290    NA   -2.40  -0.931      NA   -2.40  -0.931
+##  5 3511      Female 0.23   0.14     NA   -2.22  -1.14       NA   -2.22  -1.14 
+##  6 4011      Female 0.23   0.84     NA   -2.22  -0.168      NA   -2.22  -0.168
+##  7 2606      Non-b… 0.26  NA        NA   -2.18  NA          NA   -2.18  NA    
+##  8 4697      Male   0.290  0.14     NA   -2.14  -1.14       NA   -2.14  -1.14 
+##  9 3587      Male   0.3   NA        NA   -2.12  NA          NA   -2.12  NA    
+## 10 3260      Male   0.32  NA        NA   -2.09  NA          NA   -2.09  NA    
+## # … with 29 more rows, and 1 more variable: day_3_1 <dbl>
 ```
 
 Filter by all variables: 
@@ -374,17 +373,17 @@ download_tib %>%
 ```
 
 ```
-## # A tibble: 8 x 5
-##   ticket_no gender     day_1_z day_2_z day_3_z
-##   <chr>     <fct>        <dbl>   <dbl>   <dbl>
-## 1 3374      Male          2.61    3.31   NA   
-## 2 3787      Non-binary    1.99    2.83   NA   
-## 3 3828      Female        2.23    3.12   NA   
-## 4 4016      Female        2.77   NA      NA   
-## 5 4165      Female        1.51    2.29    2.88
-## 6 4172      Non-binary    2.23    2.70    2.88
-## 7 4564      Female        2.32    3.44    3.43
-## 8 4590      Female        2.07    2.62   NA
+## # A tibble: 8 x 8
+##   ticket_no gender     day_1_z day_2_z day_3_z day_1_1 day_2_1 day_3_1
+##   <chr>     <fct>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+## 1 3374      Male          2.61    3.31   NA       2.61    3.31   NA   
+## 2 3787      Non-binary    1.99    2.83   NA       1.99    2.83   NA   
+## 3 3828      Female        2.23    3.12   NA       2.23    3.12   NA   
+## 4 4016      Female        2.77   NA      NA       2.77   NA      NA   
+## 5 4165      Female        1.51    2.29    2.88    1.51    2.29    2.88
+## 6 4172      Non-binary    2.23    2.70    2.88    2.23    2.70    2.88
+## 7 4564      Female        2.32    3.44    3.43    2.32    3.44    3.43
+## 8 4590      Female        2.07    2.62   NA       2.07    2.62   NA
 ```
 
 

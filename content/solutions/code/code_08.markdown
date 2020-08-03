@@ -361,14 +361,13 @@ broom::tidy(album_lm, conf.int = TRUE)
 ## 2 adverts       0.0961   0.00963      9.98 2.94e-19   0.0771     0.115
 ```
 
-Impress your friends by rounding values to 3 decimal places using `mutate_if()`
+Impress your friends by rounding values to 3 decimal places using `mutate()` and `across()`
 
 
 ```r
 broom::tidy(album_lm, conf.int = TRUE) %>%
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -561,9 +560,8 @@ Restrict the output to 3 decimal places
 
 ```r
 broom::tidy(album_full_lm, conf.int = TRUE) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -588,7 +586,7 @@ parameters::model_parameters(album_full_lm, standardize = "refit", digits = 3)
 ```
 ## Parameter   | Coefficient |    SE |        95% CI |          t |  df |      p
 ## -----------------------------------------------------------------------------
-## (Intercept) |  -3.982e-17 | 0.041 | [-0.08, 0.08] | -9.650e-16 | 196 | 1.000 
+## (Intercept) |  -3.982e-17 | 0.041 | [-0.08, 0.08] | -9.650e-16 | 196 | > .999
 ## adverts     |       0.511 | 0.042 | [ 0.43, 0.59] |     12.261 | 196 | < .001
 ## airplay     |       0.512 | 0.042 | [ 0.43, 0.60] |     12.123 | 196 | < .001
 ## image       |       0.192 | 0.042 | [ 0.11, 0.27] |      4.548 | 196 | < .001
@@ -750,9 +748,8 @@ album_full_rsd %>%
 ```r
 album_full_inf %>%
   dplyr::arrange(desc(cook.d)) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -783,9 +780,8 @@ album_full_inf %>%
     any_vars(abs(.) > 1)
   ) %>% 
   dplyr::select(case_no, starts_with("dfb")) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
   )
 ```
 
@@ -806,10 +802,9 @@ album_full_inf %>%
     hat > leverage_thresh | !between(cov.r, 1 - leverage_thresh, 1 + leverage_thresh)
     ) %>%  
   dplyr::select(case_no, cov.r, hat, cook.d) %>% 
-  dplyr::mutate_if(
-    vars(is.numeric(.)),
-    list(~round(., 3))
-  )
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  ) 
 ```
 
 ```
@@ -980,10 +975,10 @@ parameters::model_parameters(
 ```
 ## Parameter   | Coefficient |          95% CI |      p
 ## ----------------------------------------------------
-## (Intercept) |     -27.341 | [-55.60, 11.19] | 0.140 
+## (Intercept) |     -26.928 | [-55.65,  7.06] | 0.116 
 ## adverts     |       0.085 | [  0.07,  0.10] | < .001
-## airplay     |       3.366 | [  2.74,  3.96] | < .001
-## image       |      11.202 | [  6.09, 15.09] | < .001
+## airplay     |       3.366 | [  2.74,  4.02] | < .001
+## image       |      11.059 | [  6.36, 15.40] | < .001
 ```
 
 ### Bayes factors
@@ -1035,21 +1030,21 @@ summary(album_full_post)
 ##    plus standard error of the mean:
 ## 
 ##              Mean        SD  Naive SE Time-series SE
-## mu       193.2020 3.338e+00 3.338e-02      3.338e-02
-## adverts    0.0841 6.969e-03 6.969e-05      7.039e-05
-## airplay    3.3343 2.778e-01 2.778e-03      2.778e-03
-## image     10.9925 2.447e+00 2.447e-02      2.647e-02
-## sig2    2248.0319 2.283e+02 2.283e+00      2.341e+00
-## g          1.0635 3.016e+00 3.016e-02      3.016e-02
+## mu      1.932e+02 3.309e+00 3.309e-02      3.309e-02
+## adverts 8.406e-02 7.038e-03 7.038e-05      7.038e-05
+## airplay 3.333e+00 2.804e-01 2.804e-03      2.804e-03
+## image   1.096e+01 2.475e+00 2.475e-02      2.475e-02
+## sig2    2.253e+03 2.321e+02 2.321e+00      2.313e+00
+## g       9.859e-01 1.553e+00 1.553e-02      1.553e-02
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##              2.5%       25%       50%       75%     97.5%
-## mu      1.867e+02 1.909e+02 1.932e+02 1.954e+02 1.997e+02
-## adverts 7.056e-02 7.939e-02 8.405e-02 8.872e-02 9.792e-02
-## airplay 2.784e+00 3.146e+00 3.334e+00 3.517e+00 3.880e+00
-## image   6.109e+00 9.386e+00 1.098e+01 1.260e+01 1.586e+01
-## sig2    1.846e+03 2.088e+03 2.235e+03 2.389e+03 2.739e+03
-## g       1.770e-01 3.787e-01 6.082e-01 1.069e+00 4.455e+00
+## mu      1.868e+02 1.909e+02 1.932e+02 1.954e+02 1.998e+02
+## adverts 7.004e-02 7.932e-02 8.412e-02 8.882e-02 9.798e-02
+## airplay 2.780e+00 3.145e+00 3.336e+00 3.522e+00 3.872e+00
+## image   6.056e+00 9.269e+00 1.097e+01 1.266e+01 1.571e+01
+## sig2    1.841e+03 2.092e+03 2.239e+03 2.395e+03 2.750e+03
+## g       1.770e-01 3.708e-01 6.017e-01 1.047e+00 4.203e+00
 ```
 
