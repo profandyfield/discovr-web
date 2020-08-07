@@ -164,6 +164,21 @@ The first contrast is still highly significant and the second contrast is also s
 
 > Children wearing superhero costumes are more likely to harm themselves because of the unrealistic impression of invincibility that these costumes could create. For example, children have reported to hospital with severe injuries because of trying ‘to initiate flight without having planned for landing strategies’ (Davies, Surridge, Hole, & Munro-Davies, 2007). I can relate to the imagined power that a costume bestows upon you; indeed, I have been known to dress up as Fisher by donning a beard and glasses and trailing a goat around on a lead in the hope that it might make me more knowledgeable about statistics. Imagine we had data (**superhero.csv**) about the severity of **injury** (on a scale from 0, no injury, to 100, death) for children reporting to the accident and emergency department at hospitals, and information on which superhero costume they were wearing (**hero**): Spiderman, Superman, the Hulk or a teenage mutant ninja turtle. Fit a model with planned contrasts to test the hypothesis that those wearing costumes of flying superheroes (Superman and Spiderman) have more severe injuries.
 
+
+To get you into the mood for hulk-related data analysis, Figure 1 shows my wife and I on the Hulk rollercoaster at the islands of adventure in Orlando, on our honeymoon.
+
+<figure>
+<img src="/img/discovr_11_az_hulk.png" alt="Andy and his wife on the Hulk rollercoaster." style="width:200%">
+<figcaption>Figure 1: The Fields on the Hulk.</figcaption>
+</figure>
+
+Not in the mood yet? OK, let's ramp up the 'weird' with a photo (Figure 2) of some complete strangers reading one of my textbooks on the same Hulk roller-coaster that my wife and I rode (not at the same time as the book readers I should add). Nothing says 'I love your textbook' like taking it on a stomach-churning high speed ride. I dearly wish that reading my books on roller coasters would become a 'thing'.
+
+<figure>
+<img src="/img/discovr_11_dsus_hulk.png" alt="Random American students reading my book on the Hulk rollercoaster." style="width:200%">
+<figcaption>Figure 2: Random American students reading my book on the Hulk.</figcaption>
+</figure>
+
 ### Load the data
 
 To load the data from the CSV file (assuming you have set up a project folder as suggested in the book) and set the factor and its levels:
@@ -195,11 +210,20 @@ ggplot2::ggplot(hero_tib, aes(hero, injury)) +
   theme_minimal()
 ```
 
-The means suggest that children wearing a Ninja Turtle costume had the least severe injuries, whereas children wearing a Superman costume had the most severe injuries.
+### Defining contrasts
 
-### Fit the model
+To test our main hypotheses we need to first work out some contrasts. In the book, we learned rules to generate contrasts. Figure 3 shows how we would apply these to the Superhero example to plan the contrasts that we want. We’re told that we want to compare flying superheroes (i.e. Superman and Spiderman) against non-flying ones (the Hulk and Ninja Turtles) in the first instance. That will be contrast 1. However, because each of these chunks is made up of two groups (e.g., the flying superheroes chunk comprises both children wearing Spiderman and those wearing Superman costumes), we need a second and third contrast that breaks each of these chunks down into their constituent parts.
 
-To test our main hypotheses we need to first enter the following codes for the contrasts. The first contrast tests the main  prediction but the other two are necessary to break down the variation in injury severity completely.
+<figure>
+<img src="/img/discovr_11_contrasts.png" alt="Contrast 1 compares flying (Superman, Spiderman) to non-flying (Hulk, Turtle) superheroes. Contrast 2 compares Superman to  Spiderman ignoring the non-flying (Hulk, Turtle) superheroes. Contrast 3 compares the Hulk to Ninja Turtles ignoring the flying (Superman, Spiderman) superheroes." style="width:200%">
+<figcaption>Figure 3: Planned contrasts for the superhero example.</figcaption>
+</figure>
+
+Contrast 1 compares flying (Superman, Spiderman) to non-flying (Hulk, Turtle) superheroes. Each chunk contains two groups, so the weights for the opposite chunks are both 2 divided by the number of groups with non-zero weights. This gives us $\frac{2}{4} = \frac{1}{2}$.We assign one chunk positive weights and the other negative weights (in Table 1 I’ve chosen the flying superheroes to have positive weights, but you could do it the other way around).
+
+Contrast two then compares the two flying superheroes to each other. First we assign both non-flying superheroes a 0 weight to remove them from the contrast. We’re left with two chunks: one containing the Superman group and the other containing the Spiderman group. Each chunk contains one group, so the weights for the opposite chunks are both 1 divided by the number of groups with non-zero weights (i.e. 1/2). We assign one chunk positive weights and the other negative weights (in Table 1 I’ve given Superman the positive weight, but you could do it the other way around). 
+
+Finally, Contrast three compares the two non-flying superheroes to each other. First we assign both flying superheroes a 0 weight to remove them from the contrast. We’re left with two chunks: one containing the Hulk group and the other containing the Turtle group. Each chunk contains one group, so the weights for the opposite chunks are both 1/2 (for the same reason as contrast 2). We assign one chunk positive weights and the other negative weights (in Table 2 I’ve given the Hulk the positive weight, but you could do it the other way around).
 
 ```{r hero_tbl, echo = FALSE, results = 'asis'}
 hero_table <- tibble(
@@ -209,10 +233,8 @@ hero_table <- tibble(
   `Hulk vs. Ninja turtle` = c('0', '0', '1/2', '-1/2')
   )
 
-knitr::kable(hero_table)
+knitr::kable(hero_table, caption = "Table 1 contrast codes for the superhero data")
 ```
-
-Contrast 1 tests hypothesis 1: flying superhero costumes (Superman and Spiderman) will lead to more severe injuries. In the table, the numbers assigned to the groups are the number of groups in the opposite chunk divided by the number of groups that have non-zero codes, and we randomly assigned one chunk to be a negative value. [Note that the number of groups in the opposite chunk divided by the number of groups that have non-zero codes will give you a weight of magnitude $ \frac{2}{4}$, but this value is the same as $ \frac{1}{2}$]. 
 
 We set these contrasts for the variable **hero** as follows:
 
@@ -225,7 +247,9 @@ contrasts(hero_tib$hero) <- cbind(flying_vs_not, super_vs_spider, hulk_vs_ninja)
 contrasts(hero_tib$hero) # check the contrasts are set correctly
 ```
 
-Next we fit the model using this code:
+### Fit the model
+
+Having set the contrasts, we fit the model using this code:
 
 ```{r, results = 'asis'}
 hero_lm <- lm(injury ~ hero, data = hero_tib)
