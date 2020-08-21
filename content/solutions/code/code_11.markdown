@@ -478,7 +478,7 @@ WRS2::t1way(happiness ~ dose, data = puppy_tib, nboot = 1000)
 ## p-value: 0.16 
 ## 
 ## Explanatory measure of effect size: 0.79 
-## Bootstrap CI: [0.43; 1.46]
+## Bootstrap CI: [0.43; 1.35]
 ```
 
 ```r
@@ -504,10 +504,10 @@ WRS2::t1waybt(happiness ~ dose, data = puppy_tib, nboot = 1000)
 ## Call:
 ## WRS2::t1waybt(formula = happiness ~ dose, data = puppy_tib, nboot = 1000)
 ## 
-## Effective number of bootstrap samples was 661.
+## Effective number of bootstrap samples was 606.
 ## 
 ## Test statistic: 3 
-## p-value: 0.09834 
+## p-value: 0.07261 
 ## Variance explained: 0.623 
 ## Effect size: 0.789
 ```
@@ -521,9 +521,9 @@ WRS2::mcppb20(happiness ~ dose, data = puppy_tib, nboot = 1000)
 ## WRS2::mcppb20(formula = happiness ~ dose, data = puppy_tib, nboot = 1000)
 ## 
 ##                        psihat ci.lower ci.upper p-value
-## No puppies vs. 15 mins     -1 -3.33333  1.33333   0.373
-## No puppies vs. 30 mins     -3 -5.00000 -0.33333   0.008
-## 15 mins vs. 30 mins        -2 -4.33333  0.66667   0.100
+## No puppies vs. 15 mins     -1 -3.33333  1.00000   0.288
+## No puppies vs. 30 mins     -3 -5.33333 -0.33333   0.005
+## 15 mins vs. 30 mins        -2 -4.33333  0.66667   0.079
 ```
 
 ### Self-test
@@ -544,7 +544,7 @@ WRS2::t1way(happiness ~ dose, data = puppy_tib, tr = 0.1, nboot = 1000)
 ## p-value: 0.05374 
 ## 
 ## Explanatory measure of effect size: 0.71 
-## Bootstrap CI: [0.48; 0.94]
+## Bootstrap CI: [0.5; 0.95]
 ```
 
 ```r
@@ -565,7 +565,7 @@ WRS2::lincon(happiness ~ dose, data = puppy_tib, tr = 0.1)
 
 
 ```r
-puppy_bf <-  BayesFactor::anovaBF(formula = happiness ~ dose, data = puppy_tib, rscaleFixed = "medium")
+puppy_bf <-  BayesFactor::lmBF(formula = happiness ~ dose, data = puppy_tib, rscaleFixed = "medium")
 puppy_bf
 ```
 

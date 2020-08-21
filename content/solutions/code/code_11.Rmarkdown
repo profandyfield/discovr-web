@@ -317,7 +317,7 @@ WRS2::lincon(happiness ~ dose, data = puppy_tib, tr = 0.1)
 ## Bayes factors
 
 ```{r}
-puppy_bf <-  BayesFactor::anovaBF(formula = happiness ~ dose, data = puppy_tib, rscaleFixed = "medium")
+puppy_bf <-  BayesFactor::lmBF(formula = happiness ~ dose, data = puppy_tib, rscaleFixed = "medium")
 puppy_bf
 ```
 

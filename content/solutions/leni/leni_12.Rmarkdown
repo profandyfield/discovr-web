@@ -1,0 +1,96 @@
+---
+title: Labcoat Leni solutions Chapter 11
+linktitle: Leni Chapter 12
+toc: true
+type: docs
+date: "2020-08-03T00:00:00Z"
+draft: false
+menu:
+  leni:
+    parent: Labcoat Leni
+    weight: 12
+
+# Prev/next pager order (if `docs_section_pager` enabled in `params.toml`)
+weight: 12
+
+---
+
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/img_leni.html")
+```
+
+{{% alert note %}}
+
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/terms.html")
+```
+
+{{% /alert %}}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+
+library(car)
+library(modelbased)
+
+muris_tib <- discovr::muris_2008
+```
+
+## Space invaders
+### Load the data
+
+To load the data from the CSV file (assuming you have set up a project folder as suggested in the book) and set the factor and its levels:
+
+```{r, eval = FALSE}
+muris_tib <- readr::read_csv("../data/muris_2008.csv") %>% 
+  dplyr::mutate(
+    gender = forcats::as_factor(gender),
+    training = forcats::as_factor(training)
+  )
+```
+
+Alternative, load the data directly from the `discovr` package:
+
+```{r, eval=FALSE}
+muris_tib <- discovr::muris_2008
+```
+
+### Fit the model
+
+In the chapter we looked at how to select contrasts, but because our main predictor variable (the type of training) has only two levels (positive or negative) we don't need contrasts: the main effect of this variable can only reflect differences between the two types of training. We can, therefore, use the default behaviour of {{< icon name="r-project" pack="fab" >}}.
+
+```{r}
+muris_lm <- lm(int_bias ~ training + gender + age + scared, data = muris_tib)
+car::Anova(muris_lm, type = 3)
+```
+ 
+We can see that even after adjusting for the effects of age, gender and natural anxiety, the training had a significant effect on the subsequent bias score, *F*(1, 65) = 13.43, *p* < .001. In terms of the covariates, age did not have a significant influence on the acquisition of interpretational biases. However, anxiety (scared) and gender did.
+
+This code gives us the adjusted means:
+
+```{r, results = 'asis'}
+modelbased::estimate_means(muris_lm, fixed = c("age", "gender", "scared")) %>% 
+  knitr::kable(digits = 2)
+```
+
+The adjusted means tell us that interpretational biases were stronger (higher) after negative training (adjusting for age, gender and SCARED). This result is as expected. It seems then that giving children feedback that tells them to interpret ambiguous situations negatively induces an interpretational bias that persists into everyday situations, which is an important step towards understanding how these biases develop.
+
+To interpret the covariates, let's look at the model parameters:
+
+```{r, results = 'asis'}
+broom::tidy(muris_lm, conf.int = TRUE) %>% 
+  knitr::kable(digits = 2)
+```
+
+For anxiety (**scared**), *b* = 2.01, which reflects a positive relationship. Therefore, as anxiety increases, the interpretational bias increases also (this is what you would expect, because anxious children would be more likely to naturally interpret ambiguous situations in a negative way). For **genderGirl**, *b* = 26.12, which again is positive, but to interpret this we need to think about how the children were coded in the data editor. The fact that the effect is named **genderGirl** tells us that this is the effect of girls relative to boys (i.e. boys are the reference category). Therefore, as a child 'changes' (not literally) from a boy to a girl, their interpretation biases increase. In other words, girls show a stronger natural tendency to interpret ambiguous situations negatively. Remember that **age** didn't significantly affect interpretation biases.
+
+One important thing to remember is that although anxiety and gender naturally affected whether children interpreted ambiguous situations negatively, the training (the experiences on the alien planet) had an effect adjusting for these natural tendencies (in other words, the effects of training cannot be explained by gender or natural anxiety levels in the sample).
+
+Have a look at the original article to see how Muris et al. reported the results of this analysis -- this can help you to see how you can report your own data from an ANCOVA. (One bit of good practice that you should note is that they report effect sizes from their analysis -- as you will see from the book chapter, this is an excellent thing to do.)
