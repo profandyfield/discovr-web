@@ -61,7 +61,7 @@ In a word, causality. In experimental research we manipulate a variable (predict
 -	The phone numbers that the bands obtained because of their fame.
     -	This variable is categorical and nominal too: the phone numbers have no meaningful order; they might as well be letters. A bigger phone number did not mean that it was given by a better person.
 -	The gender of the people giving the bands their phone numbers.
-    -	This variable is categorical and binary: the people dishing out their phone numbers could fall into one of only two categories (male or female).
+    -	This variable is categorical: the people dishing out their phone numbers could fall into one of several categories based on how they self-identify when asked about their gender (their gender identity could be fluid). Taking a very simplistic view of gender, the variable might contain categories of male, female, and non-binary.
 -	The instruments played by the band members.
     -	This variable is categorical and nominal too: the instruments have no meaningful order but their names tell us something useful (guitar, bass, drums, etc.).
 -	The time they had spent learning to play their instruments.
