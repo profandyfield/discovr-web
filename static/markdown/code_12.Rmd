@@ -1,0 +1,271 @@
+---
+title: "R code in Chapter 12"
+author: "Andy P. Field"
+date: 'Last updated `r format(Sys.Date(), "%d %B %Y")`'
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+library(ggfortify)
+library(effectsize)
+
+```
+
+***
+## Usage
+
+This file contains code relevant to chapter 1 of [Discovering Statistics Using R and RStudio](https://www.discovr.rocks) by [Andy Field](https://www.discoveringstatistics.com/about). These files contain abridged sections from the book so there are some copyright considerations but I offer them under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).^[Basically you can use this material for teaching and non-profit activities but do not meddle with it or claim it as your own work.]
+
+***
+
+## Load packages
+
+Remember to load the tidyverse:
+
+```{r, eval = F}
+library(tidyverse)
+```
+
+## Load the data
+
+Load the data from the `discover` package:
+
+```{r}
+pupluv_tib <- discovr::puppy_love
+```
+
+If you want to read the file from the CSV and you have set up your project folder as I suggest in Chapter 1, then the code you would use is:
+
+```{r, eval = FALSE}
+pupluv_tib <- here::here("data/puppy_love.csv") %>%
+  readr::read_csv() %>%
+  dplyr::mutate(
+    dose = forcats::as_factor(dose)
+  )
+```
+
+A good idea to check that the levels of **dose** are in the order Control, 15 minutes, 30 minutes by executing:
+
+```{r}
+levels(pupluv_tib$dose)
+```
+
+If they're not in the correct order then:
+
+```{r}
+pupluv_tib <- pupluv_tib %>%
+  dplyr::mutate(
+    dose = forcats::fct_relevel(dose, "No puppies", "15 mins", "30 mins")
+  )
+```
+
+## Self-test
+
+```{r}
+pupluv_tib %>% 
+  dplyr::group_by(dose) %>% 
+  dplyr::summarize(
+    dplyr::across(c(happiness, puppy_love), list(mean = mean, sd = sd), .names = "{col}_{fn}")
+    ) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 2))
+  )
+```
+
+```{r}
+pupluv_tib %>% 
+  dplyr::summarize(
+    dplyr::across(c(happiness, puppy_love), list(mean = mean, sd = sd), .names = "{col}_{fn}")
+    ) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 2))
+  )
+```
+
+## Self-test
+
+```{r}
+pupluv_tib <- pupluv_tib %>%
+  dplyr::mutate(
+    none_vs_30 = ifelse(dose == "30 mins", 1, 0),
+    none_vs_15 = ifelse(dose == "15 mins", 1, 0)
+  )
+
+pupluv_lm <- lm(happiness ~ none_vs_15 + none_vs_30 + puppy_love, data = pupluv_tib)
+broom::glance(pupluv_lm)
+broom::tidy(pupluv_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+## Self-test
+
+```{r}
+luvdose_lm <- lm(puppy_love ~ dose, data = pupluv_tib)
+
+anova(luvdose_lm) %>% 
+  parameters::model_parameters()
+```
+
+## Self-test
+
+```{r}
+cov_first_lm <- lm(happiness ~ puppy_love + dose, data = pupluv_tib)
+
+anova(cov_first_lm) %>% 
+  parameters::model_parameters()
+
+broom::tidy(cov_first_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+
+## Self-test
+
+```{r}
+dose_first_lm <- lm(happiness ~ dose + puppy_love, data = pupluv_tib)
+
+anova(dose_first_lm) %>% 
+  parameters::model_parameters()
+
+broom::tidy(dose_first_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+### Set contrasts
+
+```{r}
+puppy_vs_none <- c(-2/3, 1/3, 1/3)
+short_vs_long <- c(0, -1/2, 1/2)
+
+contrasts(pupluv_tib$dose) <- cbind(puppy_vs_none, short_vs_long)
+```
+
+## No covariate
+
+```{r}
+pup_lm <- lm(happiness ~ dose, data = pupluv_tib) 
+anova(pup_lm)
+```
+
+
+## Type III sums of squares
+
+```{r}
+pupluv_lm <- lm(happiness ~ puppy_love + dose, data = pupluv_tib)
+car::Anova(pupluv_lm, type = 3)
+```
+
+## Self test
+
+```{r}
+dose_first_lm <- lm(happiness ~ dose + puppy_love, data = pupluv_tib)
+car::Anova(cov_first_lm, type = 3)
+```
+
+
+## Adjusted means
+
+```{r}
+modelbased::estimate_means(pupluv_lm, fixed = "puppy_love")
+```
+
+## Parameter estimates
+
+```{r}
+broom::tidy(pupluv_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+## Post hoc tests
+
+```{r}
+modelbased::estimate_contrasts(pupluv_lm, fixed = "puppy_love")
+```
+
+## Homogeneity of regression slopes
+
+```{r}
+hors_lm <- lm(happiness ~ puppy_love*dose, data = pupluv_tib)
+car::Anova(hors_lm, type = 3)
+```
+
+Alternatively, update the previous model:
+
+```{r}
+hors_lm <- update(pupluv_lm, .~. + dose:puppy_love)
+car::Anova(hors_lm, type = 3)
+```
+
+## Residual plots:
+
+```{r}
+ggplot2::autoplot(pupluv_lm,
+                  which = c(1, 3, 2, 4),
+                  colour = "#5c97bf",
+                  smooth.colour = "#ef4836",
+                  alpha = 0.5,
+                  size = 1) + 
+  theme_minimal()
+```
+
+## robust model
+
+### Robust parameter estimates:
+
+```{r}
+pupluv_rob <- robust::lmRob(happiness ~ puppy_love + dose, data = pupluv_tib)
+summary(pupluv_rob)
+```
+
+### Heteroscedasticity consistent standard errors:
+
+```{r}
+parameters::model_parameters(pupluv_lm, robust = TRUE, vcov.type = "HC4", digits = 3)
+```
+
+### Bootstrap parameters
+
+```{r}
+parameters::bootstrap_parameters(pupluv_lm)
+```
+
+## Bayes factors
+
+```{r}
+pupcov_bf <-  BayesFactor::lmBF(formula = happiness ~ puppy_love, data = pupluv_tib, rscaleFixed = "medium", rscaleCont = "medium")
+pupcov_bf
+
+pup_bf <-  BayesFactor::lmBF(formula = happiness ~ puppy_love + dose, data = pupluv_tib, rscaleCont = "medium", rscaleFixed = "medium")
+pup_bf
+
+pup_bf/pupcov_bf
+
+```
+
+## Effect sizes
+
+```{r}
+car::Anova(pupluv_lm, type = 3) %>% 
+  effectsize::eta_squared(., ci = 0.95)
+```
+
+```{r}
+pupluv_aov <- car::Anova(pupluv_lm, type = 3)
+effectsize::omega_squared(pupluv_aov, ci = 0.95)
+```

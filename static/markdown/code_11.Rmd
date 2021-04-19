@@ -1,0 +1,309 @@
+---
+title: "R code in Chapter 11"
+author: "Andy P. Field"
+date: 'Last updated `r format(Sys.Date(), "%d %B %Y")`'
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+library(ggfortify)
+library(effectsize)
+
+```
+
+***
+## Usage
+
+This file contains code relevant to chapter 1 of [Discovering Statistics Using R and RStudio](https://www.discovr.rocks) by [Andy Field](https://www.discoveringstatistics.com/about). These files contain abridged sections from the book so there are some copyright considerations but I offer them under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).^[Basically you can use this material for teaching and non-profit activities but do not meddle with it or claim it as your own work.]
+
+***
+
+## Load packages
+
+Remember to load the tidyverse:
+
+```{r, eval = F}
+library(tidyverse)
+```
+
+## Load the data
+
+You can enter the data manually (for practice) with this code:
+
+```{r, eval = FALSE}
+puppy_tib <- tibble::tibble(
+  id = c("25hto3", "121118", "t54p42", "s6u853", "tcs14p", "oum4t7", "kfl7lq", "2gi51b", "d3j771", "eu23ns", "b343ey", "5nvg7h", "5ta11l", "82e7va", "667x5j"),
+  dose = gl(3, 5, labels = c("No puppies", "15 mins", "30 mins")),
+  happiness = c(3, 2, 1, 1, 4, 5, 2, 4, 2, 3, 7, 4, 5, 3, 6)
+)
+```
+
+Alternatively, load it from the `discover` package. Remember to install the package with `library(discovr)`. After which you can load data into a tibble by executing:
+
+```
+name_of_tib <- discovr::name_of_data
+```
+
+For example, execute these lines to create the tibbles referred to in the chapter:
+
+```{r}
+puppy_tib <- discovr::puppies
+```
+
+If you want to read the file from the CSV (again, good practice) and you have set up your project folder as I suggest in Chapter 1, then the general format of the code you would use is:
+
+```{r, eval = FALSE}
+tibble_name <- here::here("../data/name_of_file.csv") %>%
+  readr::read_csv() %>%
+  dplyr::mutate(
+    ...
+    code to convert character variables to factors
+    ...
+  )
+```
+
+In which you'd replace `tibble_name` with the name you want to assign to the tibble and change `name_of_file.csv` to the name of the file that you're trying to load. You can use mutate to convert categorical variables to factors. For example, for the `invisibility_cloak` data you would load it by executing:
+
+```{r, eval = FALSE}
+puppy_tib <- here::here("data/puppies.csv") %>%
+  readr::read_csv() %>%
+  dplyr::mutate(
+    dose = forcats::as_factor(dose)
+  )
+```
+A good idea to check that the levels of **dose** are in the order Control, 15 minutes, 30 minutes by executing:
+
+```{r}
+levels(puppy_tib$dose)
+```
+
+If they're not in the correct order then:
+
+```{r}
+puppy_tib <- puppy_tib %>%
+  dplyr::mutate(
+    dose = forcats::fct_relevel(dose, "No puppies", "15 mins", "30 mins")
+  )
+```
+
+## Self-test
+
+```{r}
+puppy_tib <- puppy_tib %>%
+  dplyr::mutate(
+    dummy1 = ifelse(dose == "30 mins", 1, 0),
+    dummy2 = ifelse(dose == "15 mins", 1, 0)
+  )
+
+puppy_lm <- lm(happiness ~ dummy1 + dummy2, data = puppy_tib)
+broom::glance(puppy_lm)
+broom::tidy(puppy_lm, conf.int = TRUE)
+```
+
+## Self-test
+
+Create the dummy variables:
+```{r}
+puppy_tib <- puppy_tib %>%
+  dplyr::mutate(
+    contrast1 = ifelse(dose == "No puppies", -2/3, 1/3),
+    contrast2 = dplyr::case_when(
+      dose == "No puppies" ~ 0, 
+      dose == "15 mins" ~ -0.5,
+      dose == "30 mins" ~ 0.5)
+  )
+```
+
+Alternatively using nested `ifelse()` statements:
+
+```{r, eval = FALSE}
+puppy_tib <- puppy_tib %>%
+  dplyr::mutate(
+    contrast1 = ifelse(dose == "No puppies", -2/3, 1/3),
+    contrast2 = ifelse(dose == "No puppies", 0, 
+                    ifelse(dose == "15 mins", -0.5, 0.5))
+  )
+```
+
+Fit and inspect the model:
+
+```{r}
+puppy_con_lm <- lm(happiness ~ contrast1 + contrast2, data = puppy_tib)
+broom::glance(puppy_con_lm)
+broom::tidy(puppy_con_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+## Summary statistics and plot
+
+## A violin plot
+
+```{r}
+ggplot2::ggplot(puppy_tib, aes(dose, happiness)) + 
+  geom_violin() +
+  stat_summary(fun.data = "mean_cl_boot") +
+  labs(x = "Dose of puppies", y = "Happiness (0-10)") +
+  scale_y_continuous(breaks = 1:7) +
+  theme_minimal()
+```
+
+## Summary statistics
+
+```{r}
+puppy_tib %>% 
+  dplyr::group_by(dose) %>% 
+  dplyr::summarize(
+    valid_cases = sum(!is.na(happiness)),
+    min = min(happiness, na.rm = TRUE),
+    max = max(happiness, na.rm = TRUE),
+    median = median(happiness, na.rm = TRUE),
+    mean = mean(happiness, na.rm = TRUE),
+    sd = sd(happiness, na.rm = TRUE),
+    `95% CI lower` = mean_cl_normal(happiness)$ymin,
+    `95% CI upper` = mean_cl_normal(happiness)$ymax
+  ) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 2))
+  )
+```
+
+## Set contrasts
+
+This code sets a treatment contrast to the variable **dose** that compares each category to the last.
+
+```{r}
+contrasts(puppy_tib$dose) <- contr.treatment(3, base = 3)
+```
+
+We can look at the contrast by executing:
+
+```{r}
+contrasts(puppy_tib$dose)
+```
+
+Let's set the actual planned contrasts from the chapter:
+
+```{r}
+puppy_vs_none <- c(-2/3, 1/3, 1/3)
+short_vs_long <- c(0, -1/2, 1/2)
+
+contrasts(puppy_tib$dose) <- cbind(puppy_vs_none, short_vs_long)
+contrasts(puppy_tib$dose) # check the contrasts are set correctly
+```
+
+
+## Fit the model
+### Assumptions met
+
+```{r}
+puppy_lm <- lm(happiness ~ dose, data = puppy_tib, na.action = na.exclude)
+
+anova(puppy_lm) %>% 
+  parameters::parameters(., omega_squared = "raw")
+
+broom::tidy(puppy_lm, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+Residual plots:
+
+```{r}
+ggplot2::autoplot(puppy_lm,
+                  which = c(1, 3, 2, 4),
+                  colour = "#5c97bf",
+                  smooth.colour = "#ef4836",
+                  alpha = 0.5,
+                  size = 1) + 
+  theme_minimal()
+```
+
+## Post hoc tests
+
+```{r}
+modelbased::estimate_contrasts(puppy_lm)
+```
+
+Bonferroni:
+```{r}
+modelbased::estimate_contrasts(puppy_lm, adjust = "bonferroni")
+```
+
+### Trend analysis
+
+```{r}
+contrasts(puppy_tib$dose) <- contr.poly(3)
+
+puppy_trend <- lm(happiness ~ dose, data = puppy_tib, na.action = na.exclude)
+
+broom::tidy(puppy_trend, conf.int = TRUE) %>% 
+  dplyr::mutate(
+    dplyr::across(where(is.numeric), ~round(., 3))
+  )
+```
+
+## robust model
+
+Because of doing the trend analysis above, where we reset the contrast for dose, let's set it back to how it was for the main example:
+
+```{r}
+contrasts(puppy_tib$dose) <- cbind(puppy_vs_none, short_vs_long)
+```
+
+
+### Robust F
+
+```{r}
+oneway.test(happiness ~ dose, data = puppy_tib)
+```
+
+### Robust parameter estimates:
+
+```{r}
+puppy_rob <- robust::lmRob(happiness ~ dose, data = puppy_tib)
+summary(puppy_rob)
+```
+
+### Heteroscedasticity consistent standard errors:
+
+```{r}
+parameters::model_parameters(puppy_lm, robust = TRUE, vcov.type = "HC4", digits = 3)
+```
+
+### WRS2 package
+
+```{r}
+WRS2::t1way(happiness ~ dose, data = puppy_tib, nboot = 1000)
+WRS2::lincon(happiness ~ dose, data = puppy_tib)
+```
+
+```{r}
+WRS2::t1waybt(happiness ~ dose, data = puppy_tib, nboot = 1000)
+WRS2::mcppb20(happiness ~ dose, data = puppy_tib, nboot = 1000)
+```
+
+### Self-test
+
+```{r}
+WRS2::t1way(happiness ~ dose, data = puppy_tib, tr = 0.1, nboot = 1000)
+WRS2::lincon(happiness ~ dose, data = puppy_tib, tr = 0.1)
+```
+
+## Bayes factors
+
+```{r}
+puppy_bf <-  BayesFactor::lmBF(formula = happiness ~ dose, data = puppy_tib, rscaleFixed = "medium")
+puppy_bf
+```
+

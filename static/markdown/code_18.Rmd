@@ -1,0 +1,303 @@
+---
+title: "R code in Chapter 18"
+author: "Andy P. Field"
+date: 'Last updated `r format(Sys.Date(), "%d %B %Y")`'
+output: html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+options(knitr.kable.NA = '')
+
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+
+library(GPArotation)
+library(parameters)
+library(psych)
+```
+
+***
+## Usage
+
+This file contains code relevant to chapter 17 of [Discovering Statistics Using R and RStudio](https://www.discovr.rocks) by [Andy Field](https://www.discoveringstatistics.com/about). These files contain abridged sections from the book so there are some copyright considerations but I offer them under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).^[Basically you can use this material for teaching and non-profit activities but do not meddle with it or claim it as your own work.]
+
+***
+
+## Load packages
+
+Remember to load the tidyverse:
+
+```{r, eval = F}
+library(tidyverse)
+```
+
+## Load the data
+
+Load the data from the `discovr` package:
+
+```{r}
+raq_tib <- discovr::raq
+```
+
+If you want to read the file from the CSV and you have set up your project folder as I suggest in Chapter 1, then the code you would use is:
+
+```{r, eval = FALSE}
+raq_tib <- here::here("data/raq.csv") %>%
+  readr::read_csv()
+```
+
+
+Notice that the data file has a variable in it containing participants’ ids. We won't want this variable in the analyses we do. Of course, we can use `select()` to remove it, but it will save a lot of repetitious code if we store a version of the data that only has the RAQ scores. We can do this with the following code:
+
+```{r}
+raq_items_tib <- raq_tib %>% 
+  dplyr::select(-id)
+```
+
+We can create the correlations between variables by executing
+
+```{r}
+raq_poly <- psych::polychoric(raq_items_tib)
+raq_cor <- raq_poly$rho
+```
+
+We can view them using (to save space the code below isn't executed)
+
+```{r, eval = F}
+round(raq_cor, 2)
+```
+
+To get a plot of the correlations we can execute:
+
+```{r}
+psych::cor.plot(raq_cor, upper = FALSE)
+```
+
+
+## The Bartlett test 
+
+Conduct Bartlett's test with either of these bits of code
+
+```{r}
+psych::cortest.bartlett(raq_cor, n = 2571)
+```
+
+Determinant of the correlation matrix:
+
+```{r}
+det(raq_cor)
+```
+
+## The KMO test
+
+```{r}
+psych::KMO(raq_cor)
+```
+
+## Self-test
+
+```{r}
+raq_tidy_tib <- raq_items_tib %>% 
+  tidyr::pivot_longer(
+    cols = raq_01:raq_23,
+    names_to = "Item",
+    values_to = "Response"
+  ) %>% 
+  dplyr::mutate(
+    Item = gsub("raq_", "RAQ ", Item)
+  )
+
+ggplot2::ggplot(raq_tidy_tib, aes(Response)) +
+  geom_histogram(binwidth = 1, fill = "#136CB9", colour = "#136CB9", alpha = 0.5) +
+  labs(y = "Frequency") +
+  facet_wrap(~ Item, ncol = 6) +
+  theme_minimal()
+```
+
+## Parallel analysis
+
+
+```{r}
+psych::fa.parallel(raq_cor, n.obs = 2571, fa = "fa")
+psych::fa.parallel(raq_cor, n.obs = 2571, fa = "pc")
+```
+
+## Factor analysis
+
+Create the factor analysis object.
+
+From the raw data:
+
+```{r}
+raq_fa <- psych::fa(raq_items_tib,
+                    nfactors = 4,
+                    scores = "tenBerge",
+                    cor = "poly"
+                    )
+
+```
+
+From the correlation matrix:
+
+```{r, eval = F}
+raq_fa <- psych::fa(raq_cor,
+                    n.obs = 2571,
+                    nfactors = 4,
+                    scores = "tenBerge"
+                    )
+```
+
+Inspect the residuals (not executed)
+
+```{r, eval = F}
+raq_cor
+raq_fa$model
+raq_fa$residual
+```
+
+To look only at the first 3 rows and the first 5 columns of these objects:
+
+```{r, eval = F}
+raq_cor[1:3, 1:5]
+raq_fa$model[1:3, 1:5]
+raq_fa$residual[1:3, 1:5]
+```
+
+
+
+```{r}
+raq_resids <- raq_fa$residual[upper.tri(raq_fa$residual)]
+
+hist(raq_resids)
+
+lge_resid_tot <- sum(abs(raq_resids) > 0.05)
+lge_resid_tot
+
+lge_resid_pct <- lge_resid_tot/length(raq_resids)
+lge_resid_pct
+
+rmsr <- raq_resids^2 %>% mean() %>% sqrt()
+rmsr
+```
+
+## Piece of great
+
+Wrap it into a function!
+
+```{r}
+get_resids <- function(fa_object){
+  resids <- fa_object$residual[upper.tri(fa_object$residual)]
+  
+  lge_resid_tot <- sum(abs(resids) > 0.05)
+  lge_resid_pct <- 100*(lge_resid_tot/length(resids))
+  rmsr <- sqrt(mean(resids^2))
+  
+  cat("Root means squared residual =", rmsr, "\n")
+	cat("Number of absolute residuals > 0.05 =", lge_resid_tot, "\n")
+	cat("Proportion of absolute residuals > 0.05 =", paste0(lge_resid_pct, "%"), "\n")
+	hist(resids)
+}
+
+get_resids(raq_fa)
+
+```
+
+## Interpretation
+
+Inspect the output:
+
+```{r}
+raq_fa
+```
+
+Suppress some values and sort variables by their factor loading (method 1, not executed):
+
+```{r, eval = F}
+psych::print.psych(raq_fa, cut = 0.2, sort = TRUE)
+```
+
+Suppress some values and sort variables by their factor loading (method 2):
+
+```{r, eval = F}
+parameters::model_parameters(raq_fa, threshold = 0.2, sort = TRUE)
+```
+
+```{r, echo = F}
+parameters::model_parameters(raq_fa, threshold = 0.2, sort = TRUE) %>% 
+  knitr::kable(digits = 2)
+```
+
+## Factor scores
+
+To view factor scores (not executed)
+
+```{r, eval = F}
+raq_fa$scores
+```
+
+Because we have 2571 cases, let's look at only the first 10 rows using `head()`:
+
+```{r}
+raq_fa$scores %>% head(., 10)
+```
+
+## Reliability analysis
+### $\omega_h$ and $\omega_t$
+
+```{r}
+raq_omg <- psych::omega(raq_items_tib,
+                        nfactors = 4,
+                        fm = "minres",
+                        key = c(1, 1, -1, rep(1, 20)),
+                        poly = TRUE
+                        )
+raq_omg
+```
+
+
+### Cronbach's $\alpha$
+
+There are lots of reasons not to use Cronbach's alpha (see the book for details). If you really must compute alpha then you need to compute it on the individual subscales. If the items are all scored in the same direction then we select the variables on a particular subscale and pipe them into `psych::alpha()`. For the *fear of computers* subscale
+
+```{r, eval = F}
+raq_tib %>% 
+  dplyr::select(raq_06, raq_07, raq_10, raq_13, raq_14, raq_15, raq_18) %>% 
+  psych::alpha()
+```
+
+For the *Fear of peer/social evaluation* subscale:
+
+```{r}
+raq_tib %>% 
+  dplyr::select(raq_02, raq_09, raq_19, raq_22, raq_23) %>% 
+  psych::alpha()
+```
+
+
+For the *Fear of mathematics* subscale:
+
+```{r}
+raq_tib %>% 
+  dplyr::select(raq_08, raq_11, raq_17) %>% 
+  psych::alpha()
+```
+
+### Reverse scored-items
+
+When a scale has reverse scored items, we need to tell the `alpha()` function which items are reversed by using the [keys]{.alt} argument within the function. We supply this argument with a vector of 1s and -1s, which match the number of items on which we're computing reliability. A 1 indicates a positively scored item and a -1 a negatively scored item. The **Fear of statistics** subscale has a reverse scored item: *Standard deviations excite me* (**raq_03**), so we need to indicate that this item is reverse scored. 
+
+For the *fear of statistics* subscale we could execute:
+
+```{r}
+raq_tib %>% 
+  dplyr::select(raq_01, raq_03, raq_04, raq_05, raq_12, raq_16, raq_20, raq_21) %>% 
+  psych::alpha(keys = c(1, -1, 1, 1, 1, 1, 1, 1))
+```
+
+
+
