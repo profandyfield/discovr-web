@@ -39,3 +39,6 @@ These pages provide the {{< icon name="r-project" pack="fab" >}} code used in ea
 * [Chapter 8 R Markdown file](/markdown/code_08.Rmd)
 * [Chapter 9 R Markdown file](/markdown/code_09.Rmd)
 * [Chapter 10 R Markdown file](/markdown/code_10.Rmd)
+* [Chapter 11 R Markdown file](/markdown/code_11.Rmd)
+* [Chapter 12 R Markdown file](/markdown/code_12.Rmd)
+* [Chapter 18 R Markdown file](/markdown/code_18.Rmd)
