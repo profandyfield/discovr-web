@@ -60,7 +60,7 @@ puppy_tib <- tibble::tibble(
 )
 ```
 
-Alternatively, load it from the `discover` package. Remember to install the package with `library(discovr)`. After which you can load data into a tibble by executing:
+Alternatively, load it from the `discovr` package. Remember to load the package with `library(discovr)`. After which you can load data into a tibble by executing:
 
 ```
 name_of_tib <- discovr::name_of_data

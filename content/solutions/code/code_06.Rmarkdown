@@ -48,7 +48,7 @@ library(tidyverse)
 
 ## Load the data
 
-Remember to install the package for the book with `library(discovr)`. After which you can load data into a tibble by executing:
+Remember to load the package for the book with `library(discovr)`. After which you can load data into a tibble by executing:
 
 ```
 name_of_tib <- discovr::name_of_data
