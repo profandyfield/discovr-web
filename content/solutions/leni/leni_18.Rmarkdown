@@ -133,7 +133,7 @@ ias_kmo <- psych::KMO(ias_items_tib)
 
 *Sample size*: The KMO statistic ([Overall MSA]{.alt}) is `r round(ias_kmo$MSA, 2)`, which is well above the minimum criterion of 0.5 and falls into the range of marvellous. The KMO values for individual variables range from `r round(min(ias_kmo$MSAi), 2)` to `r round(max(ias_kmo$MSAi), 2)`. All values are, therefore, well above 0.5, which is good news.
 
-*Bartlett's test*: This test is significant, χ<sup>2</sup>(`r ias_bart$df`) = `r round(ias_bart$chisq, 2)`, *p* = `r round(ias_bart$p.value, 2)`, indicating that the correlations within the *R*-matrix are sufficiently different from zero to warrant PCA.
+*Bartlett's test*: This test is significant, $ \\chi^2 = $(`r ias_bart$df`) = `r round(ias_bart$chisq, 2)`, *p* = `r round(ias_bart$p.value, 2)`, indicating that the correlations within the *R*-matrix are sufficiently different from zero to warrant PCA.
 
 ### Parallel analysis
 

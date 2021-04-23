@@ -167,7 +167,7 @@ psych::KMO(ias_items_tib)
 
 *Sample size*: The KMO statistic (<span class="alt">Overall MSA</span>) is 0.94, which is well above the minimum criterion of 0.5 and falls into the range of marvellous. The KMO values for individual variables range from 0.89 to 0.97. All values are, therefore, well above 0.5, which is good news.
 
-*Bartlett’s test*: This test is significant, χ<sup>2</sup>(465) = 5.567237^{4}, *p* = 0, indicating that the correlations within the *R*-matrix are sufficiently different from zero to warrant PCA.
+*Bartlett’s test*: This test is significant, \$ \\chi^2 = \$(465) = 5.567237^{4}, *p* = 0, indicating that the correlations within the *R*-matrix are sufficiently different from zero to warrant PCA.
 
 ### Parallel analysis
 
