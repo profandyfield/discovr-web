@@ -1,0 +1,742 @@
+---
+title: Smart Alex solutions Chapter 18
+linktitle: Alex Chapter 18
+toc: true
+type: docs
+date: "2021-04-19T00:00:00Z"
+draft: false
+menu:
+  alex:
+    parent: Smart Alex
+    weight: 18
+
+# Prev/next pager order (if `docs_section_pager` enabled in `params.toml`)
+weight: 18
+
+---
+
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/img_alex.html")
+```
+
+{{% alert note %}}
+
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/terms.html")
+```
+
+{{% /alert %}}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+options(knitr.kable.NA = '')
+
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+
+library(GPArotation)
+library(psych)
+library(parameters)
+
+raq_tib <- discovr::raq
+tosr_tib <- discovr::tosser
+org_tib <- discovr::williams
+zibarras_tib <- discovr::zibarras_2008
+```
+
+## Task 18.1
+
+> Rerun the analysis in this chapter using principal component analysis and compare the results to those in the chapter.
+
+### Load the data
+
+To load the data from the CSV file (assuming you have set up a project folder as suggested in the book):
+
+```{r, eval = FALSE}
+raq_tib <- here::here("data/raq.csv") %>%
+  readr::read_csv()
+```
+
+Alternative, load the data directly from the `discovr` package:
+
+```{r, eval=FALSE}
+raq_tib <- discovr::raq
+```
+
+### Fit the model
+
+All of the descriptives, correlation matrices, KMO tests and so on are unaffected by our choice of principal components as the method of dimension reduction. Also in the book chapter we did parallel analysis based on components and this suggested 4 components (as did the parallel analysis based on components). So, follow everything in the book (code and interpretation) up to the point at which we for the main model.
+
+As a reminder, we set up the correlation matrix to be based on polychoric correlations
+
+```{r}
+# create tibble that contains only the questionnaire items
+raq_items_tib <- raq_tib %>% 
+  dplyr::select(-id)
+# get the polychoric correlation object
+raq_poly <- psych::polychoric(raq_items_tib)
+# store the polychoric correlation matrix
+raq_cor <- raq_poly$rho
+```
+
+Things start to get different at the point of fitting the model. We can use the same code as the book chapter except that we use the `pca()` (or `principal()` if you prefer) function instead of `fa()` and we need to remove `scores = "tenBerge"` because for PCA there is only a single method for computing component scores (and this is used by default). We also need to add `rotate = "oblimin"` because for PCA the default is to use an orthogonal rotation (varimax). I've also changed the name of the object to store this in to `raq_pca` to reflect the fact we've done PCA and not component analysis.
+
+From the raw data:
+
+```{r, eval = F}
+raq_pca <- psych::pca(raq_items_tib,
+                    nfactors = 4,
+                    cor = "poly",
+                    rotate = "oblimin"
+                    )
+
+```
+
+From the correlation matrix:
+
+```{r}
+raq_pca <- psych::pca(raq_cor,
+                    n.obs = 2571,
+                    nfactors = 4,
+                    rotate = "oblimin"
+                    )
+```
+
+To see the output:
+
+```{r, eval = F}
+raq_pca
+```
+
+
+Note that the components are labelled `TC1` to `TC4` (unlike for the component analysis in the book where the labels were `MR1` etc.). We are given some information about how much variance each component accounts for.
+
+```{r, echo = F}
+raq_pca$Vaccounted %>% round(., 2)
+```
+
+We see, for example, from `Proportion Var` that **TC1** accounts for 0.16 of the overall variance (16%) and **TC2** accounts for 0.12 of the variance (12%) and so on. The `Cumulative Var` is the proportion of variance explained cumulatively by the components. So, cumulatively, **TC1** accounts for 0.16 of the overall variance (16%) and  **TC1** and **TC2** together account for 0.16 + 0.12 = 0.28 of the variance (28%). Importantly, we can see that all four components in combination explain 0.49 of the overall variance (49%).
+
+The **Proportion Explained** is the proportion of the explained variance, that is explained by a component. So, of the 49% of variance accounted for, 0.32 (32%) is attributable to **TC1**, 0.25 (25%) to **TC2**, 0.24 (24%) to **TC3** and 0.19 (19%) to **TC4**.
+
+```{r, echo = F}
+summary(raq_pca)
+```
+
+The correlations between components are also displayed. These are all non-zero indicating that components are correlated (and oblique rotation was appropriate). It also tells us the degree to which components are correlated. All of the components positively, and fairly strongly, correlate with each other. In other words, the latent constructs represented by the components are related.
+
+In terms of fit
+
+* The chi-square statistic is $ \\chi^2 = $ `r round(raq_pca$STATISTIC, 2)`, *p* < 0.001. This is consistent with when we ran the analysis as factor analysis in the chapter.
+* The RMSR is 0.05.
+
+Let's look at the loadings (I've suppressed values below 0.2 and sorted).
+
+```{r}
+parameters::model_parameters(raq_pca, threshold = 0.2, sort = TRUE) %>% 
+  kableExtra::kable(digits = 2)
+```
+
+The clusters of items match the book chapter where we used factor analysis instead of PCA. The questions that load highly on **TC1** seem to be items that relate to **Fear of computers**:
+
+* **raq_05**: *I don't understand statistics*
+* **raq_06**: *I have little experience of computers*
+* **raq_07**: *All computers hate me*
+* **raq_10**: *Computers are useful only for playing games*
+* **raq_13**: *I worry that I will cause irreparable damage because of my incompetence with computers*
+* **raq_14**: *Computers have minds of their own and deliberately go wrong whenever I use them*
+* **raq_15**: *Computers are out to get me*
+* **raq_18**: *R always crashes when I try to use it*
+
+Note that item 5 also loads highly onto **TC3**.
+
+The questions that load highly on **TC2** seem to be items that relate to **Fear of peer/social evaluation**:
+
+* **raq_02**: *My friends will think I'm stupid for not being able to cope with {{< icon name="r-project" pack="fab" >}}*
+* **raq_09**: *My friends are better at statistics than me*
+* **raq_19**: *Everybody looks at me when I use {{< icon name="r-project" pack="fab" >}}*
+* **raq_22**: *My friends are better at {{< icon name="r-project" pack="fab" >}} than I am*
+* **raq_23**: *If I am good at statistics people will think I am a nerd*
+
+The questions that load highly on **TC3** seem to be items that relate to **Fear of statistics**:
+
+* **raq_01**: *Statistics make me cry*
+* **raq_03**: *Standard deviations excite me*
+* **raq_04**: *I dream that Pearson is attacking me with correlation coefficients*
+* **raq_05**: *I don't understand statistics*
+* **raq_12**: *People try to tell you that {{< icon name="r-project" pack="fab" >}} makes statistics easier to understand but it doesn't*
+* **raq_16**: *I weep openly at the mention of central tendency*
+* **raq_20**: *I can't sleep for thoughts of eigenvectors*
+* **raq_21**: *I wake up under my duvet thinking that I am trapped under a normal distribution*
+
+The questions that load highly on **TC4** seem to be items that relate to **Fear of mathematics**:
+
+* **raq_08**: *I have never been good at mathematics*
+* **raq_11**: *I did badly at mathematics at school*
+* **raq_17**: *I slip into a coma whenever I see an equation*
+
+Basically using PCA hasn't changed the interpretation.
+
+
+## Task 18.2
+
+> The University of Sussex constantly seeks to employ the best people possible as lecturers. They wanted to revise the ‘Teaching of Statistics for Scientific Experiments’ (TOSSE) questionnaire, which is based on Bland’s theory that says that good research methods lecturers should have: (1) a profound love of statistics; (2) an enthusiasm for experimental design; (3) a love of teaching; and (4) a complete absence of normal interpersonal skills. These characteristics should be related (i.e., correlated). The University revised this questionnaire to become the ‘Teaching of Statistics for Scientific Experiments – Revised (TOSSE – R; Error! Reference source not found.). They gave this questionnaire to 661 research methods lecturers to see if it supported Bland’s theory. Conduct a factor analysis using maximum likelihood  (with appropriate rotation) and interpret the component structure.
+
+### Load the data
+
+To load the data from the CSV file (assuming you have set up a project folder as suggested in the book):
+
+```{r, eval = FALSE}
+tosr_tib <- here::here("data/tosser.csv") %>%
+  readr::read_csv()
+```
+
+Alternative, load the data directly from the `discovr` package:
+
+```{r, eval=FALSE}
+tosr_tib <- discovr::tosser
+```
+
+### Create correlation matrix
+
+The data file has a variable in it containing participants' ids. Let's store a version of the data that only has the item scores.
+
+```{r}
+tosr_items_tib <- tosr_tib %>% 
+  dplyr::select(-id)
+```
+
+We can create the correlations between variables by executing (again, items were rated on Likert response scales, so we'll use polychoric correlations).
+
+```{r}
+tosr_poly <- psych::polychoric(tosr_items_tib)
+tosr_cor <- tosr_poly$rho
+```
+
+To get a plot of the correlations we can execute:
+
+```{r}
+psych::cor.plot(tosr_cor, upper = FALSE)
+```
+
+### The Bartlett test 
+
+```{r}
+psych::cortest.bartlett(tosr_cor, n = 661)
+```
+
+This (basically useless) tests confirms that the correlation matrix is significantly different from an identity matrix (i.e. correlations are non-zero).
+
+Determinant of the correlation matrix:
+
+```{r}
+det(tosr_cor)
+```
+
+The determinant of the correlation matrix was `r format(det(tosr_cor), nsmall = 8, scientific = F)`, which is greater than 0.00001 and, therefore, indicates that multicollinearity is unlikley to be a problem in these data.
+
+
+### The KMO test
+
+```{r}
+psych::KMO(tosr_cor)
+```
+
+```{r, echo = F}
+tosr_kmo <- psych::KMO(tosr_cor)
+```
+
+
+The KMO measure of sampling adequacy is `r round(tosr_kmo$MSA, 2)`, which is above Kaiser's (1974) recommendation of 0.5. This value is also 'marvellous'. Individual items KMO values ranged from `r round(min(tosr_kmo$MSAi), 2)` to `r round(max(tosr_kmo$MSAi), 2)`. As such, the evidence suggests that the sample size is adequate to yield distinct and reliable factors.
+
+
+### Distributions for items
+
+```{r}
+tosr_tidy_tib <- tosr_items_tib %>% 
+  tidyr::pivot_longer(
+    cols = tosr_01:tosr_28,
+    names_to = "Item",
+    values_to = "Response"
+  ) %>% 
+  dplyr::mutate(
+    Item = gsub("tosr_", "TOSSER ", Item)
+  )
+
+ggplot2::ggplot(tosr_tidy_tib, aes(Response)) +
+  geom_histogram(binwidth = 1, fill = "#136CB9", colour = "#136CB9", alpha = 0.5) +
+  labs(y = "Frequency") +
+  facet_wrap(~ Item, ncol = 6) +
+  theme_minimal()
+```
+
+### Parallel analysis
+
+```{r}
+psych::fa.parallel(tosr_cor, fm = "ml", fa = "fa", n.obs = 661)
+```
+
+Based on parallel analysis five factors should be extracted.
+
+### Factor analysis
+
+Create the factor analysis object. The question asks us to use maximum likelihood so I have included `fm = "ml"`. We choose an oblique rotation (the default) because the question says that the constructs we're measuring are related.
+
+```{r}
+tosr_fa <- psych::fa(tosr_cor,
+                    n.obs = 661,
+                    fm = "ml",
+                    nfactors = 4,
+                    scores = "tenBerge"
+                    )
+```
+
+```{r}
+summary(tosr_fa)
+```
+
+
+```{r, echo = F}
+get_rmsea <- function(x, digits = 3){
+  a <- round(x$RMSEA, digits)
+  
+  paste0("RMSEA = ", round(a[1], digits), " 90% CI [", a[2], ", ", a[3], "]")  
+}
+```
+
+
+In terms of fit
+
+* The chi-square statistic is $ \\chi^2 = $(`r tosr_fa$dof`) `r round(tosr_fa$STATISTIC, 2)`, *p* < 0.001. This is consistent with when we ran the analysis as factor analysis in the chapter.
+* The Tucker Lewis Index of factoring reliability (TFI) is given as `r round(tosr_fa$TLI, 2)`, which is equal to 0.96.
+* The `r get_rmsea(tosr_fa)`, which is below than 0.05.
+* The RMSR is `r round(tosr_fa$rms, 2)`, which is smaller than both 0.09 and 0.06.
+
+Remember that we're looking for a combination of TLI > 0.96 and SRMR (RMSR in the output) < 0.06, and a combination of RMSEA < 0.05 and SRMR < 0.09. With the caveat that universal cut-offs need to be taken with a pinch of salt, it's reasonable to conclude that the model has good fit.
+
+Inspect the factor loadings:
+
+```{r}
+parameters::model_parameters(tosr_fa, threshold = 0.2, sort = TRUE) %>% 
+  knitr::kable(digits = 2)
+```
+
+#### Factor 1
+
+This factor seems to relate to teaching.
+
+* Q2: I wish students would stop bugging me with their shit.
+* Q19: I like to help students
+* Q20: Passing on knowledge is the greatest gift you can bestow an individual
+* Q10: I could spend all day explaining statistics to people
+* Q26: I spend lots of time helping students
+* Q25: I love teaching
+* Q6: Teaching others makes me want to swallow a large bottle of bleach because the pain of my burning oesophagus would be light relief in comparison
+* Q7: Helping others to understand sums of squares is a great feeling
+* Q27: I love teaching because students have to pretend to like me or they'll get bad marks
+* Q11: I like it when people tell me I've helped them to understand factor rotation
+* Q18: Standing in front of 300 people in no way makes me lose control of my bowels
+
+#### Factor 2
+
+This factor 1 seems to relate to research methods.
+
+* Q14: I'd rather think about appropriate outcome variables than go for a drink with my friends
+* Q17: I enjoy sitting in the park contemplating whether to use participant observation in my next experiment
+* Q16: Thinking about whether to use repeated or independent measures thrills me
+* Q22: I quiver with excitement when thinking about designing my next experiment
+* Q8: I like control conditions
+* Q13: Designing experiments is fun
+* Q9: I calculate 3 ANOVAs in my head before getting out of bed [*equally loaded on factor 3*]
+ 
+
+#### Factor 3
+
+This factor seems to relate to statistics.
+
+* Q9: I calculate 3 ANOVAs in my head before getting out of bed [*equally loaded on factor 3*]
+* Q21: Thinking about Bonferroni corrections gives me a tingly feeling in my groin
+* Q4: I worship at the shrine of Pearson
+* Q1: I once woke up in the middle of a vegetable patch hugging a turnip that I'd mistakenly dug up thinking it was Roy's largest root
+* Q3: I memorize probability values for the *F*-distribution
+* Q 24: I tried to build myself a time machine so that I could go back to the 1930s and follow Mahalanobis on my hands and knees licking the ground on which he'd just trodden
+* Q15: I soil my pants with excitement at the mere mention of factor analysis [*equally loaded on factor 4*]
+
+
+#### Factor 4
+
+This factor seems to relate to social functioning. Not sure where the soiling pants comes in but probably if you're the sort of person who soils their pants at the mention of factor analysis then things are going to get social awkward for you sooner rather than later.
+
+* Q5: I still live with my mother and have little personal hygiene
+* Q28: My cat is my only friend
+* Q23: I often spend my spare time talking to the pigeons ... and even they die of boredom
+* Q12: People fall asleep as soon as I open my mouth to speak
+* Q15: I soil my pants with excitement at the mere mention of factor analysis [*equally loaded on factor 4*]
+
+
+## Task 18.3
+
+> Dr Sian Williams (University of Brighton) devised a questionnaire to measure organizational ability. She predicted five components to do with organizational ability:(1) preference for organization; (2) goal achievement; (3) planning approach; (4) acceptance of delays; and (5) preference for routine. Williams’s questionnaire contains 28 items using a seven-point Likert scale (1 = strongly disagree, 4 = neither, 7 = strongly agree). She gave it to 239 people. Run a factor analysis (following the settings in this chapter) on the data in **williams.csv**.
+
+### Load the data
+
+To load the data from the CSV file (assuming you have set up a project folder as suggested in the book):
+
+```{r, eval = FALSE}
+org_tib <- here::here("data/williams.csv") %>%
+  readr::read_csv()
+```
+
+Alternative, load the data directly from the `discovr` package:
+
+```{r, eval=FALSE}
+org_tib <- discovr::williams
+```
+
+### Fit the model
+
+The questionnaire items are as follows:
+
+1. I like to have a plan to work to in everyday life
+2. I feel frustrated when things don't go to plan
+3. I get most things done in a day that I want to
+4. I stick to a plan once I have made it
+5. I enjoy spontaneity and uncertainty
+6. I feel frustrated if I can't find something I need
+7. I find it difficult to follow a plan through
+8. I am an organized person
+9. I like to know what I have to do in a day
+10. Disorganized people annoy me
+11. I leave things to the last minute
+12. I have many different plans relating to the same goal
+13. I like to have my documents filed and in order
+14. I find it easy to work in a disorganized environment
+15. I make 'to do' lists and achieve most of the things on it
+16. My workspace is messy and disorganized
+17. I like to be organized
+18. Interruptions to my daily routine annoy me
+19. I feel that I am wasting my time
+20. I forget the plans I have made
+21. I prioritize the things I have to do
+22. I like to work in an organized environment
+23. I feel relaxed when I don't have a routine
+24. I set deadlines for myself and achieve them
+25. I change rather aimlessly from one activity to another during the day
+26. I have trouble organizing the things I have to do
+27. I put tasks off to another day
+28. I feel restricted by schedules and plans
+
+### Create correlation matrix
+
+The data file has a variables in it containing participants' demographic information. Let's store a version of the data that only has the item scores.
+
+```{r}
+org_items_tib <- org_tib %>% 
+  dplyr::select(-id)
+```
+
+We can create the correlations between variables by executing (again, items were rated on Likert response scales, so we'll use polychoric correlations).
+
+```{r}
+org_poly <- psych::polychoric(org_items_tib)
+org_cor <- org_poly$rho
+```
+
+To get a plot of the correlations we can execute:
+
+```{r}
+psych::cor.plot(org_cor, upper = FALSE)
+```
+
+### The Bartlett test 
+
+```{r}
+psych::cortest.bartlett(org_cor, n = 239)
+```
+
+This (basically useless) tests confirms that the correlation matrix is significantly different from an identity matrix (i.e. correlations are non-zero).
+
+Determinant of the correlation matrix:
+
+```{r}
+det(org_cor)
+```
+
+The determinant of the correlation matrix was `r format(det(org_cor), nsmall = 8, scientific = F)`, which is smaller than 0.00001 and, therefore, indicates that multicollinearity could be a problem in these data.
+
+
+### The KMO test
+
+```{r}
+psych::KMO(org_cor)
+```
+
+```{r, echo = F}
+org_kmo <- psych::KMO(org_cor)
+```
+
+
+The KMO measure of sampling adequacy is `r round(org_kmo$MSA, 2)`, which is above Kaiser's (1974) recommendation of 0.5. This value is also 'meritorious' (and almost 'marvellous'). Individual items KMO values ranged from `r round(min(org_kmo$MSAi), 2)` to `r round(max(org_kmo$MSAi), 2)`. As such, the evidence suggests that the sample size is adequate to yield distinct and reliable factors.
+
+
+### Distributions for items
+
+```{r}
+org_tidy_tib <- org_items_tib %>% 
+  tidyr::pivot_longer(
+    cols = org_01:org_28,
+    names_to = "Item",
+    values_to = "Response"
+  ) %>% 
+  dplyr::mutate(
+    Item = gsub("org_", "ORG ", Item)
+  )
+
+ggplot2::ggplot(org_tidy_tib, aes(Response)) +
+  geom_histogram(binwidth = 1, fill = "#136CB9", colour = "#136CB9", alpha = 0.5) +
+  labs(y = "Frequency") +
+  facet_wrap(~ Item, ncol = 6) +
+  theme_minimal()
+```
+
+### Parallel analysis
+
+```{r}
+psych::fa.parallel(org_cor, fm = "ml", fa = "fa", n.obs = 239)
+```
+
+Based on parallel analysis five factors should be extracted.
+
+### Factor analysis
+
+Create the factor analysis object. The question asks us to use maximum likelihood so I have included `fm = "ml"`. We choose an oblique rotation (the default) because the question says that the constructs we're measuring are related.
+
+```{r}
+org_fa <- psych::fa(org_cor,
+                    n.obs = 239,
+                    fm = "minres",
+                    nfactors = 5
+                    )
+```
+
+```{r}
+summary(org_fa)
+```
+
+
+In terms of fit
+
+* The chi-square statistic is $ \\chi^2 = $(`r org_fa$dof`) `r round(org_fa$STATISTIC, 2)`, *p* < 0.001. This is consistent with when we ran the analysis as factor analysis in the chapter.
+* The Tucker Lewis Index of factoring reliability (TFI) is given as `r round(org_fa$TLI, 2)`, which is well below 0.96.
+* The `r get_rmsea(org_fa)`, which is greater than 0.05.
+* The RMSR is `r round(org_fa$rms, 2)`, which is smaller than both 0.09 and 0.06.
+
+Remember that we're looking for a combination of TLI > 0.96 and SRMR (RMSR in the output) < 0.06, and a combination of RMSEA < 0.05 and SRMR < 0.09. With the caveat that universal cut-offs need to be taken with a pinch of salt, it's reasonable to conclude that the model has poor fit.
+
+Inspect the factor loadings:
+
+```{r}
+parameters::model_parameters(org_fa, threshold = 0.2, sort = TRUE) %>% 
+  knitr::kable(digits = 2)
+```
+
+#### Factor 1
+
+This factor 1 seems to relate to *preference for organization*.
+
+* Q14: I find it easy to work in a disorganized environment
+* Q16: My workspace is messy and disorganized
+* Q22: I like to work in an organized environment
+* Q17: I like to be organized
+* Q8: I am an organized person 
+* Q13: I like to have my documents filed and in order
+* Q10: Disorganized people annoy me
+
+#### Factor 2
+
+This factor seems to relate to *goal achievement* (it probably depends how you define goal achievement but does seem to relate to your ability to follow a plan through!).
+
+* Q19: I feel that I am wasting my time
+* Q27: I put tasks off to another day
+* Q25: I change rather aimlessly from one activity to another during the day
+* Q20: I forget the plans I have made
+* Q26: I have trouble organizing the things I have to do
+* Q7: I find it difficult to follow a plan through
+* Q11: I leave things to the last minute
+
+#### Factor 3
+
+This factor seems to relate to *planning approach*.
+
+* Q24: I set deadlines for myself and achieve them
+* Q3: I get most things done in a day that I want to
+* Q4: I stick to a plan once I have made it
+* Q21: I prioritize the things I have to do
+* Q15: I make 'to do' lists and achieve most of the things on it
+* Q1: I like to have a plan to work to in everyday life
+
+#### Factor 4
+
+This factor seems to relate to *preference for routine*.
+
+* Q23: I feel relaxed when I don't have a routine
+* Q5: I enjoy spontaneity and uncertainty
+* Q28: I feel restricted by schedules and plans
+* Q12: I have many different plans relating to the same goal
+
+
+#### Factor 5
+
+This factor seems to relate to *acceptance of delays*.
+
+* Q2: I feel frustrated when things don't go to plan
+* Q6: I feel frustrated if I can't find something I need
+* Q18: Interruptions to my daily routine annoy me
+* Q9: I like to know what I have to do in a day
+
+It seems as though there is some factorial validity to the hypothesized structure. (But remember that this model has poor fit.)
+
+
+## Task 18.4
+
+> Zibarras et al., (2008) looked at the relationship between personality and creativity. They used the Hogan Development Survey (HDS), which measures 11 dysfunctional dispositions of employed adults: being **volatile**, **mistrustful**, **cautious**, **detached**, **passive_aggressive**, **arrogant**, **manipulative**, **dramatic**, **eccentric**, **perfectionist**, and **dependent**. Zibarras et al. wanted to reduce these 11 traits down and, based on parallel analysis, found that they could be reduced to three components. They ran a principal component analysis with varimax rotation. Repeat this analysis (**zibarras_2008.csv**) to see which personality dimensions clustered together (see page 210 of the original paper).
+
+### Load the data
+
+To load the data from the CSV file (assuming you have set up a project folder as suggested in the book):
+
+```{r, eval = FALSE}
+zibarras_tib <- here::here("data/zibarras_2018.csv") %>%
+  readr::read_csv()
+```
+
+Alternative, load the data directly from the `discovr` package:
+
+```{r, eval=FALSE}
+zibarras_tib <- discovr::zibarras_2008
+```
+
+Like the authors, I ran the analysis with principal components and varimax rotation.
+
+### Create correlation matrix
+
+The data file has a variable in it containing participants' ids. Let's store a version of the data that only has the item scores.
+
+```{r}
+zibarras_tib <- zibarras_tib %>% 
+  dplyr::select(-id)
+```
+
+We can create the correlations between variables by executing.
+
+```{r}
+zib_cor <- cor(zibarras_tib)
+```
+
+To get a plot of the correlations we can execute:
+
+```{r}
+psych::cor.plot(zib_cor, upper = FALSE)
+```
+
+### The Bartlett test 
+
+```{r}
+psych::cortest.bartlett(zib_cor, n = 207)
+```
+
+This (basically useless) tests confirms that the correlation matrix is significantly different from an identity matrix (i.e. correlations are non-zero).
+
+### The KMO test
+
+```{r}
+psych::KMO(zib_cor)
+```
+
+```{r, echo = F}
+zib_kmo <- psych::KMO(zib_cor)
+```
+
+
+The KMO measure of sampling adequacy is `r round(zib_kmo$MSA, 2)`, which is above Kaiser's (1974) recommendation of 0.5. Individual items KMO values ranged from `r round(min(zib_kmo$MSAi), 2)` to `r round(max(zib_kmo$MSAi), 2)`. Thee values are in the mediocre to middling range. The sample size is probably adequate to yield distinct and reliable factors.
+
+
+### Distributions for items
+
+```{r}
+zib_tidy_tib <- zibarras_tib %>% 
+  tidyr::pivot_longer(
+    cols = volatile:dependent,
+    names_to = "Item",
+    values_to = "Response"
+  ) %>% 
+  dplyr::mutate(
+    Item = stringr::str_to_sentence(Item)
+  )
+
+ggplot2::ggplot(zib_tidy_tib, aes(Response)) +
+  geom_histogram(binwidth = 1, fill = "#136CB9", colour = "#136CB9", alpha = 0.5) +
+  labs(y = "Frequency") +
+  facet_wrap(~ Item, ncol = 3) +
+  theme_minimal()
+```
+
+### Parallel analysis
+
+```{r}
+psych::fa.parallel(zibarras_cor, fa = "pc", n.obs = 207)
+```
+
+Based on parallel analysis three components should be extracted (as the authors did in the paper).
+
+### PCA
+
+Create the PCA object. We choose an orthogonal rotation (varimax) because that's what the authors did - this is the default for PCA so we don't need to specify it explicitly.
+
+```{r}
+zib_pca <- psych::pca(zib_cor,
+                    n.obs = 207,
+                    nfactors = 3
+                    )
+```
+
+```{r}
+summary(zib_pca)
+```
+
+Inspect the factor loadings:
+
+```{r}
+parameters::model_parameters(zib_pca, threshold = 0.2, sort = TRUE) %>% 
+  knitr::kable(digits = 2)
+```
+
+
+The output shows the rotated component matrix, from which we see this pattern:
+
+* Component 1: 
+    - Dramatic
+    - Manipulative
+    - Arrogant
+    - Cautious (negative weight)
+    - Eccentric
+    - Perfectionist (negative weight)
+
+* Component 2:
+    - Volatile
+    - Mistrustful
+
+* Component 3:
+    - Detached
+    - Dependent (negative weight)
+    - Passive-aggressive
+
+Compare these results to those of Zibarras et al. (Table 4 from the original paper reproduced below), and note that they are the same.
+
+<img src="/img/ds_c18_sa_04_table_04.png" alt = "Table 4 from Zibarras et al. (2008)" width="600">
+
