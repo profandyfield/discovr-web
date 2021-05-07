@@ -45,7 +45,7 @@ muris_tib <- discovr::muris_2008
 
 ### Fit the model
 
-In the chapter we looked at how to select contrasts, but because our main predictor variable (the type of training) has only two levels (positive or negative) we don’t need contrasts: the main effect of this variable can only reflect differences between the two types of training. We can, therefore, use the default behaviour of {{&lt; icon name=“r-project” pack=“fab” &gt;}}.
+In the chapter we looked at how to select contrasts, but because our main predictor variable (the type of training) has only two levels (positive or negative) we don’t need contrasts: the main effect of this variable can only reflect differences between the two types of training. We can, therefore, use the default behaviour of {{<icon name="r-project" pack="fab">}}.
 
 ``` r
 muris_lm <- lm(int_bias ~ training + gender + age + scared, data = muris_tib)

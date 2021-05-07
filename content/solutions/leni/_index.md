@@ -25,4 +25,4 @@ menu:
 
 <img src="/img/leni_banner.png" alt = "Labcoat Leni charatcer from Discovering Statistics using R and RStudio" width="600">
 
-These pages provide the solutions and {{< icon name="r-project" pack="fab" >}} code for the Labcoat Leni real research tasks within [Discovering Statistics Using {{< icon name="r-project" pack="fab" >}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to navigate to the chapter you want.
+These pages provide the solutions and {{<icon name="r-project" pack="fab">}} code for the Labcoat Leni real research tasks within [Discovering Statistics Using {{< icon name="r-project" pack="fab" >}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to navigate to the chapter you want.

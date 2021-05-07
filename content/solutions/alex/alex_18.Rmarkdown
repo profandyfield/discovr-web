@@ -157,10 +157,10 @@ Note that item 5 also loads highly onto **TC3**.
 
 The questions that load highly on **TC2** seem to be items that relate to **Fear of peer/social evaluation**:
 
-* **raq_02**: *My friends will think I'm stupid for not being able to cope with {{< icon name="r-project" pack="fab" >}}*
+* **raq_02**: *My friends will think I'm stupid for not being able to cope with {{<icon name="r-project" pack="fab">}}*
 * **raq_09**: *My friends are better at statistics than me*
-* **raq_19**: *Everybody looks at me when I use {{< icon name="r-project" pack="fab" >}}*
-* **raq_22**: *My friends are better at {{< icon name="r-project" pack="fab" >}} than I am*
+* **raq_19**: *Everybody looks at me when I use {{<icon name="r-project" pack="fab">}}*
+* **raq_22**: *My friends are better at {{<icon name="r-project" pack="fab">}} than I am*
 * **raq_23**: *If I am good at statistics people will think I am a nerd*
 
 The questions that load highly on **TC3** seem to be items that relate to **Fear of statistics**:
@@ -169,7 +169,7 @@ The questions that load highly on **TC3** seem to be items that relate to **Fear
 * **raq_03**: *Standard deviations excite me*
 * **raq_04**: *I dream that Pearson is attacking me with correlation coefficients*
 * **raq_05**: *I don't understand statistics*
-* **raq_12**: *People try to tell you that {{< icon name="r-project" pack="fab" >}} makes statistics easier to understand but it doesn't*
+* **raq_12**: *People try to tell you that {{<icon name="r-project" pack="fab">}} makes statistics easier to understand but it doesn't*
 * **raq_16**: *I weep openly at the mention of central tendency*
 * **raq_20**: *I can't sleep for thoughts of eigenvectors*
 * **raq_21**: *I wake up under my duvet thinking that I am trapped under a normal distribution*

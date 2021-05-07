@@ -25,4 +25,4 @@ menu:
 
 <img src="/img/dsus_smart_alex_banner.png" alt = "Smart Alex charatcer from Discovering Statistics using R and RStudio" width="600">
 
-These pages provide the solutions and {{< icon name="r-project" pack="fab" >}} code to the Smart Alex questions at the end of each chapter of [Discovering Statistics Using {{< icon name="r-project" pack="fab" >}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to navigate to the chapter you want.
+These pages provide the solutions and {{<icon name="r-project" pack="fab">}} code to the Smart Alex questions at the end of each chapter of [Discovering Statistics Using {{<icon name="r-project" pack="fab">}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to navigate to the chapter you want.

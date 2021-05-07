@@ -26,13 +26,13 @@ menu:
 
 <img src="/img/space_pirate.png" alt = "Mae Jemstone charatcer from Discovering Statistics using R and RStudio" width="200">
 
-These pages provide the {{< icon name="r-project" pack="fab" >}} code used in each chapter of [Discovering Statistics Using {{< icon name="r-project" pack="fab" >}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to view the code or the links below to download R markdown files.
+These pages provide the {{<icon name="r-project" pack="fab">}} code used in each chapter of [Discovering Statistics Using {{<icon name="r-project" pack="fab">}} and RStudio (2nd edition)](https://www.discoveringstatistics.com/books/dsur/). Use the left menu to view the code or the links below to download R markdown files.
 
 * [All R Markdown files](/markdown/dsr2_code.zip)
 * [Chapter 1 R Markdown file](/markdown/code_01.Rmd)
 * [Chapter 2 R Markdown file](/markdown/code_02.Rmd)
 * [Chapter 3 R Markdown file](/markdown/code_03.Rmd)
-* Chapter 4 (No {{< icon name="r-project" pack="fab" >}} code in this chapter)
+* Chapter 4 (No {{<icon name="r-project" pack="fab">}} code in this chapter)
 * [Chapter 5 R Markdown file](/markdown/code_05.Rmd)
 * [Chapter 6 R Markdown file](/markdown/code_06.Rmd)
 * [Chapter 7 R Markdown file](/markdown/code_07.Rmd)
