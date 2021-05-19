@@ -1,4 +1,4 @@
-artist_name,album_name,track_name,year,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,time_signature,duration_ms
+artist_name,album_name,track_name,year,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,time_signature,duration
 Taylor Swift,Evermore,Willow,2020,0.392,0.574,7,-9.195,1,0.17,0.833,0.00179,0.145,0.529,81.112,4,214706
 Taylor Swift,Evermore,Champagne Problems,2020,0.462,0.24,0,-12.077,1,0.0377,0.92,0,0.113,0.32,171.319,4,244000
 Taylor Swift,Evermore,Gold Rush,2020,0.512,0.462,9,-10.491,1,0.0408,0.83,0.166,0.121,0.353,112.05,4,185320
