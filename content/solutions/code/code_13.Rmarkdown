@@ -1,0 +1,417 @@
+---
+title: R code Chapter 13
+linktitle: Code Chapter 13
+toc: true
+type: docs
+date: "2021-06-23T00:00:00Z"
+draft: false
+menu:
+  code:
+    parent: R Code
+    weight: 13
+
+# Prev/next pager order (if `docs_section_pager` enabled in `params.toml`)
+weight: 13
+
+---
+
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/img_code.html")
+```
+
+{{% alert note %}}
+
+```{r, echo=FALSE}
+htmltools::includeHTML("../../html_chunks/terms.html")
+```
+
+{{% /alert %}}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
+library(dplyr)
+library(ggplot2)
+library(ggfortify)
+library(Hmisc)
+library(magrittr)
+
+library(afex)
+library(BayesFactor)
+library(broom)
+library(effectsize)
+library(emmeans)
+library(ggfortify)
+library(modelbased)
+library(parameters)
+library(sandwich)
+library(WRS2)
+```
+
+## Load packages
+
+Remember to load the tidyverse:
+
+```{r, eval = F}
+library(tidyverse)
+```
+
+## Load the data
+
+Load the data from the `discover` package:
+
+```{r}
+goggles_tib <- discovr::goggles
+```
+
+If you want to read the file from the CSV and you have set up your project folder as I suggest in Chapter 1, then the code you would use is:
+
+```{r, eval = FALSE}
+goggles_tib <- here::here("data/goggles.csv") %>%
+  readr::read_csv() %>% 
+  dplyr::mutate(
+    facetype = forcats::as_factor(facetype)
+    alcohol = forcats::as_factor(alcohol)
+  )
+```
+
+This code reads the file in and converts the variables **facetype** and **alcohol** to factors. It's a good idea to check that the levels of **facetype** are in the order unattractive, attractive, and that the levels of **alcohol** are in the order placebo, low dose, high dose. Check the factor levels by executing:
+
+```{r}
+levels(goggles_tib$facetype)
+levels(goggles_tib$alcohol)
+```
+
+If they're not in the correct order then:
+
+```{r}
+goggles_tib <- goggles_tib %>%
+    dplyr::mutate(
+    facetype = forcats::fct_relevel(facetype, "Unattractive"),
+    alcohol = forcats::fct_relevel(alcohol, "Placebo", "Low dose", "High dose")
+  )
+```
+
+## Self-test
+
+Enter the data manually
+
+```{r, eval = F}
+goggles_tib <- tibble::tibble(
+  id = c("vfnoxj", "hqfxap", "obicov", "oobiyc", "snafxn", "vihqnn", "ttrwbd", "anfyuf", "xwhodk", "nntqce", "vijnmk", "emutav", "cadtgo", "wpwfgy", "omvfpp", "xgyxnm", "troswv", "lygwvu", "aktinx", "xupshg", "ltmunk", "nywdas", "anbmps", "ailhsg", "ptalsm", "sbqkvb", "bdpjjq", "rwwpvm", "knkkfc", "eywqvv", "sawkng", "rsuarn", "iftwpu", "einkcx", "oawhad", "ouklsh", "siucar", "mjigqv", "enmsef", "rbrvsa", "ijklao", "oslboj", "yrbrqu", "viuvox", "efpdds", "ipwhor", "sbsxiw", "kkywwk"),
+    facetype = gl(2, 24, labels = c("Attractive", "Unattractive")),
+    alcohol = gl(3, 8, 48, labels = c("Placebo", "Low dose", "High dose")),
+    attractiveness = c(6, 7, 6, 7, 6, 5, 8, 6, 7, 6, 8, 7, 6, 7, 6, 5, 5, 6, 7, 5, 7, 6, 5, 8, 2, 4, 3, 3, 4, 6, 5, 1, 3, 5, 7, 5, 4, 4, 5, 6, 5, 6, 8, 6, 7, 8, 7, 6)
+    )
+```
+
+## Plot the data
+
+```{r}
+ggplot2::ggplot(goggles_tib, aes(x = alcohol, y = attractiveness, colour = facetype, shape = facetype)) +
+  stat_summary(fun.data = "mean_cl_normal", geom = "pointrange", position = position_dodge(width = 0.2)) +
+  coord_cartesian(ylim = c(0,8)) +
+  scale_y_continuous(breaks = 0:8) +
+  scale_colour_manual(values = c("#E84646", "#65ADC2")) +
+  labs(x = "Alcohol consumption", y = "Attractiveness (0-10)", colour = "Type of face", shape = "Type of face") +
+  theme_minimal()
+```
+
+## Summary statistics
+
+```{r}
+goggles_tib %>% 
+  dplyr::group_by(facetype, alcohol) %>% 
+  dplyr::summarize(
+    mean = mean(attractiveness, na.rm = TRUE),
+    `95% CI lower` = mean_cl_normal(attractiveness)$ymin,
+    `95% CI upper` = mean_cl_normal(attractiveness)$ymax
+  ) %>% 
+  knitr::kable(caption = "Summary statistics for the beer goggles data", digits = 2)
+```
+
+
+
+## Self-test
+
+```{r}
+goggles_tib %>% 
+  dplyr::filter(alcohol != "Low dose") %>% 
+  lm(attractiveness ~ facetype*alcohol, data = .) %>% 
+  broom::tidy() %>% 
+  dplyr::mutate(
+    across(where(is.numeric), ~round(., 3))
+    )
+```
+
+## Fitting the model using `afex::aov_4()`
+
+Raw analysis:
+
+```{r}
+goggles_afx <- afex::aov_4(attractiveness ~ facetype*alcohol + (1|id), data = goggles_tib)
+goggles_afx
+```
+
+Correcting *p*-values:
+
+```{r}
+goggles_afx <- afex::aov_4(attractiveness ~ facetype*alcohol + (1|id), data = goggles_tib, anova_table = list(p_adjust_method = "bonferroni"))
+goggles_afx
+```
+
+Plotting the data
+
+```{r}
+afex::afex_plot(goggles_afx, "alcohol", "facetype", legend_title = "Face type") +
+  labs(x = "Alcohol consumption", y = "Attractiveness rating (0-10)") +
+  theme_minimal()
+```
+
+
+## Fitting the model using `lm()`
+
+Set contrasts for `facetype`:
+
+```{r}
+unatt_vs_att <- c(-0.5, 0.5)
+contrasts(goggles_tib$facetype) <- unatt_vs_att
+```
+
+Set contrasts for `alcohol`:
+
+```{r}
+none_vs_alcohol <- c(-2/3, 1/3, 1/3)
+low_vs_high <- c(0, -1/2, 1/2)
+contrasts(goggles_tib$alcohol) <- cbind(none_vs_alcohol, low_vs_high)
+```
+
+Check the contrasts:
+
+```{r}
+contrasts(goggles_tib$facetype)
+contrasts(goggles_tib$alcohol)
+```
+
+Fit the model and print Type III sums of squares:
+
+```{r}
+goggles_lm <- lm(attractiveness ~ facetype*alcohol, data = goggles_tib)
+car::Anova(goggles_lm, type = 3)
+```
+
+## Interpreting effects
+
+### Self test
+
+Plot the main effect of type of face
+
+```{r}
+ggplot2::ggplot(goggles_tib, aes(x = facetype, y= attractiveness)) +
+  geom_violin(colour = "#316675", fill = "#65ADC2", alpha = 0.5) +
+  stat_summary(fun.data = "mean_cl_normal", colour = "#316675") +
+  scale_y_continuous(breaks = 0:8) +
+  labs(y = "Attractiveness (out of 10)", x = "Type of face") +
+  theme_minimal()
+```
+
+Getting the estimated marginal means for the model created using `afex::aov_4()`
+
+```{r}
+emmeans::emmeans(goggles_afx, "facetype")
+```
+
+Getting the estimated marginal means for the model created using `lm()`
+
+```{r}
+emmeans::emmeans(goggles_lm, "facetype")
+```
+
+### Self test
+
+Plot the main effect of alcohol consumption
+
+```{r}
+ggplot2::ggplot(goggles_tib, aes(x = alcohol, y= attractiveness)) +
+  geom_violin(colour = "#168E7F", fill = "#109B37", alpha = 0.3) +
+  stat_summary(fun.data = "mean_cl_normal", colour = "#168E7F") +
+  scale_y_continuous(breaks = 0:8) +
+  labs(y = "Attractiveness (out of 10)", x = "Dose of alcohol") +
+  theme_minimal()
+```
+
+
+Get estimated marginal means from the `afex::aov_4()` model
+
+```{r}
+emmeans::emmeans(goggles_afx, "alcohol")
+```
+
+Get estimated marginal means from the `lm' model
+
+```{r}
+emmeans::emmeans(goggles_lm, "alcohol")
+
+```
+
+Plot the interaction using `afex`
+
+```{r}
+afex::afex_plot(goggles_afx, "alcohol", "facetype", legend_title = "Face type") + 
+  labs(x = "Alcohol consumption", y = "Attractiveness rating (0-10)") +
+  theme_minimal()
+```
+
+
+Get estimated marginal means from the `afex::aov_4()` model
+
+```{r}
+emmeans::emmeans(goggles_afx, c("alcohol", "facetype"))
+```
+
+Get estimated marginal means from the `lm()` model
+
+```{r}
+emmeans::emmeans(goggles_lm, c("alcohol", "facetype"))
+```
+
+## Contrasts
+
+View the contrasts set for the model fitted with `lm()`
+
+```{r}
+broom::tidy(goggles_lm, conf.int = TRUE) %>%
+  dplyr::mutate(
+    across(where(is.numeric), ~round(., 3))
+  )
+```
+
+## Simple effects
+
+To look at the effect of facetype at each level of alcohol, we'd execute:
+```{r}
+emmeans::joint_tests(goggles_afx, "alcohol")
+```
+
+or for the model created with `lm()`
+```{r, eval = F}
+emmeans::joint_tests(goggles_lm, "alcohol")
+```
+
+To look at the effect of alcohol at each level of facetype, we'd execute:
+```{r}
+emmeans::joint_tests(goggles_afx, "facetype")
+```
+
+or for the model created with `lm()`
+```{r, eval = F}
+emmeans::joint_tests(goggles_lm, "facetype")
+```
+
+## Self test: Diagnostic plots 
+
+Plot residuals from the `goggles_lm` model. Remember to execute `library(ggfortify)` before running this code.
+
+```{r}
+ggplot2::autoplot(goggles_lm,
+                  which = c(1, 3, 2, 4),
+                  colour = "#5c97bf",
+                  smooth.colour = "#ef4836",
+                  alpha = 0.5,
+                  size = 1) + 
+  theme_minimal()
+
+```
+
+## Robust models
+
+### Self-test
+
+Fit a model using `lmRob()`
+
+```{r}
+goggles_rob <- robust::lmRob(attractiveness ~ facetype*alcohol, data = goggles_tib)
+summary(goggles_rob)
+```
+
+### Robust standard errors
+
+HC4 standard errors
+
+```{r}
+parameters::model_parameters(goggles_lm, robust = TRUE, vcov.type = "HC4", digits = 3)
+```
+
+Bootstrap standard errors
+
+```{r}
+parameters::bootstrap_parameters(goggles_lm)
+```
+
+## Robust overall tests
+
+Fit a model based on 20% trimmed means.
+
+```{r}
+WRS2::t2way(attractiveness ~ alcohol*facetype, goggles_tib)
+goggles_mcp2atm <- WRS2::mcp2atm(attractiveness ~ alcohol*facetype, goggles_tib)
+goggles_mcp2atm
+goggles_mcp2atm$contrasts
+```
+
+Fit a model based on an M-estimator.
+
+```{r}
+WRS2::pbad2way(attractiveness ~ alcohol*facetype, goggles_tib, nboot = 1000)
+goggles_mcp2a <- WRS2::mcp2a(attractiveness ~ alcohol*facetype, goggles_tib, nboot = 1000)
+goggles_mcp2a
+
+goggles_mcp2a$contrasts
+```
+
+## Bayes factors
+
+```{r}
+alcohol_bf <- BayesFactor::lmBF(formula = attractiveness ~ alcohol, data = goggles_tib)
+
+facetype_bf <-  BayesFactor::lmBF(formula = attractiveness ~ alcohol + facetype, data = goggles_tib)
+
+int_bf <- BayesFactor::lmBF(formula = attractiveness ~ alcohol + facetype + alcohol:facetype, data = goggles_tib)
+
+alcohol_bf
+facetype_bf/alcohol_bf
+int_bf/facetype_bf
+```
+
+## Effect sizes
+
+Omega squared for models using `aov_4()`
+
+```{r}
+effectsize::omega_squared(goggles_afx, ci = 0.95, partial = FALSE)
+```
+
+Partial omega squared for models using `aov_4()`
+
+```{r}
+effectsize::omega_squared(goggles_afx, ci = 0.95, partial = TRUE)
+```
+
+
+Omega squared for models using `lm()`
+
+```{r, eval = F}
+car::Anova(goggles_lm, type = 3) %>% 
+  effectsize::omega_squared(., ci = 0.95, partial = FALSE)
+```
+
+
+Partial omega squared for models using `lm()`
+
+```{r, eval = F}
+car::Anova(goggles_lm, type = 3) %>% 
+  effectsize::omega_squared(., ci = 0.95, partial = TRUE) 
+```
