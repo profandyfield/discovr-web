@@ -150,7 +150,7 @@ Omega squared for models using `aov_4()` (for the model using `lm()` replace `me
 effectsize::omega_squared(metal_afx, ci = 0.95, partial = FALSE)
 ```
 
-We could report (remember if you're using APA format to drop the leading zeros before *p*-values and $ \omega^2 $ , for example report *p* = .035 instead of *p* = 0.035):
+We could report (remember if you're using APA format to drop the leading zeros before *p*-values and *ω*<sup>2</sup>, for example report *p* = .035 instead of *p* = 0.035):
 
 * The main effect of soundtrack was significant, `r report_f(x = metal_car)`, `r report_omega(model = metal_afx)` indicating that anger scores were significantly different across the three soundtracks. It seems that after listening to the angle grinder anger was higher than after both both pop and metal.
 * The main effect of fan was not significant, `r report_f(x = metal_car, index = 3)`, `r report_omega(model = metal_afx, index = 2)` indicating that anger scores were not significantly different overall between metal and pop fans. The effect was basically zero.
@@ -256,7 +256,7 @@ effectsize::omega_squared(notebook_afx, ci = 0.95, partial = FALSE)
 ```
 
 
-We could report (remember if you're using APA format to drop the leading zeros before *p*-values and $ \omega^2 $, for example report *p* = .035 instead of *p* = 0.035):
+We could report (remember if you're using APA format to drop the leading zeros before *p*-values and *ω*<sup>2</sup>, for example report *p* = .035 instead of *p* = 0.035):
 
 > The results show that the psychological arousal during the films was significantly higher for males than females, `r report_f(x = notebook_car, index = 3)`, `r report_omega(model = notebook_afx, index = 2)`. Psychological arousal was also significantly higher during *the notebook* than during a documentary about notebooks, `r report_f(x = notebook_car, index = 2)`, `r report_omega(model = notebook_afx, index = 1)`. The interaction was also significant, `r report_f(x = notebook_car, index = 4)`, `r report_omega(model = notebook_afx, index = 3)`, and seemed to reflect the fact that psychological arousal was very similar for men and women during the documentary about notebooks (it was low for both sexes), but for *the notebook* men experienced greater psychological arousal than women. However, the effect size for the interaction was trivial.
 
@@ -455,7 +455,7 @@ Omega squared for models using `aov_4()` (for the model using `lm()` replace `es
 effectsize::omega_squared(escape_afx, ci = 0.95, partial = FALSE)
 ```
 
-We could report (remember if you're using APA format to drop the leading zeros before *p*-values and $ \omega^2 $, for example report *p* = .035 instead of *p* = 0.035):
+We could report (remember if you're using APA format to drop the leading zeros before *p*-values and *ω*<sup>2</sup>, for example report *p* = .035 instead of *p* = 0.035):
 
 * The main effect of the type of song significantly affected screams elicited during that song, `r report_f(escape_car, index = 2)`, `r report_omega(model = escape_afx, index = 1)`; the two symphonies elicited significantly more screams of agony than the two songs about flies.
 * The main effect of the songwriter significantly affected screams elicited during that song, `r report_f(escape_car, index = 3)`, `r report_omega(model = escape_afx, index = 2)`; Andy's songs elicited significantly more screams of torment from the audience than Malcolm's songs.

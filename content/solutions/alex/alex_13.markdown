@@ -169,11 +169,11 @@ effectsize::omega_squared(metal_afx, ci = 0.95, partial = FALSE)
     ## fan            | -7.82e-04 | [0.00, 0.00]
     ## soundtrack:fan |      0.73 | [0.63, 0.79]
 
-We could report (remember if you’re using APA format to drop the leading zeros before *p*-values and \$ ^2 \$ , for example report *p* = .035 instead of *p* = 0.035):
+We could report (remember if you’re using APA format to drop the leading zeros before *p*-values and *ω*<sup>2</sup>, for example report *p* = .035 instead of *p* = 0.035):
 
--   The main effect of soundtrack was significant, *F*(2, 84) = 116.82, *p* &lt; .001, \$ ^2 \$ = 0.2, 95% CI \[0.06, 0.33\] indicating that anger scores were significantly different across the three soundtracks. It seems that after listening to the angle grinder anger was higher than after both both pop and metal.
--   The main effect of fan was not significant, *F*(1, 84) = 0.07, *p* = 0.788, \$ ^2 \$ = 0, 95% CI \[0, 0\] indicating that anger scores were not significantly different overall between metal and pop fans. The effect was basically zero.
--   The soundtrack × fan interaction was significant, *F*(2, 84) = 433.28, *p* &lt; .001, \$ ^2 \$ = 0.73, 95% CI \[0.63, 0.79\] indicating that the soundtrack combined with the type of fan significantly affected anger. The plot shows that after listening to an angle grinder both groups are angry. After listening to metal, the metal heads score low on anger but the pop fans score high. the reverse is true after listening to pop music. This effect explained 73% of variance.
+-   The main effect of soundtrack was significant, *F*(2, 84) = 116.82, *p* &lt; .001, *ω*<sup>2</sup> = 0.2, 95% CI \[0.06, 0.33\] indicating that anger scores were significantly different across the three soundtracks. It seems that after listening to the angle grinder anger was higher than after both both pop and metal.
+-   The main effect of fan was not significant, *F*(1, 84) = 0.07, *p* = 0.788, *ω*<sup>2</sup> = 0, 95% CI \[0, 0\] indicating that anger scores were not significantly different overall between metal and pop fans. The effect was basically zero.
+-   The soundtrack × fan interaction was significant, *F*(2, 84) = 433.28, *p* &lt; .001, *ω*<sup>2</sup> = 0.73, 95% CI \[0.63, 0.79\] indicating that the soundtrack combined with the type of fan significantly affected anger. The plot shows that after listening to an angle grinder both groups are angry. After listening to metal, the metal heads score low on anger but the pop fans score high. the reverse is true after listening to pop music. This effect explained 73% of variance.
 
 ## Task 13.3
 
@@ -303,9 +303,9 @@ effectsize::omega_squared(notebook_afx, ci = 0.95, partial = FALSE)
     ## sex       |   0.03 | [0.00, 0.21]
     ## film:sex  |   0.02 | [0.00, 0.18]
 
-We could report (remember if you’re using APA format to drop the leading zeros before *p*-values and \$ ^2 \$, for example report *p* = .035 instead of *p* = 0.035):
+We could report (remember if you’re using APA format to drop the leading zeros before *p*-values and *ω*<sup>2</sup>, for example report *p* = .035 instead of *p* = 0.035):
 
-> The results show that the psychological arousal during the films was significantly higher for males than females, *F*(1, 36) = 7.29, *p* = 0.011, \$ ^2 \$ = 0.03, 95% CI \[0, 0.21\]. Psychological arousal was also significantly higher during *the notebook* than during a documentary about notebooks, *F*(1, 36) = 141.87, *p* &lt; .001, \$ ^2 \$ = 0.74, 95% CI \[0.58, 0.83\]. The interaction was also significant, *F*(1, 36) = 4.64, *p* = 0.038, \$ ^2 \$ = 0.02, 95% CI \[0, 0.18\], and seemed to reflect the fact that psychological arousal was very similar for men and women during the documentary about notebooks (it was low for both sexes), but for *the notebook* men experienced greater psychological arousal than women. However, the effect size for the interaction was trivial.
+> The results show that the psychological arousal during the films was significantly higher for males than females, *F*(1, 36) = 7.29, *p* = 0.011, *ω*<sup>2</sup> = 0.03, 95% CI \[0, 0.21\]. Psychological arousal was also significantly higher during *the notebook* than during a documentary about notebooks, *F*(1, 36) = 141.87, *p* &lt; .001, *ω*<sup>2</sup> = 0.74, 95% CI \[0.58, 0.83\]. The interaction was also significant, *F*(1, 36) = 4.64, *p* = 0.038, *ω*<sup>2</sup> = 0.02, 95% CI \[0, 0.18\], and seemed to reflect the fact that psychological arousal was very similar for men and women during the documentary about notebooks (it was low for both sexes), but for *the notebook* men experienced greater psychological arousal than women. However, the effect size for the interaction was trivial.
 
 ## Task 13.5
 
@@ -568,11 +568,11 @@ effectsize::omega_squared(escape_afx, ci = 0.95, partial = FALSE)
     ## songwriter           |   0.09 | [0.00, 0.24]
     ## song_type:songwriter |   0.04 | [0.00, 0.17]
 
-We could report (remember if you’re using APA format to drop the leading zeros before *p*-values and \$ ^2 \$, for example report *p* = .035 instead of *p* = 0.035):
+We could report (remember if you’re using APA format to drop the leading zeros before *p*-values and *ω*<sup>2</sup>, for example report *p* = .035 instead of *p* = 0.035):
 
--   The main effect of the type of song significantly affected screams elicited during that song, *F*(1, 64) = 20.87, *p* &lt; .001, \$ ^2 \$ = 0.2, 95% CI \[0.05, 0.36\]; the two symphonies elicited significantly more screams of agony than the two songs about flies.
--   The main effect of the songwriter significantly affected screams elicited during that song, *F*(1, 64) = 9.94, *p* &lt; .01, \$ ^2 \$ = 0.09, 95% CI \[0, 0.24\]; Andy’s songs elicited significantly more screams of torment from the audience than Malcolm’s songs.
--   The song type$\times$songwriter interaction was significant, *F*(1, 64) = 5.07, *p* = 0.028, \$ ^2 \$ = 0.04, 95% CI \[0, 0.17\]. Although reactions to Malcolm’s and Andy’s songs were similar for songs about a fly, Andy’s symphony elicited more screams of torment than Malcolm’s. This effect was trivially small.
+-   The main effect of the type of song significantly affected screams elicited during that song, *F*(1, 64) = 20.87, *p* &lt; .001, *ω*<sup>2</sup> = 0.2, 95% CI \[0.05, 0.36\]; the two symphonies elicited significantly more screams of agony than the two songs about flies.
+-   The main effect of the songwriter significantly affected screams elicited during that song, *F*(1, 64) = 9.94, *p* &lt; .01, *ω*<sup>2</sup> = 0.09, 95% CI \[0, 0.24\]; Andy’s songs elicited significantly more screams of torment from the audience than Malcolm’s songs.
+-   The song type$\times$songwriter interaction was significant, *F*(1, 64) = 5.07, *p* = 0.028, *ω*<sup>2</sup> = 0.04, 95% CI \[0, 0.17\]. Although reactions to Malcolm’s and Andy’s songs were similar for songs about a fly, Andy’s symphony elicited more screams of torment than Malcolm’s. This effect was trivially small.
 
 ## Task 13.8
 

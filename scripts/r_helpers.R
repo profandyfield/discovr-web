@@ -41,11 +41,12 @@ report_f <- function(x, index = 2, dp = 2){
 }
 
 
+
 report_omega <- function(model, index = 1, dp = 2, partial = FALSE){
   if(isTRUE(partial)){
     omega <- "$ \\omega^2_p $"
     } else {
-    omega <- "$ \\omega^2 $"
+    omega <- "*ω*<sup>2</sup>"
     }
 
   x <- effectsize::omega_squared(model, ci = 0.95, partial = partial)
