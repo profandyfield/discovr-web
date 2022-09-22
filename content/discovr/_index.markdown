@@ -1,6 +1,6 @@
 ---
 title: "discovr: a package of interactive tutorials"
-output: 
+output:
   html_document
 bibliography: [../../static/bib/milton_rocks.bib]
 link-citations: true
@@ -87,7 +87,7 @@ Here’s a video explaining how I suggest using the tutorials.
 
 <div class="vembedr">
 <div>
-<iframe src="https://www.youtube.com/embed/FhoYCsZttGc" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+<iframe src="https://www.youtube.com/embed/mqT7c17tofE" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 
