@@ -32,8 +32,6 @@ htmltools::includeHTML("../../html_chunks/terms.html")
 knitr::opts_chunk$set(
   echo = FALSE
 )
-
-library(magrittr)
 ```
 
 ## Is Friday 13th unlucky?
@@ -61,9 +59,9 @@ To calculate the sum of squares, first take the mean from each score, then squar
 ```{r, results = 'asis'}
 tibble::tibble(
   Score = c(1, 1, 4, 6, 9, 9),
-  `Error (Score - Mean)` = Score - mean(Score) %>% round(., 2),
-  `Error squared` = (`Error (Score - Mean)`)^2 %>% round(., 2)
-) %>% 
+  `Error (Score - Mean)` = Score - mean(Score) |> round(2),
+  `Error squared` = (`Error (Score - Mean)`)^2 |> round(2)
+) |> 
   knitr::kable()
 ```
 
@@ -99,9 +97,9 @@ To calculate the sum of squares, first take the mean from each score, then squar
 ```{r, results = 'asis'}
 tibble::tibble(
   Score = c(7, 6, 5, 5, 7, 6),
-  `Error (Score - Mean)` = Score - mean(Score) %>% round(., 2),
-  `Error squared` = (`Error (Score - Mean)`)^2 %>% round(., 2)
-) %>% 
+  `Error (Score - Mean)` = Score - mean(Score) |> round(2),
+  `Error squared` = (`Error (Score - Mean)`)^2 |> round(2)
+) |> 
   knitr::kable()
 ```
 
@@ -137,9 +135,9 @@ To calculate the sum of squares, first take the mean from each score, then squar
 ```{r, results = 'asis'}
 tibble::tibble(
   Score = c(9, 6, 11, 11, 3, 5),
-  `Error (Score - Mean)` = Score - mean(Score) %>% round(., 2),
-  `Error squared` = (`Error (Score - Mean)`)^2 %>% round(., 2)
-) %>% 
+  `Error (Score - Mean)` = Score - mean(Score) |> round(2),
+  `Error squared` = (`Error (Score - Mean)`)^2 |> round(2)
+) |> 
   knitr::kable()
 ```
 
@@ -175,9 +173,9 @@ To calculate the sum of squares, first take the mean from each score, then squar
 ```{r, results = 'asis'}
 tibble::tibble(
   Score = c(4, 10, 12, 12, 13, 14),
-  `Error (Score - Mean)` = Score - mean(Score) %>% round(., 2),
-  `Error squared` = (`Error (Score - Mean)`)^2 %>% round(., 2)
-) %>% 
+  `Error (Score - Mean)` = Score - mean(Score) |> round(2),
+  `Error squared` = (`Error (Score - Mean)`)^2 |> round(2)
+) |> 
   knitr::kable()
 ```
 

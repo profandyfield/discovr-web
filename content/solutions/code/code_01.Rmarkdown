@@ -34,7 +34,6 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 
-library(magrittr)
 library(dplyr)
 library(ggplot2)
 ```
@@ -53,7 +52,7 @@ metallica <- metallica[metallica != "Jason"]
 metallica <- c(metallica, "Rob")
 
 print(metallica)
-metallica %>% print(.)
+metallica |> print()
 ```
 
 
@@ -197,7 +196,7 @@ tibble::tribble(
 "Piece of mind", "1983",  "****", "The Flight of Icarus",
 "The Number of the beast", "1982", "****", "Children of the damned",
 "Powerslave", "1984", "*****", "The rime of the ancient mariner"
-) %>% 
+) |> 
 knitr::kable(caption = "My top 3 Iron Maiden albums")
 ```
 
@@ -209,7 +208,7 @@ tibble::tribble(
 "Piece of mind", "1983",  "****", "The Flight of Icarus",
 "The Number of the beast", "1982", "****", "Children of the damned",
 "Powerslave", "1984", "*****", "The rime of the ancient mariner"
-) %>% 
+) |> 
 knitr::kable(caption = "My top 3 Iron Maiden albums")
 ```
 
@@ -218,13 +217,16 @@ knitr::kable(caption = "My top 3 Iron Maiden albums")
 
 You can include equations in R markdown using latex commands. You include an equation by enclosing it within `$$` (or a single `$` if you want the equation within the line of text you’re writing). To give you a flavour:
 
-`We can include the linear model in a sentence like this: $Y_i = b_0 + b_1X_i + \epsilon_i$`
+```
+We can include the linear model in a sentence like this: $Y_i = b_0 + b_1X_i + \epsilon_i$
+```
 
 which will knit as:
 
-We can include the linear model in a sentence like this: $Y_i = b_0 + b_1X_i + \epsilon_i$
+We can include the linear model in a sentence like this: $ Y_i = b_0 + b_1X_i + \epsilon_i $
 
 Or, if we want it within its own paragraph we’d write it as this:
+
 ```
 $$
 Y_i = b_0 + b_1X_i + \epsilon_i
@@ -237,14 +239,12 @@ $$
 Y_i = b_0 + b_1X_i + \epsilon_i
 $$
 
-## Tidyverse and the pipe operator (%>%)
+## Tidyverse and the pipe operator (|>)
 
 ```{r}
-# library(tidyverse) or library(magrittr) to access the pipe
-
-core_members <- metallica %>% 
-  subset(., metallica != "Rob") %>% 
-  sort(.)
+core_members <- metallica |> 
+  subset(metallica != "Rob") |> 
+  sort()
 
 core_members
 ```
@@ -265,20 +265,20 @@ songs_written_int <-  c(111L, 112L, 56L, 16L, 3L, 11L, 6L)
 net_worth_int <- c(300000000L, 300000000L, 200000000L, 20000000L, 40000000L, 1000000L, 20000000L)
 
 # Date variables
-birth_date <- c("1963-12-26", "1963-08-03", "1962-11-18", "1964-10-23", "1963-03-04", "1962-02-10", "1961-09-13") %>% lubridate::ymd()
+birth_date <- c("1963-12-26", "1963-08-03", "1962-11-18", "1964-10-23", "1963-03-04", "1962-02-10", "1961-09-13") |> lubridate::ymd()
 
-death_date <- c(NA, NA, NA, NA, NA, "1986-09-27", NA) %>% 
+death_date <- c(NA, NA, NA, NA, NA, "1986-09-27", NA) |> 
   lubridate::ymd()
 
 # Logical variables
 current_member <- c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE)
 
 # Factor variables
-instrument <- c(2, 0, 0, 1, 1, 1, 0) %>% factor(levels = 0:2, labels = c("Guitar", "Bass", "Drums"))
+instrument <- c(2, 0, 0, 1, 1, 1, 0) |> factor(levels = 0:2, labels = c("Guitar", "Bass", "Drums"))
 
 
-instrument <- c("Drums", "Guitar", "Guitar", "Bass", "Bass", "Bass", "Guitar") %>%
-  forcats::as_factor() %>%
+instrument <- c("Drums", "Guitar", "Guitar", "Bass", "Bass", "Bass", "Guitar") |>
+  forcats::as_factor() |>
   forcats::fct_relevel("Guitar", "Bass", "Drums")
 
 levels(instrument)
@@ -331,7 +331,7 @@ metalli_tib$albums <-  c(10, 10, 10, 2, 4, 3, 0)
 Using `dplyrr:mutate()`:
 
 ```{r}
-metalli_tib <- metalli_tib %>% 
+metalli_tib <- metalli_tib |> 
   dplyr::mutate(
     	albums = c(10, 10, 10, 2, 4, 3, 0)
   )
@@ -344,11 +344,11 @@ You can create your data set by initializing a tibble and then defining each var
 ```{r}
 metalli_tib <- tibble::tibble(
     name = c("Lars Ulrich","James Hetfield", "Kirk Hammett", "Rob Trujillo", "Jason Newsted", "Cliff Burton", "Dave Mustaine"),
-    birth_date = c("1963-12-26", "1963-08-03", "1962-11-18", "1964-10-23", "1963-03-04", "1962-02-10", "1961-09-13") %>% lubridate::ymd(),
-    death_date = c(NA, NA, NA, NA, NA, "1986-09-27", NA) %>% 
+    birth_date = c("1963-12-26", "1963-08-03", "1962-11-18", "1964-10-23", "1963-03-04", "1962-02-10", "1961-09-13") |> lubridate::ymd(),
+    death_date = c(NA, NA, NA, NA, NA, "1986-09-27", NA) |> 
   lubridate::ymd(),
-  instrument = c("Drums", "Guitar", "Guitar", "Bass", "Bass", "Bass", "Guitar") %>%
-  forcats::as_factor() %>% forcats::fct_relevel("Guitar", "Bass", "Drums"),
+  instrument = c("Drums", "Guitar", "Guitar", "Bass", "Bass", "Bass", "Guitar") |>
+  forcats::as_factor() |> forcats::fct_relevel("Guitar", "Bass", "Drums"),
   current_member = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
   songs_written =  c(111, 112, 56, 16, 3, 11, 6),
 net_worth = c(300000000, 300000000, 200000000, 20000000, 40000000, 1000000, 20000000)
@@ -358,7 +358,7 @@ net_worth = c(300000000, 300000000, 200000000, 20000000, 40000000, 1000000, 2000
 and now add one that quantifies how much they have earned per song that they contributed to:
 
 ```{r}
-metalli_tib <- metalli_tib %>% 
+metalli_tib <- metalli_tib |> 
   dplyr::mutate(
     	worth_per_song = net_worth/songs_written
   )
@@ -379,7 +379,7 @@ metalli_tib <- tibble::tribble(
   "Jason Newsted", "1963-03-04", NA, "Bass", FALSE, 3, 40000000,
   "Cliff Burton", "1962-02-10", "1986-09-27", "Bass", FALSE, 11, 1000000,
   "Dave Mustaine", "1961-09-13", NA, "Guitar", FALSE, 6, 20000000
-  ) %>% 
+  ) |> 
   dplyr::mutate(
     birth_date = lubridate::ymd(birth_date),
     death_date = lubridate::ymd(death_date)
@@ -417,17 +417,17 @@ metalli_tib[c("name", "instrument")]
 The tidyverse way
 
 ```{r}
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::select(name, instrument)
 ```
 
 You can exclude variables too, try these out:
 
 ```{r}
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::select(-name)
 
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::select(-c(name, instrument))
 ```
 
@@ -436,7 +436,7 @@ You can save a subsetted tibble to a new object:
 ```{r}
 # Save a version of metalli_tib but exclude the variable called name
 
-metalli_anon_tib <- metalli_tib %>% 
+metalli_anon_tib <- metalli_tib |> 
   dplyr::select(-name)
 
 #View this new object
@@ -474,14 +474,14 @@ dplyr::filter(metalli_tib, current_member == TRUE)
 
 # Or using a pipe:
 
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::filter(current_member == TRUE)
 ```
 
 Again, we can save the filtered tibble to a new object:
 
 ```{r}
-metallica_current <- metalli_tib %>% 
+metallica_current <- metalli_tib |> 
   dplyr::filter(current_member == TRUE)
 
 metallica_current
@@ -490,21 +490,21 @@ metallica_current
 Combining conditions:
 
 ```{r}
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::filter(is.na(death_date) & instrument == "Bass guitar")
 ```
 
 If we change `is.na()` to `!is.na()` we get Cliff Burton's data (the only member who is a bassist and does NOT have a value of 'NA' for the variable death_date):
 
 ```{r}
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::filter(!is.na(death_date) & instrument == "Bass guitar")
 ```
 
 We can also use the OR operator (|) to set conditions for which only one has to be true. For example, to select members who are either bassists OR drummers we'd use:
 
 ```{r}
-metalli_tib %>% 
+metalli_tib |> 
   dplyr::filter(instrument == "Drums" | instrument == "Bass guitar")
 ```
 
@@ -513,7 +513,7 @@ metalli_tib %>%
 This command filters `metalli_tib` according to whether the variable `current_member` is equal to TRUE and whether the variable `instrument` is NOT equal to (`!=`) the phrase "Bass guitar":
 
 ```{r}
-metalli_worth  <- metalli_tib %>% 
+metalli_worth  <- metalli_tib |> 
   dplyr::filter(current_member == TRUE & instrument != "Bass guitar")
 
 metalli_worth
@@ -522,7 +522,7 @@ metalli_worth
 Having done this, we could pass the object `net_worth` object that we just created into the `select` function to select the variables `name` and `net_worth`:
 
 ```{r}
-metalli_worth  <- metalli_worth  %>% 
+metalli_worth  <- metalli_worth  |> 
   dplyr::select(name, net_worth)
 
 metalli_worth
@@ -531,8 +531,8 @@ metalli_worth
 Better still, combine the two operations into a single pipe:
 
 ```{r}
-metalli_worth <- metalli_tib %>% 
-  dplyr::filter(current_member == TRUE & instrument != "Bass guitar") %>% 
+metalli_worth <- metalli_tib |> 
+  dplyr::filter(current_member == TRUE & instrument != "Bass guitar") |> 
   dplyr::select(name, net_worth)
 
 metalli_worth
@@ -562,7 +562,7 @@ metalli_tib <- readr::read_csv("../data/metallica.csv")
 
 # or 
 
-metalli_tib <- here::here("/data/metallica.csv") %>% readr::read_csv()
+metalli_tib <- here::here("/data/metallica.csv") |> readr::read_csv()
 ```
 
 We can specify data types:
@@ -585,7 +585,7 @@ metalli_tib <- readr::read_csv("../data/metallica.csv", col_types = "cDDfldd")
 
 # OR
 
-metalli_tib <- readr::read_csv("../data/metallica.csv") %>% 
+metalli_tib <- readr::read_csv("../data/metallica.csv") |> 
   dplyr::mutate(
     instrument = forcats::as_factor(instrument)
   )
@@ -605,10 +605,10 @@ husband <- c("1973-06-21", "1970-07-16", "1949-10-08", "1969-05-24")
 wife <- c("1984-11-12", "1973-08-02", "1948-11-11", "1983-07-23")
 agegap <- husband-wife
 
-husband <- c("1973-06-21", "1970-07-16", "1949-10-08", "1969-05-24") %>%
-  lubridate::ymd(.)
-wife <- c("1984-11-12", "1973-08-02", "1948-11-11", "1983-07-23") %>%
-  lubridate::ymd(.)
+husband <- c("1973-06-21", "1970-07-16", "1949-10-08", "1969-05-24") |>
+  lubridate::ymd()
+wife <- c("1984-11-12", "1973-08-02", "1948-11-11", "1983-07-23") |>
+  lubridate::ymd()
 
 agegap <- husband-wife
 agegap

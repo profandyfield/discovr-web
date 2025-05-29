@@ -280,12 +280,12 @@ Of course, this latter interpretation would be unpopular with *Twaddle and Sons*
 
 ## Task 9.5
 
-> In Chapter 1 (Task 6) we looked at data from people who had been forced to marry goats and dogs and measured their life satisfaction as well as how much they like animals (**goat_or_dog.csv**). Conduct a *t*-test to see whether life satisfaction depends upon the type of animal to which a person was married.
+> In Chapter 1 (Task 6) we looked at data from people who had been forced to marry goats and dogs and measured their life satisfaction as well as how much they like animals (**animal_bride.csv**). Conduct a *t*-test to see whether life satisfaction depends upon the type of animal to which a person was married.
 
 ### Load the data
 
 ```{r, eval = FALSE}
-goat_tib <- readr::read_csv("../data/goat_or_dog.csv") %>% 
+goat_tib <- readr::read_csv("../data/animal_bride.csv") %>% 
   dplyr::mutate(
     wife = forcats::as_factor(wife)
   )
@@ -513,7 +513,7 @@ The effect is not statistically significant, and is a small effect. We could rep
 
 ## Task 9.9
 
-> Both Ozzy Osbourne and Judas Priest have been accused of putting backward masked messages on their albums that subliminally influence poor unsuspecting teenagers into doing things like blowing their heads off with shotguns. A psychologist was interested in whether backward masked messages could have an effect. He created a version of Britney Spears’ ‘Baby one more time’ that contained the masked message ‘deliver your soul to the dark lord’ repeated in the chorus. He took this version, and the original, and played one version (randomly) to a group of 32 people. Six months later he played them whatever version they hadn’t heard the time before. So, each person heard both the original and the version with the masked message, but at different points in time. The psychologist measured the number of satanic intrusions the person had in the week after listening to each version. Test the hypothesis that the backward message would lead to more intrusions (**dark_lord.csv**) using a robust test.
+> Both Ozzy Osbourne and Judas Priest have been accused of putting backward masked messages on their albums that subliminally influence poor unsuspecting teenagers into doing things like blowing their heads off with shotguns. A psychologist was interested in whether backward masked messages could have an effect. He created a version of Taylor Swifts' 'Shake it off' that contained the masked message 'deliver your soul to the dark lord' repeated in the chorus. He took this version, and the original, and played one version (randomly) to a group of 32 people. Six months later he played them whatever version they hadn’t heard the time before. So, each person heard both the original and the version with the masked message, but at different points in time. The psychologist measured the number of satanic intrusions the person had in the week after listening to each version. Test the hypothesis that the backward message would lead to more intrusions (**dark_lord.csv**) using a robust test.
 
 
 ### Load the data
@@ -574,7 +574,7 @@ d_dark <- effectsize::cohens_d(intrusions ~ message, data = dark_tib)
 
 ### Reporting the analysis
 
-* Participants had fewer Satanic intrusions after hearing the backward message (*M* = 9.16, *SE* = 0.62), than after hearing the normal version of the Britney song (*M* = 11.50, *SE* = 0.80). This difference, `r round(dark_mod$diff, 2)`, 95% CI [`r round(dark_mod$conf.int[1],2)`, `r round(dark_mod$conf.int[2],2)`], was not significant, *t*(`r round(dark_mod$df, 2)`) = `r round(dark_mod$test, 2)`, *p* = `r round(dark_mod$p.value, 3)`. However, it represented a substantial effect, *d* = `r round(d_dark, 2)`.
+* Participants had fewer Satanic intrusions after hearing the backward message (*M* = 9.16, *SE* = 0.62), than after hearing the normal version of the Taylor Swift song (*M* = 11.50, *SE* = 0.80). This difference, `r round(dark_mod$diff, 2)`, 95% CI [`r round(dark_mod$conf.int[1],2)`, `r round(dark_mod$conf.int[2],2)`], was not significant, *t*(`r round(dark_mod$df, 2)`) = `r round(dark_mod$test, 2)`, *p* = `r round(dark_mod$p.value, 3)`. However, it represented a substantial effect, *d* = `r round(d_dark, 2)`.
 
 
 ## Task 9.10
